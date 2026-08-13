@@ -111,7 +111,8 @@ type ServiceCard = {
   desc: string;
   tags: string[];
   href: string;
-  teal?: boolean;
+  /** 카드마다 다른 강조색 — 파랑·청록 계열 안에서만 변주합니다 */
+  accent: string;
 };
 
 const SERVICES: ServiceCard[] = [
@@ -121,6 +122,7 @@ const SERVICES: ServiceCard[] = [
     desc: "잠이 든 상태에서 5~10분간 검사하여 불편감을 줄입니다. 검사 후 촬영한 영상으로 결과를 함께 확인합니다.",
     tags: ["예약제", "당일 결과 확인", "자동소독기 소독"],
     href: "/endoscopy",
+    accent: "#2b5ba8",
   },
   {
     icon: "list",
@@ -128,7 +130,7 @@ const SERVICES: ServiceCard[] = [
     desc: "가능한 연령대, 소요 시간, 금식 시간, 복용 중인 약 처리까지 자주 묻는 10가지 질문에 답해 드립니다.",
     tags: ["금식 안내", "고혈압·당뇨 복약", "예약 방법"],
     href: "/endoscopy/faq",
-    teal: true,
+    accent: "#2e9580",
   },
   {
     icon: "checkCircle",
@@ -136,12 +138,15 @@ const SERVICES: ServiceCard[] = [
     desc: "고혈압·당뇨병·B형간염 정기검사와 국민건강보험공단 검진, 정밀종합검사를 원장이 직접 시행하고 결과를 설명합니다.",
     tags: ["6개월 정기검사", "공단검진", "정밀종합검사"],
     href: "/checkup",
+    accent: "#2f9fc4",
   },
 ];
 
 export function HomeServices() {
   return (
     <section className="hm_sec">
+      <span className="hm_orb a" aria-hidden="true" />
+      <span className="hm_orb b" aria-hidden="true" />
       <Reveal className="hm_inner" selector=".rv">
         <div className="rv hm_hd">
           <span className="hm_hd_eyebrow">MEDICAL SERVICE</span>
@@ -162,7 +167,9 @@ export function HomeServices() {
             <Link
               href={card.href}
               key={card.title}
-              className={`rv d${index + 2} hm_card${card.teal ? " teal" : ""}`}
+              className={`rv d${index + 2} hm_card`}
+              data-accent=""
+              style={{ "--accent": card.accent } as React.CSSProperties}
             >
               <span className="hm_card_icon">
                 <Icon name={card.icon} />
@@ -191,6 +198,7 @@ export function HomeServices() {
 export function HomeDoctor() {
   return (
     <section className="hm_sec alt">
+      <span className="hm_orb a" aria-hidden="true" />
       <Reveal className="hm_inner" selector=".rv">
         <div className="hm_doc">
           <div className="rv">
@@ -236,6 +244,14 @@ export function HomeDoctor() {
 /* ══════════════════════════════════════════════
    5. 검사안내 목록
 ══════════════════════════════════════════════ */
+const CHECKUP_ACCENTS = [
+  "#1a3a6c",
+  "#2b5ba8",
+  "#2f9fc4",
+  "#2e9580",
+  "#4bb89c",
+];
+
 const CHECKUP_LINKS = [
   ...CHECKUPS.map((item) => ({
     href: item.path,
@@ -257,6 +273,7 @@ const CHECKUP_LINKS = [
 export function HomeCheckups() {
   return (
     <section className="hm_sec">
+      <span className="hm_orb b" aria-hidden="true" />
       <Reveal className="hm_inner" selector=".rv">
         <div className="rv hm_hd">
           <span className="hm_hd_eyebrow">CHECK-UP</span>
@@ -273,6 +290,12 @@ export function HomeCheckups() {
               href={item.href}
               key={item.href}
               className={`rv d${Math.min(index + 2, 5)} hm_item`}
+              data-accent=""
+              style={
+                {
+                  "--accent": CHECKUP_ACCENTS[index % CHECKUP_ACCENTS.length],
+                } as React.CSSProperties
+              }
             >
               <span className="hm_item_no">
                 {String(index + 1).padStart(2, "0")}

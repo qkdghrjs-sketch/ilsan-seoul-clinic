@@ -674,3 +674,129 @@
   gap: 10px;
   justify-content: center;
 }
+
+/* ══════════════════════════════════════════════
+   7. 색상 액센트 · 장식 그래픽
+   사진을 쓰지 않는 대신, 색과 도형으로 화면에 변화를 줍니다.
+   신뢰감을 해치지 않도록 파랑–청록 계열 안에서만 변주합니다.
+══════════════════════════════════════════════ */
+.hm {
+  --a-navy: #1a3a6c;
+  --a-blue: #2b5ba8;
+  --a-sky: #3f8fd8;
+  --a-cyan: #2f9fc4;
+  --a-teal: #2e9580;
+  --a-mint: #4bb89c;
+}
+
+/* 카드별 액센트 — 아이콘·상단 띠·태그·링크 색이 함께 바뀝니다 */
+.hm_card[data-accent] .hm_card_icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  background: linear-gradient(
+    135deg,
+    var(--accent),
+    color-mix(in srgb, var(--accent) 62%, #0b1f3d)
+  );
+  box-shadow: 0 10px 22px color-mix(in srgb, var(--accent) 32%, transparent);
+}
+.hm_card[data-accent] .hm_card_icon svg {
+  width: 25px;
+  height: 25px;
+  stroke: #ffffff;
+}
+/* 상단 색 띠는 평소에도 보이게 두고, 마우스를 올리면 두꺼워집니다 */
+.hm_card[data-accent]::before {
+  height: 5px;
+  transform: scaleX(1);
+  background: linear-gradient(
+    90deg,
+    var(--accent),
+    color-mix(in srgb, var(--accent) 40%, #ffffff)
+  );
+}
+.hm_card[data-accent] .hm_tag {
+  background: color-mix(in srgb, var(--accent) 10%, #ffffff);
+  color: color-mix(in srgb, var(--accent) 78%, #0b1f3d);
+}
+.hm_card[data-accent] .hm_card_link {
+  color: var(--accent);
+}
+.hm_card[data-accent]:hover {
+  border-color: color-mix(in srgb, var(--accent) 40%, #ffffff);
+  box-shadow: 0 18px 40px color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+/* 검사안내 목록 번호 배지 */
+.hm_item[data-accent] .hm_item_no {
+  background: linear-gradient(
+    135deg,
+    var(--accent),
+    color-mix(in srgb, var(--accent) 55%, #0b1f3d)
+  );
+  box-shadow: 0 6px 14px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+.hm_item[data-accent]:hover {
+  border-color: color-mix(in srgb, var(--accent) 45%, #ffffff);
+}
+.hm_item[data-accent]:hover .hm_item_arrow {
+  color: var(--accent);
+}
+
+/* 섹션 장식 — 은은한 색 원과 격자 */
+.hm_sec {
+  position: relative;
+  overflow: hidden;
+}
+.hm_sec > .hm_inner {
+  position: relative;
+  z-index: 1;
+}
+.hm_orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(2px);
+  opacity: 0.55;
+}
+.hm_orb.a {
+  width: 420px;
+  height: 420px;
+  top: -140px;
+  right: -120px;
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(74, 144, 217, 0.16) 0%,
+    rgba(74, 144, 217, 0) 68%
+  );
+}
+.hm_orb.b {
+  width: 360px;
+  height: 360px;
+  bottom: -130px;
+  left: -110px;
+  background: radial-gradient(
+    circle at 60% 40%,
+    rgba(59, 174, 150, 0.15) 0%,
+    rgba(59, 174, 150, 0) 68%
+  );
+}
+@media (max-width: 768px) {
+  .hm_orb.a,
+  .hm_orb.b {
+    width: 240px;
+    height: 240px;
+  }
+}
+
+/* 섹션 사이 완만한 곡선 구분선 */
+.hm_wave {
+  display: block;
+  width: 100%;
+  height: 56px;
+  margin-bottom: -1px;
+}
+.hm_wave path {
+  fill: currentColor;
+}

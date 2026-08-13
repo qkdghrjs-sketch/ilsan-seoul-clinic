@@ -29,6 +29,9 @@ export const metadata: Metadata = {
   openGraph: { title: TITLE, description: DESCRIPTION, url: PATH },
 };
 
+/** 카드별 강조색 — 파랑·청록 계열 안에서만 변주합니다 */
+const ACCENTS = ["#1a3a6c", "#2b5ba8", "#2f9fc4", "#2e9580", "#4bb89c", "#3f6fb5"];
+
 export default function NhisPage() {
   return (
     <>
@@ -118,6 +121,13 @@ export default function NhisPage() {
               <div
                 className={`eum_rv d${index + 2} sp_feat_card`}
                 key={section.no}
+                data-step={section.no}
+                data-accent=""
+                style={
+                  {
+                    "--accent": ACCENTS[index % ACCENTS.length],
+                  } as React.CSSProperties
+                }
               >
                 <span className="sp_feat_num">{section.no}</span>
                 <h3 className="sp_feat_title">{section.title}</h3>

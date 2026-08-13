@@ -47,7 +47,12 @@
   margin: 0;
   padding: 0;
 }
-.sp a {
+/*
+  링크 기본값도 :where() 로 감쌉니다.
+  `.sp a { color: inherit }` 로 두면 .sp_btn_o { color:#fff } 같은
+  개별 규칙을 덮어써서, 네이비 배경 버튼의 글자가 어둡게 나옵니다.
+*/
+.sp :where(a) {
   text-decoration: none;
   color: inherit;
 }
@@ -2300,5 +2305,75 @@
   .sp_btn_o {
     width: 100%;
     justify-content: center;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   카드별 강조색
+   사진을 쓰지 않는 대신 색으로 화면에 변화를 줍니다.
+   파랑–청록 계열 안에서만 변주해 정통 내과의 톤을 유지합니다.
+══════════════════════════════════════════════ */
+.sp_trt_card[data-accent] .sp_deco {
+  background: linear-gradient(
+    90deg,
+    var(--accent),
+    color-mix(in srgb, var(--accent) 40%, #ffffff)
+  );
+}
+.sp_trt_card[data-accent] .sp_trt_icon {
+  background: linear-gradient(
+    135deg,
+    var(--accent),
+    color-mix(in srgb, var(--accent) 62%, #0b1f3d)
+  );
+  box-shadow: 0 10px 22px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+.sp_trt_card[data-accent] .sp_trt_icon svg {
+  stroke: #ffffff;
+}
+.sp_trt_card[data-accent] .sp_dot {
+  background: var(--accent);
+}
+.sp_trt_card[data-accent]:hover {
+  border-color: color-mix(in srgb, var(--accent) 38%, #ffffff);
+  box-shadow: 0 18px 40px color-mix(in srgb, var(--accent) 16%, transparent);
+}
+.sp_trt_card[data-accent] .sp_tag {
+  background: color-mix(in srgb, var(--accent) 10%, #ffffff);
+  border-color: color-mix(in srgb, var(--accent) 24%, #ffffff);
+  color: color-mix(in srgb, var(--accent) 78%, #0b1f3d);
+}
+
+/* 순서 카드 — 배경에 큰 숫자를 흐리게 깔아 리듬을 만듭니다 */
+.sp_feat_card[data-step] {
+  padding-right: 34px;
+}
+.sp_feat_card[data-step]::after {
+  content: attr(data-step);
+  position: absolute;
+  right: -10px;
+  bottom: -34px;
+  font-size: 128px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: rgba(26, 58, 108, 0.05);
+  pointer-events: none;
+  user-select: none;
+}
+.sp_feat_card[data-accent] .sp_feat_num {
+  color: color-mix(in srgb, var(--accent) 82%, #0b1f3d);
+  background: color-mix(in srgb, var(--accent) 12%, #ffffff);
+}
+.sp_feat_card[data-accent]::after {
+  color: color-mix(in srgb, var(--accent) 8%, #ffffff);
+}
+.sp_feat_card[data-accent]:hover {
+  border-color: color-mix(in srgb, var(--accent) 36%, #ffffff);
+}
+@media (max-width: 768px) {
+  .sp_feat_card[data-step]::after {
+    font-size: 92px;
+    bottom: -24px;
   }
 }

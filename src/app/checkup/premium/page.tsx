@@ -34,6 +34,9 @@ const TOTAL_ITEMS = PREMIUM_GROUPS.reduce(
   0,
 );
 
+/** 카드별 강조색 — 파랑·청록 계열 안에서만 변주합니다 */
+const ACCENTS = ["#1a3a6c", "#2b5ba8", "#2f9fc4", "#2e9580", "#4bb89c", "#3f6fb5"];
+
 export default function PremiumCheckupPage() {
   return (
     <>
@@ -120,6 +123,12 @@ export default function PremiumCheckupPage() {
               <div
                 className={`eum_rv d${Math.min(index + 2, 5)} sp_trt_card`}
                 key={group.label}
+                data-accent=""
+                style={
+                  {
+                    "--accent": ACCENTS[index % ACCENTS.length],
+                  } as React.CSSProperties
+                }
               >
                 <div className="sp_deco" />
                 <div className="sp_trt_icon">
