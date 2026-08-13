@@ -1,0 +1,151 @@
+/* ==============================================================
+   세부페이지 상단 브레드크럼 헤더
+============================================================== */
+#eum_sub_header_root {
+  --eum-navy: #1a3a6c;
+  --eum-blue: #2b5ba8;
+  --eum-bg-custom: #f4f7fb;
+  --eum-text-main: #111111;
+  --eum-text-sub: #555555;
+  --eum-border: #e2e8f0;
+
+  width: 100%;
+  background-color: var(--eum-bg-custom);
+  padding: 100px 20px 110px;
+  font-family: "Pretendard", sans-serif;
+}
+#eum_sub_header_root * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+}
+#eum_sub_header_root .eum_sub_inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+#eum_sub_header_root .eum_breadcrumb {
+  display: flex;
+  align-items: center;
+  margin-bottom: 45px;
+  font-size: 16px;
+  color: var(--eum-text-sub);
+}
+#eum_sub_header_root .eum_bc_home {
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s;
+}
+#eum_sub_header_root .eum_bc_home svg {
+  width: 20px;
+  height: 20px;
+  fill: #f9c000;
+}
+#eum_sub_header_root .eum_bc_home:hover {
+  transform: scale(1.1);
+}
+#eum_sub_header_root .eum_bc_divider {
+  margin: 0 14px;
+  color: #cbd5e1;
+  font-size: 14px;
+  font-weight: 300;
+}
+#eum_sub_header_root .eum_bc_dropdown {
+  position: relative;
+}
+#eum_sub_header_root .eum_bc_btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: #444444;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+  outline: none;
+  font-family: inherit;
+}
+#eum_sub_header_root .eum_bc_btn:hover {
+  color: var(--eum-navy);
+}
+#eum_sub_header_root .eum_bc_btn .arrow {
+  font-size: 10px;
+  transition: transform 0.3s ease;
+  opacity: 0.6;
+  margin-left: 2px;
+}
+#eum_sub_header_root .eum_bc_dropdown.active .eum_bc_btn .arrow {
+  transform: rotate(180deg);
+}
+#eum_sub_header_root .eum_drop_box {
+  position: absolute;
+  top: calc(100% + 15px);
+  left: 0;
+  min-width: 200px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eef2f6;
+  padding: 10px 0;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+#eum_sub_header_root .eum_bc_dropdown.active .eum_drop_box {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+#eum_sub_header_root .eum_drop_box a {
+  display: block;
+  padding: 13px 24px;
+  font-size: 15px;
+  color: #555555;
+  transition: all 0.2s;
+  font-weight: 400;
+  white-space: nowrap;
+}
+#eum_sub_header_root .eum_drop_box a:hover {
+  background-color: #f8fafc;
+  color: var(--eum-navy);
+  font-weight: 600;
+}
+#eum_sub_header_root .eum_drop_box a.active_menu {
+  color: var(--eum-navy);
+  font-weight: 700;
+  background-color: #f1f5f9;
+}
+#eum_sub_header_root .eum_title_area h1 {
+  font-size: clamp(38px, 5.4vw, 58px);
+  font-weight: 850;
+  color: var(--eum-navy);
+  letter-spacing: -0.045em;
+  line-height: 1.1;
+}
+
+@media (max-width: 768px) {
+  #eum_sub_header_root {
+    padding: 50px 20px 60px;
+  }
+  #eum_sub_header_root .eum_breadcrumb {
+    font-size: 14px;
+    margin-bottom: 25px;
+  }
+  #eum_sub_header_root .eum_bc_btn {
+    font-size: 14px;
+  }
+  #eum_sub_header_root .eum_title_area h1 {
+    font-size: 34px;
+  }
+  #eum_sub_header_root .eum_drop_box {
+    min-width: 170px;
+  }
+}

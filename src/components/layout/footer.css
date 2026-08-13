@@ -1,0 +1,581 @@
+/* ==============================================================
+   일산서울내과의원 하단 푸터
+============================================================== */
+.eum_footer_wrap {
+  --eum-navy: #1a3a6c;
+  --eum-black: #111111;
+  --eum-sub: #666666;
+  --eum-light: #888888;
+  --eum-bg: #f8f9fa;
+  --eum-border: #e0e0e0;
+  display: block;
+  position: relative;
+  width: 100%;
+  padding: 80px 20px 60px;
+  border: 0;
+  background: var(--eum-bg);
+  box-sizing: border-box;
+  font-family: "Pretendard", sans-serif;
+}
+.eum_footer_wrap *,
+.eum_footer_wrap *::before,
+.eum_footer_wrap *::after {
+  box-sizing: border-box;
+}
+.eum_footer_wrap p,
+.eum_footer_wrap h3,
+.eum_footer_wrap h4,
+.eum_footer_wrap ul,
+.eum_footer_wrap li,
+.eum_footer_wrap a,
+.eum_footer_wrap span,
+.eum_footer_wrap strong,
+.eum_footer_wrap button {
+  margin: 0;
+  padding: 0;
+  word-break: keep-all;
+  text-decoration: none;
+}
+.eum_footer_wrap button {
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
+.eum_footer_inner {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* 상단: 공지 + 대표전화 */
+.eum_footer_top {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 120px;
+  margin-bottom: 80px;
+}
+.eum_footer_notice,
+.eum_footer_contact {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  min-width: 0;
+}
+.eum_top_header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 70px;
+  margin-bottom: 30px;
+}
+.eum_top_titles {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  min-width: 0;
+}
+.eum_top_titles h3 {
+  color: var(--eum-black);
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.eum_top_titles p {
+  color: var(--eum-sub);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: -0.02em;
+}
+
+/* 공지 바로가기 카드 */
+.eum_notice_cta_list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+.eum_notice_cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  padding: 30px 28px;
+  border-top: 2px solid var(--eum-black);
+  border-bottom: 2px solid var(--eum-border);
+  background: #ffffff;
+  color: var(--eum-black);
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+.eum_notice_cta:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transform: translateX(5px);
+}
+.eum_notice_cta_text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.eum_notice_cta_title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--eum-black);
+  line-height: 1.4;
+}
+.eum_notice_cta_sub {
+  font-size: 13.5px;
+  font-weight: 400;
+  color: var(--eum-sub);
+  line-height: 1.4;
+}
+.eum_notice_cta_arrow {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--eum-bg);
+  color: var(--eum-black);
+  font-size: 18px;
+  font-weight: 800;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.eum_notice_cta:hover .eum_notice_cta_arrow {
+  background: var(--eum-black);
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+/* 대표전화 */
+.eum_contact_content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.eum_tel_number {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 30px;
+  color: var(--eum-black);
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+.eum_tel_number svg {
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  fill: var(--eum-black);
+}
+.eum_contact_btns {
+  display: flex;
+  width: 100%;
+  gap: 15px;
+}
+.eum_action_btn {
+  display: flex;
+  position: relative;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 0;
+  height: 64px;
+  padding: 16px 20px;
+  overflow: hidden;
+  border-radius: 8px;
+  color: #ffffff;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.eum_action_btn:hover {
+  box-shadow: 0 9px 24px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+}
+.eum_action_btn span {
+  z-index: 2;
+  min-width: 0;
+  margin-right: 10px;
+  overflow: hidden;
+  color: #ffffff;
+  font-size: 14.5px;
+  font-weight: 700;
+  line-height: 1.3;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.eum_logo_symbol {
+  z-index: 2;
+  flex: 0 0 auto;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  font-size: 26px;
+  font-weight: 900;
+  line-height: 1;
+  opacity: 0.95;
+}
+.eum_btn_hours {
+  background: linear-gradient(135deg, #1a3a6c 0%, #285a9d 100%);
+}
+.eum_btn_map {
+  background: linear-gradient(135deg, #03c75a 0%, #029b46 100%);
+}
+
+/* 하단 */
+.eum_fb_top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-top: 10px;
+}
+.eum_footer_logo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  line-height: 1;
+}
+.eum_footer_logo .eum_logo_mark {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--eum-navy);
+}
+.eum_footer_logo .eum_logo_en {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #9aa8bb;
+}
+.eum_fb_info_row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+}
+.eum_company_info {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.eum_addr {
+  color: var(--eum-sub);
+  font-size: 13.5px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.eum_info_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 0;
+  color: var(--eum-light);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.eum_info_black_group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.eum_info_item {
+  white-space: nowrap;
+}
+.eum_label {
+  color: var(--eum-black);
+  font-weight: 600;
+}
+.eum_val,
+.eum_copyright {
+  color: var(--eum-light);
+  font-weight: 400;
+}
+.eum_divider {
+  margin: 0 8px;
+  color: #cccccc;
+  font-weight: 400;
+}
+.eum_pc_only {
+  display: inline-block;
+}
+.eum_policy_links {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px 16px;
+}
+.eum_policy_links a,
+.eum_policy_links button {
+  display: inline-block;
+  color: var(--eum-light);
+  font-family: "Pretendard", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+.eum_policy_links a:hover,
+.eum_policy_links button:hover {
+  color: var(--eum-black);
+  text-decoration: underline;
+}
+.eum_policy_links .eum_privacy {
+  color: var(--eum-black);
+  font-weight: 700;
+}
+
+/* 모달 */
+.eum_modal_overlay {
+  display: flex;
+  position: fixed;
+  z-index: 999999;
+  top: 0;
+  left: 0;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+  visibility: hidden;
+  background: rgba(0, 0, 0, 0.62);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.25s ease,
+    visibility 0.25s ease;
+  box-sizing: border-box;
+  font-family: "Pretendard", sans-serif;
+}
+.eum_modal_overlay.eum_modal_active {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+.eum_modal_box {
+  display: flex;
+  width: 100%;
+  max-width: 760px;
+  max-height: 84vh;
+  overflow: hidden;
+  flex-direction: column;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  transform: translateY(20px) scale(0.98);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+.eum_modal_overlay.eum_modal_active .eum_modal_box {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.eum_modal_header {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 22px;
+  border-bottom: 1px solid #eeeeee;
+}
+.eum_modal_title {
+  margin: 0;
+  color: #111111;
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+.eum_modal_close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #f4f5f7;
+  color: #111111;
+  font-size: 19px;
+  cursor: pointer;
+}
+.eum_modal_body {
+  flex: 1 1 auto;
+  padding: 24px;
+  overflow-y: auto;
+  color: #555555;
+  font-size: 14px;
+  line-height: 1.75;
+  word-break: keep-all;
+}
+.eum_modal_body h5 {
+  margin: 26px 0 8px;
+  color: #111111;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+.eum_modal_body h5:first-child {
+  margin-top: 0;
+}
+.eum_modal_body p {
+  margin: 0 0 12px;
+}
+.eum_modal_body ul,
+.eum_modal_body ol {
+  margin: 6px 0 16px;
+  padding-left: 21px;
+  list-style: disc;
+}
+.eum_modal_body li {
+  margin-bottom: 5px;
+}
+body.eum_modal_body_locked {
+  overflow: hidden;
+}
+
+/* 반응형 */
+@media (max-width: 992px) {
+  .eum_footer_wrap {
+    padding: 50px 15px 40px;
+  }
+  .eum_footer_top {
+    flex-direction: column;
+    gap: 50px;
+    margin-bottom: 50px;
+  }
+  .eum_top_header {
+    align-items: flex-start;
+    min-height: auto;
+  }
+  .eum_top_titles h3 {
+    font-size: 24px;
+  }
+  .eum_top_titles p {
+    font-size: 13px;
+  }
+  .eum_notice_cta {
+    padding: 24px 20px;
+  }
+  .eum_notice_cta_title {
+    font-size: 15px;
+  }
+  .eum_notice_cta_arrow {
+    width: 38px;
+    height: 38px;
+    font-size: 16px;
+  }
+  .eum_tel_number {
+    margin-bottom: 24px;
+    font-size: 32px;
+  }
+  .eum_tel_number svg {
+    width: 22px;
+    height: 22px;
+  }
+  .eum_contact_btns {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .eum_action_btn {
+    height: auto;
+    min-height: 62px;
+    padding: 18px 20px;
+    border-radius: 12px;
+  }
+  .eum_fb_top {
+    margin-bottom: 20px;
+    padding-top: 20px;
+  }
+  .eum_footer_logo .eum_logo_mark {
+    font-size: 18px;
+  }
+  .eum_footer_logo .eum_logo_en {
+    font-size: 8px;
+  }
+  .eum_fb_info_row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .eum_addr {
+    font-size: 13px;
+  }
+  .eum_pc_only,
+  .eum_divider {
+    display: none;
+  }
+  .eum_info_wrapper {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+  }
+  .eum_info_black_group {
+    gap: 4px 12px;
+  }
+  .eum_policy_links {
+    justify-content: flex-start;
+    gap: 8px 12px;
+  }
+  .eum_policy_links a,
+  .eum_policy_links button {
+    font-size: 11.5px;
+  }
+}
+@media (max-width: 560px) {
+  .eum_top_header {
+    gap: 12px;
+  }
+  .eum_notice_cta {
+    padding: 20px 16px;
+    gap: 12px;
+  }
+  .eum_notice_cta_title {
+    font-size: 14.5px;
+  }
+  .eum_notice_cta_sub {
+    font-size: 12.5px;
+  }
+  .eum_tel_number {
+    font-size: 29px;
+  }
+  .eum_modal_overlay {
+    align-items: flex-end;
+    padding: 10px;
+  }
+  .eum_modal_box {
+    max-height: 90vh;
+    border-radius: 16px 16px 8px 8px;
+  }
+  .eum_modal_header {
+    padding: 17px 18px;
+  }
+  .eum_modal_body {
+    padding: 20px 18px;
+    font-size: 13.5px;
+  }
+}
