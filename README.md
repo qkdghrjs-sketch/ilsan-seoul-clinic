@@ -65,15 +65,18 @@ npm run dev      # http://localhost:3000 에서 미리보기
 npm run build    # 배포용 빌드 검사
 ```
 
-배포는 Vercel을 사용합니다. **새 프로젝트로 연결**해야 합니다
-(이 폴더는 이움내과 홈페이지 코드를 복사해 만든 것이라, 기존 프로젝트에 그대로
-올리면 다른 병원 사이트를 덮어씁니다).
+- GitHub: https://github.com/qkdghrjs-sketch/ilsan-seoul-clinic
+- 배포 주소: https://ilsan-seoul-clinic.vercel.app
 
-배포 후 Vercel 환경변수에 아래를 넣으면 좋습니다.
+**GitHub `main` 브랜치에 올리면 Vercel이 자동으로 배포합니다.** 따로 할 일은 없습니다.
+
+사이트 주소는 Vercel이 알려주는 값(`VERCEL_PROJECT_PRODUCTION_URL`)을 자동으로 쓰므로
+환경변수를 넣지 않아도 됩니다. 나중에 **개인 도메인을 연결하면** 그때
+`NEXT_PUBLIC_SITE_URL` 에 그 주소를 넣어 주세요.
 
 | 변수 | 설명 |
 |---|---|
-| `NEXT_PUBLIC_SITE_URL` | 실제 주소 (예: `https://ilsanseoul.vercel.app`) |
+| `NEXT_PUBLIC_SITE_URL` | 개인 도메인 연결 후에만 필요 (예: `https://ilsanseoul.co.kr`) |
 | `GOOGLE_SITE_VERIFICATION` | 구글 서치콘솔 인증 코드 (선택) |
 | `NAVER_SITE_VERIFICATION` | 네이버 웹마스터 인증 코드 (선택) |
 
