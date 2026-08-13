@@ -18,7 +18,11 @@ import {
 import Icon from "@/components/subpage/icons";
 import { pageSchemas, toFaqPairs } from "@/lib/page-schema";
 import { CLINIC } from "@/lib/site";
-import { ENDOSCOPY_INTRO, ENDOSCOPY_STEPS, ENDOSCOPY_FAQ } from "@/lib/endoscopy";
+import {
+  ENDOSCOPY_INTRO,
+  ENDOSCOPY_STEPS,
+  ENDOSCOPY_FAQ,
+} from "@/lib/endoscopy";
 
 const PATH = "/endoscopy";
 const TITLE = "수면 위 내시경이란?";
@@ -156,8 +160,7 @@ export default function EndoscopyPage() {
           <Note title="이런 분은 수면 내시경을 권하지 않습니다" navy>
             수면 위 내시경은 15세부터 70세까지 가능하며, 진찰상 전신 상태가
             쇠약하거나 뇌수술·경련 등의 기왕력이 있는 분은 수면 내시경을 받지
-            않는 것이 좋습니다. 자세한 사항은 검사 전 진찰에서 확인해
-            드립니다.
+            않는 것이 좋습니다. 자세한 사항은 검사 전 진찰에서 확인해 드립니다.
           </Note>
         </Section>
 
@@ -174,34 +177,40 @@ export default function EndoscopyPage() {
               <div className="sp_str_icon">
                 <Icon name="heart" />
               </div>
-              <h3 className="sp_str_title">수면 유도제는 적은 양으로</h3>
-              <p className="sp_str_desc">
-                일산서울내과의원은 수면 유도제를 일반적으로 인식되어 있는 안전한
-                양의 1/2 정도로 적은 양을 사용하며, 응급상황 발생 시 대처할 수
-                있는 기구 설치가 모두 되어 있습니다.
-              </p>
+              <div className="sp_str_body">
+                <h3 className="sp_str_title">수면 유도제는 적은 양으로</h3>
+                <p className="sp_str_desc">
+                  일산서울내과의원은 수면 유도제를 일반적으로 인식되어 있는
+                  안전한 양의 1/2 정도로 적은 양을 사용하며, 응급상황 발생 시
+                  대처할 수 있는 기구 설치가 모두 되어 있습니다.
+                </p>
+              </div>
             </div>
             <div className="eum_rv d3 sp_str_card">
               <div className="sp_str_icon">
                 <Icon name="drop" />
               </div>
-              <h3 className="sp_str_title">학회 권장 소독 과정 준수</h3>
-              <p className="sp_str_desc">
-                대한소화기내시경학회에서 권장하는 소독 과정을 그대로 준수하며
-                자동소독기를 사용합니다. 소독 시간을 지키기 위해 한 시간 간격으로
-                한 분씩만 검사를 진행합니다.
-              </p>
+              <div className="sp_str_body">
+                <h3 className="sp_str_title">학회 권장 소독 과정 준수</h3>
+                <p className="sp_str_desc">
+                  대한소화기내시경학회에서 권장하는 소독 과정을 그대로 준수하며
+                  자동소독기를 사용합니다. 소독 시간을 지키기 위해 한 시간
+                  간격으로 한 분씩만 검사를 진행합니다.
+                </p>
+              </div>
             </div>
             <div className="eum_rv d4 sp_str_card">
               <div className="sp_str_icon">
                 <Icon name="chat" />
               </div>
-              <h3 className="sp_str_title">동의 없이는 진행하지 않습니다</h3>
-              <p className="sp_str_desc">
-                수면 유도제로 잠이 들지 않는 경우 무리하게 더 주사하지 않고,
-                충분한 설명과 동의를 구한 뒤 일반내시경으로 시행합니다. 동의하지
-                않으시면 내시경을 진행하지 않습니다.
-              </p>
+              <div className="sp_str_body">
+                <h3 className="sp_str_title">동의 없이는 진행하지 않습니다</h3>
+                <p className="sp_str_desc">
+                  수면 유도제로 잠이 들지 않는 경우 무리하게 더 주사하지 않고,
+                  충분한 설명과 동의를 구한 뒤 일반내시경으로 시행합니다.
+                  동의하지 않으시면 내시경을 진행하지 않습니다.
+                </p>
+              </div>
             </div>
           </div>
         </Section>

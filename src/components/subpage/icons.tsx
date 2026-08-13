@@ -145,19 +145,31 @@ const PATHS: Record<IconName, React.ReactNode> = {
 
 export default function Icon({
   name,
-  size,
+  size = 20,
   className,
 }: {
   name: IconName;
   size?: number;
   className?: string;
 }) {
+  /*
+    width·height 를 반드시 넣습니다.
+    크기가 없는 SVG는 브라우저 기본값(수백 px)으로 부풀어 올라
+    화면을 뒤덮는 검은 덩어리가 됩니다. CSS에서 크기를 지정한 곳은
+    CSS가 이 값을 덮어쓰므로 기존 디자인에는 영향이 없습니다.
+  */
   return (
     <svg
       viewBox="0 0 24 24"
       width={size}
       height={size}
       className={className}
+      /* 색이 지정되지 않은 곳에서 검게 칠해지는 것도 함께 막습니다. */
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       aria-hidden="true"
     >
       {PATHS[name]}

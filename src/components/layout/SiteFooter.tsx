@@ -91,15 +91,19 @@ export default function SiteFooter() {
                 </a>
                 <div className="eum_contact_btns">
                   <Link href="/location" className="eum_action_btn eum_btn_hours">
-                    <span>진료시간 · 오시는 길 &gt;</span>
-                    <svg
-                      className="eum_btn_icon"
-                      viewBox="0 0 24 24"
-                      aria-hidden="true"
-                    >
-                      <circle cx="12" cy="12" r="9" />
-                      <path d="M12 7v5l3.5 2" />
-                    </svg>
+                    <span className="eum_action_icon">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="9" />
+                        <path d="M12 7v5l3.5 2" />
+                      </svg>
+                    </span>
+                    <span className="eum_action_text">
+                      <strong>진료시간 안내</strong>
+                      <em>평일 09:00 ~ 18:00 · 목·토 13:00까지</em>
+                    </span>
+                    <span className="eum_action_arrow" aria-hidden="true">
+                      →
+                    </span>
                   </Link>
                   <a
                     href={EXTERNAL.naverMap}
@@ -107,8 +111,19 @@ export default function SiteFooter() {
                     rel="noopener noreferrer"
                     className="eum_action_btn eum_btn_map"
                   >
-                    <span>지도에서 위치 보기 &gt;</span>
-                    <strong className="eum_logo_symbol">N</strong>
+                    <span className="eum_action_icon">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                        <circle cx="12" cy="10" r="3" />
+                      </svg>
+                    </span>
+                    <span className="eum_action_text">
+                      <strong>지도에서 찾기</strong>
+                      <em>주엽역 인근 · 롯데마트 근처</em>
+                    </span>
+                    <span className="eum_action_arrow" aria-hidden="true">
+                      ↗
+                    </span>
                   </a>
                 </div>
               </div>

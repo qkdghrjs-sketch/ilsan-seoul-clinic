@@ -104,9 +104,10 @@
 .eum_gnb > li {
   height: 100%;
   position: relative;
-  flex: 0 1 128px;
-  min-width: 96px;
-  max-width: 142px;
+  /* 메뉴가 3개뿐이라 넉넉히 잡습니다 — 서브메뉴 글자가 줄바꿈되지 않도록 */
+  flex: 0 1 200px;
+  min-width: 140px;
+  max-width: 230px;
   text-align: center;
 }
 .eum_gnb > li > a {
@@ -296,8 +297,8 @@
     margin-right: 10px;
   }
   .eum_gnb > li {
-    flex-basis: 100px;
-    min-width: 82px;
+    flex-basis: 168px;
+    min-width: 124px;
   }
   .eum_gnb > li > a {
     font-size: 14px;
@@ -323,8 +324,8 @@
 
 @media (min-width: 1481px) and (max-width: 1640px) {
   .eum_gnb > li {
-    flex-basis: 118px;
-    min-width: 92px;
+    flex-basis: 186px;
+    min-width: 132px;
   }
 }
 

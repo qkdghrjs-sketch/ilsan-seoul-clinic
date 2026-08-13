@@ -53,7 +53,6 @@ export function SubHero({
             <div className="eum_rv d4 sp_badges">
               {badges.map((badge) => (
                 <span className="sp_badge" key={badge}>
-                  <span className="sp_badge_dot" />
                   {badge}
                 </span>
               ))}
