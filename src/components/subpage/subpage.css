@@ -362,8 +362,8 @@
   background: #ffffff;
   border: 1px solid var(--sp-line);
   border-left: 5px solid var(--sp-navy);
-  border-radius: 16px;
-  padding: 28px 32px;
+  border-radius: 18px;
+  padding: 40px 44px;
   box-shadow: 0 10px 30px rgba(26, 58, 108, 0.06);
 }
 .sp_answer_label {
@@ -507,12 +507,20 @@
   display: block;
   width: 100%;
   background: #ffffff;
-  padding: 100px 24px;
+  padding: 120px 24px;
 }
 .sp_sec.alt {
   background: var(--sp-mist);
 }
+/*
+  앞 섹션과 이어지는 구간이라 위쪽 여백만 줄입니다.
+  0 으로 두면 히어로에 그대로 달라붙어 답답해 보입니다.
+*/
 .sp_sec.tight_top {
+  padding-top: 64px;
+}
+/* 같은 흐름의 섹션이 연달아 올 때 아래 여백도 줄여 리듬을 만듭니다 */
+.sp_sec.tight_top + .sp_sec.tight_top {
   padding-top: 0;
 }
 .sp_inner {
@@ -1212,6 +1220,42 @@
   color: var(--sp-navy);
   margin-bottom: 24px;
   text-align: center;
+}
+
+/*
+  설명 문단 박스.
+  .sp_check_lead 는 체크리스트 위에 놓는 '한 줄짜리 굵은 가운데정렬 문구'라
+  본문 여러 문단을 담기에 맞지 않습니다. 읽기용 본문은 이쪽을 씁니다.
+*/
+.sp_prose {
+  background: #ffffff;
+  border: 1px solid var(--sp-line);
+  border-left: 4px solid var(--sp-sky);
+  border-radius: 18px;
+  padding: 42px 46px;
+}
+.sp_prose p {
+  font-size: 16.5px;
+  line-height: 2;
+  color: #444444;
+  letter-spacing: -0.015em;
+  max-width: 44em;
+}
+.sp_prose p + p {
+  margin-top: 22px;
+}
+@media (max-width: 768px) {
+  .sp_prose {
+    padding: 28px 22px;
+    border-radius: 14px;
+  }
+  .sp_prose p {
+    font-size: 15px;
+    line-height: 1.9;
+  }
+  .sp_prose p + p {
+    margin-top: 18px;
+  }
 }
 .sp_check_list li {
   position: relative;
@@ -2137,13 +2181,19 @@
     padding: 72px 20px 60px;
   }
   .sp_sec {
-    padding: 72px 20px;
+    padding: 80px 20px;
   }
   .sp_sec.tight_top {
-    padding-top: 0;
+    padding-top: 56px;
+  }
+  .sp_sec.tight_top + .sp_sec.tight_top {
+    padding-top: 8px;
   }
   .sp_hd {
     margin-bottom: 40px;
+  }
+  .sp_answer {
+    padding: 28px 24px;
   }
   .sp_symp_card {
     min-width: calc(50% - 9px);

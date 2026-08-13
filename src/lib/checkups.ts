@@ -16,6 +16,8 @@ export type CheckupItem = {
   title: string;
   eyebrow: string;
   icon: IconName;
+  /** 히어로 아래 짧은 안내 문구 (본문과 중복되지 않게 따로 씁니다) */
+  heroSub: string;
   /** 한 줄 답변 */
   answerQ: string;
   answerA: string;
@@ -39,6 +41,8 @@ export const CHECKUPS: CheckupItem[] = [
     title: "고혈압 정기검사",
     eyebrow: "HYPERTENSION CHECK-UP",
     icon: "heart",
+    heroSub:
+      "혈압약이 지금도 나에게 맞는지, 합병증이 시작되지는 않았는지 6개월마다 함께 확인합니다.",
     answerQ: "고혈압 정기검사는 어떤 검사인가요?",
     answerA:
       "고혈압으로 치료 중인 분들이 6개월마다 정기적으로 받는 검사입니다. 일산서울내과의원에서는 혈압약의 조절과 합병증 확인·치료를 위해 흉부 엑스레이, 심전도, 복부 초음파와 혈액·소변검사를 함께 시행합니다.",
@@ -77,6 +81,8 @@ export const CHECKUPS: CheckupItem[] = [
     title: "당뇨병 정기검사",
     eyebrow: "DIABETES CHECK-UP",
     icon: "drop",
+    heroSub:
+      "최근 몇 달간 혈당이 어떻게 관리되어 왔는지, 합병증은 없는지 6개월마다 함께 확인합니다.",
     answerQ: "당뇨병 정기검사는 어떤 검사인가요?",
     answerA:
       "당뇨로 치료 중인 분들이 6개월마다 정기적으로 받는 검사입니다. 일산서울내과의원에서는 당뇨약의 조절과 합병증 확인·치료를 위해 흉부 엑스레이, 심전도, 복부 초음파와 당화혈색소를 포함한 혈액·소변검사를 함께 시행합니다.",
@@ -115,6 +121,8 @@ export const CHECKUPS: CheckupItem[] = [
     title: "B형간염 정기검사",
     eyebrow: "HEPATITIS B CHECK-UP",
     icon: "leaf",
+    heroSub:
+      "증상이 없어도 간의 상태와 바이러스 활동 정도를 6개월마다 함께 확인합니다.",
     answerQ: "B형간염 정기검사는 어떤 검사인가요?",
     answerA:
       "B형간염 보균자인 분들이 6개월마다 정기적으로 받는 검사입니다. 일산서울내과의원에서는 간염의 진행 정도와 간경화·간암 발생 여부를 확인하기 위해 복부 초음파와 간기능·간염 표지자 검사를 함께 시행합니다.",

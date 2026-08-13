@@ -83,7 +83,7 @@ export default async function CheckupDetailPage({ params }: Params) {
               <em>{checkup.cycle}</em> 확인합니다
             </>
           }
-          sub={checkup.intro[0]}
+          sub={checkup.heroSub}
           cards={
             <>
               <HeroInfoCard icon="clock" label="검사 주기" delay="d2">
@@ -114,11 +114,9 @@ export default async function CheckupDetailPage({ params }: Params) {
             title="왜 정기적으로 확인해야 할까요"
             left
           />
-          <div className="eum_rv d2 sp_check_box">
+          <div className="eum_rv d2 sp_prose">
             {checkup.intro.map((paragraph, index) => (
-              <p className="sp_check_lead" key={index}>
-                {paragraph}
-              </p>
+              <p key={index}>{paragraph}</p>
             ))}
           </div>
         </Section>
