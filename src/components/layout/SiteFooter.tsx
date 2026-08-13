@@ -92,7 +92,14 @@ export default function SiteFooter() {
                 <div className="eum_contact_btns">
                   <Link href="/location" className="eum_action_btn eum_btn_hours">
                     <span>진료시간 · 오시는 길 &gt;</span>
-                    <strong className="eum_logo_symbol">⌚</strong>
+                    <svg
+                      className="eum_btn_icon"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <circle cx="12" cy="12" r="9" />
+                      <path d="M12 7v5l3.5 2" />
+                    </svg>
                   </Link>
                   <a
                     href={EXTERNAL.naverMap}

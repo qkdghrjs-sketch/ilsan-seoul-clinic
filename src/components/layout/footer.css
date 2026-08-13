@@ -233,6 +233,18 @@
 .eum_btn_hours {
   background: linear-gradient(135deg, #1a3a6c 0%, #285a9d 100%);
 }
+.eum_btn_icon {
+  z-index: 2;
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.95;
+}
 .eum_btn_map {
   background: linear-gradient(135deg, #03c75a 0%, #029b46 100%);
 }

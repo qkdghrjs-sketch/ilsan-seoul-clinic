@@ -32,8 +32,8 @@ export const SITE_PUBLISHED = "2026-08-13";
  * 비워 두면 지도 자리에 위치 안내 카드가 대신 표시됩니다.
  */
 export const KAKAO_ROUGHMAP = {
-  timestamp: "",
-  key: "",
+  timestamp: "1786596465968",
+  key: "svkauugii5k",
 } as const;
 
 export const CLINIC = {
