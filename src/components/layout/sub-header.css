@@ -148,4 +148,9 @@
   #eum_sub_header_root .eum_drop_box {
     min-width: 170px;
   }
+  /* 두 번째 목록이 화면 오른쪽 밖으로 삐져나가 가로 스크롤이 생기지 않도록 오른쪽 맞춤 */
+  #eum_sub_header_root .eum_bc_dropdown:last-child .eum_drop_box {
+    left: auto;
+    right: 0;
+  }
 }
