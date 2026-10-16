@@ -30,8 +30,12 @@
 - 원장님 약력은 `src/lib/doctor.ts`(내용정리.hwp 기준). **「대한내과학회 인정 최우수 내과 전문의」는 최상급 표현이라 의료광고 확인 전까지 넣지 않음.**
 - 주소 이전(iseoulmed.com → 이 사이트)은 원장님이 "옮겨 주세요" 한 뒤에 M서클에 연락.
 
-### 운영에서 공지 쓰려면 (아직 설정 안 됨)
-Vercel에서 Blob 저장소 연결 + 환경변수 `ADMIN_ID` · `ADMIN_PASSWORD` · `ADMIN_SESSION_SECRET` 입력 → Redeploy. 자세한 순서는 `진행상황.md`. 비밀번호는 채팅·파일·깃허브에 적지 않는다.
+### 관리자(/admin) 운영 설정 — 2026-10-17 완료
+- 공지·에세이는 원장님이 `/admin`에서 올린다(탭 2개). 아이디 `admin`. **비밀번호는 Vercel 환경변수 `ADMIN_PASSWORD`에만 있고, 문서·코드·채팅·깃허브에 적지 않는다.** 바꿀 때는 Vercel(Settings → Environment Variables, Production)에서 값을 바꾸고 Redeploy(`vercel redeploy <최근 배포 주소>`). 바꾸면 기존 로그인은 모두 풀린다.
+- 글 저장소: Vercel Blob `ilsan-seoul-posts`(비공개, 프로젝트에 연결됨). 파일 `notices/notices.json`, `essays/essays.json`. 환경변수 `ADMIN_ID` · `ADMIN_PASSWORD` · `ADMIN_SESSION_SECRET`(Production만) + `BLOB_READ_WRITE_TOKEN`(자동).
+- ⚠ **이 폴더 `.env.local`에는 (1) 이움내과 운영 DB 키·옛 관리자 값이 복사되어 있고(이 사이트는 안 쓰며 깃에는 안 올라감), (2) `vercel link`/`create-store`가 `BLOB_READ_WRITE_TOKEN`·`VERCEL_OIDC_TOKEN`을 넣어 두었다.** 그래서 로컬 `next dev`/`next start`는 **운영 글 저장소에 그대로 쓰기**가 된다. 로컬에서 시험할 때는 `.env.development.local`(깃 제외)에 `BLOB_READ_WRITE_TOKEN=`(빈 값)과 시험용 `ADMIN_*`를 두어 `.data/` 파일 저장으로 돌리고, 끝나면 그 파일과 `.data/`를 지운다. 시험 글에는 「(시험)」「(예시)」를 붙인다.
+- 원장님용 사용 설명서: `문서\일산서울내과_글쓰기_안내서\일산서울내과_글쓰기_안내서.pdf` (비밀번호는 안 적힘). 보고서: `문서\일산서울내과_수정보고서_2026-10-16\일산서울내과_수정보고서_2026-10-17.pdf`.
+- 코드: `src/lib/admin-auth.ts`(로그인·세션·5회 잠금) · `src/lib/store.ts`(저장소) · `src/lib/notices.ts` · `src/lib/essay-posts.ts` · `src/app/admin/*`.
 
 ## 기본 정보 (변경 없음 — 그대로 사용)
 - 의원명: 일산서울내과의원
