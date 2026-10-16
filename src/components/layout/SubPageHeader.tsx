@@ -13,10 +13,16 @@ import { NAV, type NavGroup, type NavChild } from "@/lib/nav";
 export default function SubPageHeader({
   currentPath,
   title,
+  parentPath,
 }: {
   currentPath: string;
   /** 비워두면 메뉴 이름을 그대로 제목으로 씁니다. */
   title?: string;
+  /**
+   * 메뉴에 없는 상세 글(예: 에세이 한 편)일 때, 소속 메뉴의 경로를 넘기면
+   * 그 메뉴 아래에 있는 것으로 표시합니다.
+   */
+  parentPath?: string;
 }) {
   const [openDepth, setOpenDepth] = useState<1 | 2 | null>(null);
 
@@ -29,8 +35,14 @@ export default function SubPageHeader({
   let group: NavGroup | undefined;
   let child: NavChild | undefined;
 
+  const lookupPath =
+    parentPath &&
+    !NAV.some((g) => g.children.some((item) => item.href === currentPath))
+      ? parentPath
+      : currentPath;
+
   for (const candidate of NAV) {
-    const found = candidate.children.find((item) => item.href === currentPath);
+    const found = candidate.children.find((item) => item.href === lookupPath);
     if (found) {
       group = candidate;
       child = found;
@@ -115,7 +127,7 @@ export default function SubPageHeader({
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={item.href === currentPath ? "active_menu" : ""}
+                  className={item.href === lookupPath ? "active_menu" : ""}
                 >
                   {item.label}
                 </Link>

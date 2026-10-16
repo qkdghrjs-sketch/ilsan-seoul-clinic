@@ -6,6 +6,7 @@ import Icon, { type IconName } from "@/components/subpage/icons";
 import { CLINIC } from "@/lib/site";
 import { DOCTOR } from "@/lib/doctor";
 import { CHECKUPS } from "@/lib/checkups";
+import { ESSAYS } from "@/lib/essays";
 
 const CheckMark = () => (
   <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -23,7 +24,7 @@ export function HomeHero() {
         <div>
           <span className="rv hm_eyebrow">
             <i />
-            ILSAN SEOUL INTERNAL MEDICINE
+            정확한 검사, 친절한 진료
           </span>
           <h2 className="rv d2 hm_hero_title">
             30년 진료 경력의
@@ -315,6 +316,57 @@ export function HomeCheckups() {
               <span className="hm_item_arrow">→</span>
             </Link>
           ))}
+        </div>
+      </Reveal>
+    </section>
+  );
+}
+
+/* ══════════════════════════════════════════════
+   5-2. 김금미 에세이 (최근 글)
+══════════════════════════════════════════════ */
+export function HomeEssays() {
+  const latest = ESSAYS.slice(0, 4);
+
+  return (
+    <section className="hm_sec alt">
+      <Reveal className="hm_inner" selector=".rv">
+        <div className="rv hm_hd">
+          <span className="hm_hd_eyebrow">ESSAY</span>
+          <h2 className="hm_hd_title">김금미 에세이</h2>
+          <p className="hm_hd_desc">
+            진료실에서 만난 사람들의 이야기를 직접 썼습니다.
+          </p>
+        </div>
+
+        <div className="hm_list">
+          {latest.map((item, index) => (
+            <Link
+              href={`/essay/${item.id}`}
+              key={item.id}
+              className={`rv d${Math.min(index + 2, 5)} hm_item`}
+              data-accent=""
+              style={
+                {
+                  "--accent": CHECKUP_ACCENTS[index % CHECKUP_ACCENTS.length],
+                } as React.CSSProperties
+              }
+            >
+              <span className="hm_item_no">{item.date.slice(2, 7)}</span>
+              <span className="hm_item_body">
+                <span className="hm_item_title">{item.title}</span>
+                <span className="hm_item_sub">{item.excerpt}</span>
+              </span>
+              <span className="hm_item_arrow">→</span>
+            </Link>
+          ))}
+        </div>
+
+        <div className="rv d3" style={{ textAlign: "center", marginTop: 28 }}>
+          <Link href="/essay" className="hm_doc_btn">
+            에세이 전체 보기
+            <span>→</span>
+          </Link>
         </div>
       </Reveal>
     </section>

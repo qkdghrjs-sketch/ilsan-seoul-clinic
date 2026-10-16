@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { NAV } from "@/lib/nav";
+import { ESSAYS } from "@/lib/essays";
 import { CONTENT_UPDATED, SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -28,6 +29,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.8,
       });
     }
+  }
+
+  /* 에세이 글은 메뉴에 따로 없으므로 하나씩 추가합니다 */
+  for (const essay of ESSAYS) {
+    entries.push({
+      url: `${SITE_URL}/essay/${essay.id}`,
+      lastModified,
+      changeFrequency: "yearly",
+      priority: 0.5,
+    });
   }
 
   return entries;

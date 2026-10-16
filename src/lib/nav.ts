@@ -62,6 +62,11 @@ export const NAV: NavGroup[] = [
     href: "/iv",
     children: [{ label: "수액 치료센터 안내", href: "/iv" }],
   },
+  {
+    label: "김금미 에세이",
+    href: "/essay",
+    children: [{ label: "에세이 전체보기", href: "/essay" }],
+  },
 ];
 
 const QUERY = encodeURIComponent("일산서울내과의원");

@@ -6,6 +6,7 @@ import {
   HomeServices,
   HomeDoctor,
   HomeCheckups,
+  HomeEssays,
   HomeCta,
 } from "@/components/home/HomeSections";
 import LocationSection from "@/components/layout/LocationSection";
@@ -89,6 +90,7 @@ export default function HomePage() {
       <HomeServices />
       <HomeDoctor />
       <HomeCheckups />
+      <HomeEssays />
       <LocationSection />
       <HomeCta />
     </div>
