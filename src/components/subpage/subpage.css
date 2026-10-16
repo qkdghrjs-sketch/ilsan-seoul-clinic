@@ -2351,15 +2351,22 @@
 .sp_feat_card[data-step]::after {
   content: attr(data-step);
   position: absolute;
-  right: -10px;
-  bottom: -34px;
-  font-size: 128px;
+  /* 카드 밖으로 잘려 나가지 않고 안쪽에 온전히 보이게 */
+  right: 16px;
+  bottom: 8px;
+  font-size: 84px;
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.05em;
   color: rgba(26, 58, 108, 0.05);
   pointer-events: none;
   user-select: none;
+  z-index: 0; /* 글자 뒤로 */
+}
+/* 카드 안의 글자는 큰 숫자보다 앞에 보이게 */
+.sp_feat_card[data-step] > * {
+  position: relative;
+  z-index: 1;
 }
 .sp_feat_card[data-accent] .sp_feat_num {
   color: color-mix(in srgb, var(--accent) 82%, #0b1f3d);
@@ -2373,8 +2380,9 @@
 }
 @media (max-width: 768px) {
   .sp_feat_card[data-step]::after {
-    font-size: 92px;
-    bottom: -24px;
+    font-size: 64px;
+    right: 14px;
+    bottom: 6px;
   }
 }
 

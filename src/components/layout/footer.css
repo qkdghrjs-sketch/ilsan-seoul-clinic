@@ -396,6 +396,7 @@
   justify-content: center;
   width: 100vw;
   height: 100vh;
+  height: 100dvh; /* 아이폰 주소창에 창 아래쪽이 가려지지 않게 */
   padding: 20px;
   visibility: hidden;
   background: rgba(0, 0, 0, 0.62);
@@ -417,6 +418,7 @@
   width: 100%;
   max-width: 760px;
   max-height: 84vh;
+  max-height: 84dvh;
   overflow: hidden;
   flex-direction: column;
   border-radius: 16px;
@@ -609,6 +611,7 @@ body.eum_modal_body_locked {
   }
   .eum_modal_box {
     max-height: 90vh;
+    max-height: 90dvh;
     border-radius: 16px 16px 8px 8px;
   }
   .eum_modal_header {

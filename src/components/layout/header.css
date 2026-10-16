@@ -120,6 +120,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   background: rgba(0, 0, 0, 0.45);
   opacity: 0;
   visibility: hidden;
@@ -137,7 +138,10 @@
   right: -100%;
   width: 100%;
   max-width: 100%;
+  /* 100vh는 아이폰 주소창 밑으로 메뉴 아래쪽이 가려질 수 있어,
+     실제 보이는 높이(dvh)를 우선 씁니다. 지원하지 않는 기기는 100vh */
   height: 100vh;
+  height: 100dvh;
   background: var(--eum-navy);
   z-index: 99999;
   transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -231,8 +235,9 @@
 }
 .eum_m_body {
   flex: 1;
+  min-height: 0; /* 안 쓰면 목록이 길 때 아래쪽으로 밀려 나가 스크롤이 안 됩니다 */
   overflow-y: auto;
-  padding-bottom: 40px;
+  padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px));
   -webkit-overflow-scrolling: touch;
 }
 .eum_m_gnb > li {
@@ -421,5 +426,49 @@
 @media (max-width: 1279px) {
   .eum_side_foot {
     display: none;
+  }
+}
+
+/* ──────────────────────────────────────────────
+   PC인데 화면 높이가 낮은 노트북 (예: 1366×768, 1280×720)
+   — 메뉴가 아래쪽에서 잘리지 않도록 촘촘하게
+────────────────────────────────────────────── */
+@media (min-width: 1280px) and (max-height: 860px) {
+  /* 진료시간 표 대신 버튼 한 줄로 */
+  .eum_side_foot {
+    display: none;
+  }
+  .eum_m_reserve_btns {
+    display: flex;
+    padding: 10px 24px;
+  }
+  .eum_m_reserve_btns a {
+    font-size: 13px;
+    padding: 9px 8px;
+  }
+  .eum_m_gnb > li > a {
+    padding: 11px 24px;
+  }
+  .eum_m_lnb a {
+    padding: 6px 12px;
+  }
+}
+@media (min-width: 1280px) and (max-height: 780px) {
+  .eum_m_header {
+    padding: 16px 24px 14px;
+  }
+  .eum_m_tel_banner {
+    padding: 10px 24px;
+  }
+  .eum_m_gnb > li > a {
+    padding: 8px 24px;
+    font-size: 16px;
+  }
+  .eum_m_lnb a {
+    padding: 4px 12px;
+    font-size: 14px;
+  }
+  .eum_m_lnb_inner {
+    padding-bottom: 8px;
   }
 }

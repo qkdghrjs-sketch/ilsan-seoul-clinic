@@ -263,18 +263,24 @@ export function HomeDoctor() {
 
           <div className="rv d2">
             <div className="hm_doc_rows">
-              {DOCTOR.career.map((item) => (
-                <div className="hm_doc_row" key={item.year + item.text}>
-                  <span className="hm_doc_year">{item.year}</span>
-                  <span className="hm_doc_text">{item.text}</span>
-                </div>
-              ))}
-              {DOCTOR.awards.map((item) => (
-                <div className="hm_doc_row" key={`award-${item.year}`}>
-                  <span className="hm_doc_year">{item.year}</span>
-                  <span className="hm_doc_text">{item.text} 수상</span>
-                </div>
-              ))}
+              {/* 약력과 수상을 합쳐 최신 연도부터 보여 줍니다 */}
+              {[
+                ...DOCTOR.career.map((item) => ({
+                  year: item.year,
+                  text: item.text,
+                })),
+                ...DOCTOR.awards.map((item) => ({
+                  year: item.year,
+                  text: `${item.text} 수상`,
+                })),
+              ]
+                .sort((a, b) => Number(b.year) - Number(a.year))
+                .map((item) => (
+                  <div className="hm_doc_row" key={item.year + item.text}>
+                    <span className="hm_doc_year">{item.year}</span>
+                    <span className="hm_doc_text">{item.text}</span>
+                  </div>
+                ))}
             </div>
           </div>
         </div>
@@ -309,6 +315,11 @@ const CHECKUP_LINKS = [
     href: "/checkup/premium",
     title: "정밀종합검사",
     sub: "내시경·초음파·혈액 51종·암 표지자까지 한 번에",
+  },
+  {
+    href: "/checkup",
+    title: "검사안내 전체 보기",
+    sub: "받을 수 있는 검사를 한 화면에서 확인하세요",
   },
 ];
 
@@ -372,7 +383,7 @@ export function HomeEssays() {
           </p>
         </div>
 
-        <div className="hm_list">
+        <div className="hm_list two">
           {latest.map((item, index) => (
             <Link
               href={`/essay/${item.id}`}
