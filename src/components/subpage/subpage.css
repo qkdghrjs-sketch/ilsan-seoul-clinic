@@ -2626,3 +2626,8 @@
   background: #f4f7fb;
   border-radius: 16px;
 }
+
+/* 에세이 본문: 글 안의 줄바꿈 유지 (새로 올린 글) */
+.es_body p {
+  white-space: pre-line;
+}

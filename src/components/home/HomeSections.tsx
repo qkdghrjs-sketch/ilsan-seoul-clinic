@@ -6,7 +6,7 @@ import Icon, { type IconName } from "@/components/subpage/icons";
 import { CLINIC } from "@/lib/site";
 import { DOCTOR } from "@/lib/doctor";
 import { CHECKUPS } from "@/lib/checkups";
-import { ESSAYS } from "@/lib/essays";
+import { getAllEssays } from "@/lib/essay-posts";
 import { formatNoticeDate, getNotices } from "@/lib/notices";
 
 const CheckMark = () => (
@@ -369,8 +369,8 @@ export function HomeCheckups() {
 /* ══════════════════════════════════════════════
    5-2. 김금미 에세이 (최근 글)
 ══════════════════════════════════════════════ */
-export function HomeEssays() {
-  const latest = ESSAYS.slice(0, 4);
+export async function HomeEssays() {
+  const latest = (await getAllEssays()).slice(0, 4);
 
   return (
     <section className="hm_sec alt">

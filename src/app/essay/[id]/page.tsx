@@ -8,11 +8,16 @@ import { SubPage, Section, SubCta } from "@/components/subpage/parts";
 import { pageSchemas } from "@/lib/page-schema";
 import { DOCTOR_ID } from "@/lib/schema";
 import { CLINIC, SITE_URL } from "@/lib/site";
-import { ESSAYS, findEssay } from "@/lib/essays";
+import { ESSAYS } from "@/lib/essays";
+import { findEssayAny, getAllEssays } from "@/lib/essay-posts";
 
 type Params = { params: Promise<{ id: string }> };
 
-export const dynamicParams = false;
+/**
+ * 옛 글(1~8)은 미리 만들어 두고, 원장님이 새로 올린 글은 처음 열 때 만들어
+ * 1분간 보관합니다. (글을 고치거나 지우면 바로 반영됩니다)
+ */
+export const revalidate = 60;
 
 export function generateStaticParams() {
   return ESSAYS.map((item) => ({ id: String(item.id) }));
@@ -20,8 +25,8 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { id } = await params;
-  const essay = findEssay(id);
-  if (!essay) return {};
+  const essay = await findEssayAny(id);
+  if (!essay) return { robots: { index: false } };
   const path = `/essay/${essay.id}`;
 
   return {
@@ -42,14 +47,15 @@ const toIso = (date: string) => date.replaceAll(".", "-");
 
 export default async function EssayPage({ params }: Params) {
   const { id } = await params;
-  const essay = findEssay(id);
+  const essay = await findEssayAny(id);
   if (!essay) notFound();
 
+  const all = await getAllEssays();
   const path = `/essay/${essay.id}`;
-  const index = ESSAYS.findIndex((item) => item.id === essay.id);
+  const index = all.findIndex((item) => item.id === essay.id);
   /* 목록은 최신순이므로, 다음 글은 더 오래된 글입니다. */
-  const newer = index > 0 ? ESSAYS[index - 1] : null;
-  const older = index < ESSAYS.length - 1 ? ESSAYS[index + 1] : null;
+  const newer = index > 0 ? all[index - 1] : null;
+  const older = index < all.length - 1 ? all[index + 1] : null;
 
   return (
     <>

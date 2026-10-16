@@ -13,7 +13,11 @@ import {
 } from "@/components/subpage/parts";
 import { pageSchemas } from "@/lib/page-schema";
 import { CLINIC, SITE_URL } from "@/lib/site";
-import { ESSAYS } from "@/lib/essays";
+import type { Essay } from "@/lib/essays";
+import { getAllEssays } from "@/lib/essay-posts";
+
+/** 원장님이 새 글을 올리면 바로 반영되고, 아니어도 1분 안에 갱신됩니다. */
+export const revalidate = 60;
 
 const PATH = "/essay";
 const TITLE = "김금미 에세이";
@@ -27,13 +31,13 @@ export const metadata: Metadata = {
   openGraph: { title: TITLE, description: DESCRIPTION, url: PATH },
 };
 
-function collectionSchema() {
+function collectionSchema(essays: Essay[]) {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
     "@id": `${SITE_URL}${PATH}#list`,
     name: `${TITLE} | ${CLINIC.name}`,
-    itemListElement: ESSAYS.map((item, index) => ({
+    itemListElement: essays.map((item, index) => ({
       "@type": "ListItem",
       position: index + 1,
       name: item.title,
@@ -42,7 +46,9 @@ function collectionSchema() {
   };
 }
 
-export default function EssayIndexPage() {
+export default async function EssayIndexPage() {
+  const ESSAYS = await getAllEssays();
+
   return (
     <>
       <JsonLd
@@ -53,7 +59,7 @@ export default function EssayIndexPage() {
             description: DESCRIPTION,
             breadcrumb: [{ name: TITLE, url: PATH }],
           }),
-          collectionSchema(),
+          collectionSchema(ESSAYS),
         ]}
       />
       <SubPageHeader currentPath={PATH} />

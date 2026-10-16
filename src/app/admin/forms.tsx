@@ -2,7 +2,12 @@
 
 import { useActionState } from "react";
 
-import { login, saveNoticeAction, type FormState } from "./actions";
+import {
+  login,
+  saveEssayAction,
+  saveNoticeAction,
+  type FormState,
+} from "./actions";
 
 export function LoginForm() {
   const [state, action, pending] = useActionState<FormState, FormData>(
@@ -112,6 +117,110 @@ export function NoticeForm({
         </button>
         {notice && (
           <a href="/admin" className="ad_btn">
+            취소
+          </a>
+        )}
+      </div>
+    </form>
+  );
+}
+
+/** 오늘 날짜를 한국 시간 기준 YYYY-MM-DD 로 (달력 칸의 기본값) */
+function todayKst() {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Seoul",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
+  return parts; // en-CA 형식이 곧 YYYY-MM-DD
+}
+
+export function EssayForm({
+  essay,
+}: {
+  essay?: {
+    id: string;
+    title: string;
+    /** YYYY-MM-DD */
+    date: string;
+    source: string;
+    body: string;
+  };
+}) {
+  const [state, action, pending] = useActionState<FormState, FormData>(
+    saveEssayAction,
+    undefined,
+  );
+
+  return (
+    <form action={action} className="ad_form">
+      {essay && <input type="hidden" name="id" value={essay.id} />}
+
+      <label className="ad_field">
+        <span>제목</span>
+        <input
+          name="title"
+          type="text"
+          required
+          maxLength={100}
+          defaultValue={essay?.title ?? ""}
+          placeholder="예) 가을 진료실에서"
+        />
+      </label>
+
+      <label className="ad_field">
+        <span>날짜</span>
+        <input
+          name="date"
+          type="date"
+          required
+          defaultValue={essay?.date ?? todayKst()}
+        />
+      </label>
+
+      <label className="ad_field">
+        <span>
+          출처 <em className="ad_opt">(신문·잡지에 낸 글일 때만)</em>
+        </span>
+        <input
+          name="source"
+          type="text"
+          maxLength={100}
+          defaultValue={essay?.source ?? ""}
+          placeholder="예) 의협신문 · 2026.10.17"
+        />
+      </label>
+
+      <label className="ad_field">
+        <span>내용</span>
+        <textarea
+          name="body"
+          required
+          rows={16}
+          maxLength={30000}
+          defaultValue={essay?.body ?? ""}
+          placeholder="글을 적어 주세요."
+        />
+      </label>
+
+      <p className="ad_hint">
+        문단을 나누려면 <strong>빈 줄을 한 줄</strong> 넣어 주세요. 환자 이름·연락처
+        같은 개인정보는 적지 마세요. (사진 넣기는 아직 되지 않습니다)
+      </p>
+
+      {state?.error && (
+        <p className="ad_error" role="alert">
+          {state.error}
+        </p>
+      )}
+
+      <div className="ad_row">
+        <button type="submit" className="ad_btn primary" disabled={pending}>
+          {pending ? "저장하는 중…" : essay ? "수정 저장" : "에세이 올리기"}
+        </button>
+        {essay && (
+          <a href="/admin?tab=essay" className="ad_btn">
             취소
           </a>
         )}

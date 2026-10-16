@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { NAV } from "@/lib/nav";
-import { ESSAYS } from "@/lib/essays";
+import { getAllEssays } from "@/lib/essay-posts";
 import { getNotices } from "@/lib/notices";
 import { CONTENT_UPDATED, SITE_URL } from "@/lib/site";
 
@@ -46,7 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   /* 에세이 글은 메뉴에 따로 없으므로 하나씩 추가합니다 */
-  for (const essay of ESSAYS) {
+  for (const essay of await getAllEssays()) {
     entries.push({
       url: `${SITE_URL}/essay/${essay.id}`,
       lastModified,

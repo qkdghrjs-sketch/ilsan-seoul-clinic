@@ -15,6 +15,7 @@ import {
   startAdminSession,
 } from "@/lib/admin-auth";
 import { removeNotice, saveNotice, storageMode } from "@/lib/notices";
+import { removeEssayPost, saveEssayPost } from "@/lib/essay-posts";
 
 export type FormState = { error?: string } | undefined;
 
@@ -132,4 +133,95 @@ export async function deleteNoticeAction(formData: FormData) {
     }
   }
   redirect("/admin?deleted=1");
+}
+
+/* ── 에세이 ───────────────────────────────────────────── */
+const ESSAY_TITLE_MAX = 100;
+const ESSAY_SOURCE_MAX = 100;
+const ESSAY_BODY_MAX = 30000;
+
+/** 2026-10-17 → 2026.10.17 (달력에서 고른 값만 받아 줍니다) */
+function toDotDate(value: string) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+  if (!match) return null;
+  const [, y, m, d] = match;
+  const date = new Date(`${y}-${m}-${d}T00:00:00Z`);
+  if (Number.isNaN(date.getTime())) return null;
+  return `${y}.${m}.${d}`;
+}
+
+/** 에세이 새로 쓰기 / 수정 */
+export async function saveEssayAction(
+  _state: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  if (!(await isAdmin())) {
+    return { error: "로그인이 풀렸습니다. 다시 로그인해 주세요." };
+  }
+  if (storageMode() === "none") {
+    return {
+      error:
+        "글을 저장할 곳(Blob 저장소)이 아직 연결되지 않았습니다. 담당자에게 문의해 주세요.",
+    };
+  }
+
+  const id = String(formData.get("id") ?? "").trim() || undefined;
+  const title = String(formData.get("title") ?? "").trim();
+  const date = toDotDate(String(formData.get("date") ?? "").trim());
+  const source = String(formData.get("source") ?? "").trim();
+  const body = String(formData.get("body") ?? "").replace(/\r\n/g, "\n").trim();
+
+  if (!title) return { error: "제목을 적어 주세요." };
+  if (title.length > ESSAY_TITLE_MAX) {
+    return { error: `제목은 ${ESSAY_TITLE_MAX}자 이내로 적어 주세요.` };
+  }
+  if (!date) return { error: "날짜를 골라 주세요." };
+  if (source.length > ESSAY_SOURCE_MAX) {
+    return { error: `출처는 ${ESSAY_SOURCE_MAX}자 이내로 적어 주세요.` };
+  }
+  if (!body) return { error: "내용을 적어 주세요." };
+  if (body.length > ESSAY_BODY_MAX) {
+    return {
+      error: `내용은 ${ESSAY_BODY_MAX.toLocaleString("ko-KR")}자 이내로 적어 주세요.`,
+    };
+  }
+
+  try {
+    const saved = await saveEssayPost({
+      id,
+      title,
+      date,
+      source: source || null,
+      body,
+    });
+    revalidatePath("/essay");
+    revalidatePath(`/essay/${saved.id}`);
+    revalidatePath("/");
+    revalidatePath("/sitemap.xml");
+  } catch (error) {
+    console.error("[admin] 에세이 저장 실패", error);
+    return { error: "저장하지 못했습니다. 잠시 뒤 다시 시도해 주세요." };
+  }
+
+  redirect("/admin?tab=essay&saved=1");
+}
+
+/** 에세이 삭제 */
+export async function deleteEssayAction(formData: FormData) {
+  if (!(await isAdmin())) redirect("/admin");
+
+  const id = String(formData.get("id") ?? "").trim();
+  if (id) {
+    try {
+      await removeEssayPost(id);
+      revalidatePath("/essay");
+      revalidatePath(`/essay/${id}`);
+      revalidatePath("/");
+      revalidatePath("/sitemap.xml");
+    } catch (error) {
+      console.error("[admin] 에세이 삭제 실패", error);
+      redirect("/admin?tab=essay&error=delete");
+    }
+  }
+  redirect("/admin?tab=essay&deleted=1");
 }
