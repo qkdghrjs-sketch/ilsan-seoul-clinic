@@ -228,3 +228,18 @@ export function EssayForm({
     </form>
   );
 }
+
+/** 삭제 단추 — 누르면 「정말 삭제할까요?」 확인창이 먼저 뜹니다 (실수로 지우지 않게) */
+export function DeleteButton({ message }: { message: string }) {
+  return (
+    <button
+      type="submit"
+      className="ad_btn small danger"
+      onClick={(event) => {
+        if (!window.confirm(message)) event.preventDefault();
+      }}
+    >
+      삭제
+    </button>
+  );
+}

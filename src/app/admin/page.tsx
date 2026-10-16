@@ -11,7 +11,7 @@ import {
   deleteNoticeAction,
   logout,
 } from "./actions";
-import { EssayForm, LoginForm, NoticeForm } from "./forms";
+import { DeleteButton, EssayForm, LoginForm, NoticeForm } from "./forms";
 
 /** 관리자 화면은 검색에 나오지 않게 합니다. */
 export const metadata: Metadata = {
@@ -181,9 +181,7 @@ async function NoticePanel({
                   </Link>
                   <form action={deleteNoticeAction}>
                     <input type="hidden" name="id" value={item.id} />
-                    <button type="submit" className="ad_btn small danger">
-                      삭제
-                    </button>
+                    <DeleteButton message="이 공지를 삭제할까요? 삭제하면 되돌릴 수 없습니다." />
                   </form>
                 </div>
               </li>
@@ -255,9 +253,7 @@ async function EssayPanel({
                   </Link>
                   <form action={deleteEssayAction}>
                     <input type="hidden" name="id" value={item.id} />
-                    <button type="submit" className="ad_btn small danger">
-                      삭제
-                    </button>
+                    <DeleteButton message="이 에세이를 삭제할까요? 삭제하면 되돌릴 수 없습니다." />
                   </form>
                 </div>
               </li>
