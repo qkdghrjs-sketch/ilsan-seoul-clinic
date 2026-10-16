@@ -8,6 +8,8 @@ import "./header.css";
 import { NAV } from "@/lib/nav";
 import { CLINIC } from "@/lib/site";
 
+const PC_QUERY = "(min-width: 1280px)";
+
 const PhoneIcon = ({ size = 13 }: { size?: number }) => (
   <svg
     width={size}
@@ -53,14 +55,29 @@ function LogoText() {
   );
 }
 
+/** 지금 보고 있는 페이지가 속한 메뉴 묶음 */
+function findActiveGroup(pathname: string) {
+  return (
+    NAV.find(
+      (group) =>
+        pathname === group.href ||
+        pathname.startsWith(`${group.href}/`) ||
+        group.children.some((child) => child.href === pathname),
+    )?.label ?? null
+  );
+}
+
 export default function SiteHeader() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
+  const [isPc, setIsPc] = useState(false);
   const previousOverflow = useRef("");
 
-  /* 스크롤 시 그림자 */
+  const activeGroup = findActiveGroup(pathname);
+
+  /* 스크롤 시 그림자 (휴대폰 위쪽 띠) */
   useEffect(() => {
     const sync = () => setScrolled(window.scrollY > 10);
     sync();
@@ -68,8 +85,20 @@ export default function SiteHeader() {
     return () => window.removeEventListener("scroll", sync);
   }, []);
 
+  /* PC 화면인지 (PC는 왼쪽 세로 메뉴, 휴대폰은 전체 화면 메뉴) */
+  useEffect(() => {
+    const media = window.matchMedia(PC_QUERY);
+    const sync = () => {
+      setIsPc(media.matches);
+      if (media.matches) setMenuOpen(false);
+    };
+    sync();
+    media.addEventListener("change", sync);
+    return () => media.removeEventListener("change", sync);
+  }, []);
+
   /*
-    페이지가 바뀌면 모바일 메뉴를 닫습니다.
+    페이지가 바뀌면 휴대폰 메뉴를 닫습니다.
     (effect 대신 렌더 중에 이전 경로와 비교하는 방식 — React 권장 패턴)
   */
   const [lastPath, setLastPath] = useState(pathname);
@@ -79,7 +108,7 @@ export default function SiteHeader() {
     setOpenGroup(null);
   }
 
-  /* 메뉴가 열려 있는 동안 배경 스크롤 잠금 */
+  /* 휴대폰 메뉴가 열려 있는 동안 배경 스크롤 잠금 */
   useEffect(() => {
     if (menuOpen) {
       previousOverflow.current = document.body.style.overflow;
@@ -92,20 +121,13 @@ export default function SiteHeader() {
     };
   }, [menuOpen]);
 
-  /* ESC 로 닫기 · 데스크톱 폭으로 넓어지면 자동으로 닫기 */
+  /* ESC 로 닫기 */
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") setMenuOpen(false);
     };
-    const onResize = () => {
-      if (window.innerWidth > 1200) setMenuOpen(false);
-    };
     document.addEventListener("keydown", onKeyDown);
-    window.addEventListener("resize", onResize);
-    return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      window.removeEventListener("resize", onResize);
-    };
+    return () => document.removeEventListener("keydown", onKeyDown);
   }, []);
 
   return (
@@ -113,51 +135,13 @@ export default function SiteHeader() {
       id="eum_header_wrap"
       className={`eum_header_wrap${scrolled ? " eum_scrolled" : ""}`}
     >
+      {/* 휴대폰 위쪽 띠 (PC에서는 숨김) */}
       <header className="eum_header_inner">
         <h1 className="eum_logo">
           <Link href="/" title={`${CLINIC.name} 메인으로 이동`}>
             <LogoText />
           </Link>
         </h1>
-
-        {/* PC 네비게이션 */}
-        <nav className="eum_pc_nav" aria-label={`${CLINIC.shortName} 주요 메뉴`}>
-          <ul className="eum_gnb">
-            {NAV.map((group) => (
-              <li key={group.label}>
-                <Link href={group.href}>{group.label}</Link>
-                <ul className="eum_lnb">
-                  {group.children.map((child) => (
-                    <li key={child.href + child.label}>
-                      <Link
-                        href={child.href}
-                        {...(child.labelPc
-                          ? {
-                              dangerouslySetInnerHTML: {
-                                __html: child.labelPc,
-                              },
-                            }
-                          : { children: child.label })}
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        {/* PC CTA */}
-        <div className="eum_header_btns">
-          <Link href="/location" className="eum_header_hours">
-            <ClockIcon />
-            진료시간 · 오시는 길
-          </Link>
-          <a href={`tel:${CLINIC.telephoneDisplay}`} className="eum_header_cta">
-            <PhoneIcon />
-            {CLINIC.telephoneDisplay}
-          </a>
-        </div>
 
         <button
           type="button"
@@ -173,28 +157,30 @@ export default function SiteHeader() {
         </button>
       </header>
 
-      <div className="eum_header_bg" />
-
-      {/* 모바일 오버레이 */}
+      {/* 휴대폰 어두운 배경 */}
       <div
         className={`eum_mobile_overlay${menuOpen ? " eum_active" : ""}`}
         onClick={() => setMenuOpen(false)}
       />
 
-      {/* 모바일 네비게이션 */}
+      {/* 메뉴: 휴대폰은 전체 화면, PC는 왼쪽 세로 메뉴 */}
       <nav
         id="eum_mobile_nav"
         className={`eum_mobile_nav${menuOpen ? " eum_active" : ""}`}
-        aria-label={`${CLINIC.shortName} 모바일 메뉴`}
-        aria-hidden={!menuOpen}
+        aria-label={`${CLINIC.shortName} 주요 메뉴`}
+        aria-hidden={isPc ? undefined : !menuOpen}
       >
         <div className="eum_m_header">
-          <span className="eum_m_logo">
+          <Link
+            href="/"
+            className="eum_m_logo"
+            title={`${CLINIC.name} 메인으로 이동`}
+          >
             <strong className="eum_logo_mark">
               일산<em>서울</em>내과의원
             </strong>
             <span className="eum_logo_en">ILSAN SEOUL INTERNAL MEDICINE</span>
-          </span>
+          </Link>
           <button
             type="button"
             className="eum_m_close"
@@ -222,7 +208,8 @@ export default function SiteHeader() {
         <div className="eum_m_body">
           <ul className="eum_m_gnb">
             {NAV.map((group) => {
-              const isOpen = openGroup === group.label;
+              const isOpen =
+                activeGroup === group.label || openGroup === group.label;
               return (
                 <li
                   key={group.label}
@@ -231,8 +218,12 @@ export default function SiteHeader() {
                   <a
                     href={group.href}
                     onClick={(event) => {
-                      // 처음 누르면 하위 메뉴를 펼치고, 펼쳐진 상태에서 다시 누르면 이동합니다.
-                      if (!isOpen) {
+                      /*
+                        휴대폰: 처음 누르면 하위 메뉴를 펼치고, 펼쳐진 상태에서
+                        다시 누르면 이동합니다.
+                        PC: 바로 이동하고, 이동한 페이지의 하위 메뉴가 펼쳐집니다.
+                      */
+                      if (!isPc && !isOpen) {
                         event.preventDefault();
                         setOpenGroup(group.label);
                       }
@@ -246,7 +237,14 @@ export default function SiteHeader() {
                   >
                     <div className="eum_m_lnb_inner">
                       {group.children.map((child) => (
-                        <Link key={child.href} href={child.href}>
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          className={pathname === child.href ? "eum_cur" : ""}
+                          aria-current={
+                            pathname === child.href ? "page" : undefined
+                          }
+                        >
                           {child.label}
                         </Link>
                       ))}
@@ -256,6 +254,19 @@ export default function SiteHeader() {
               );
             })}
           </ul>
+        </div>
+
+        {/* PC 세로 메뉴 아래쪽: 진료시간 */}
+        <div className="eum_side_foot">
+          <h2>진료시간</h2>
+          <dl>
+            {CLINIC.outpatientRows.map((row) => (
+              <div key={row.label} style={{ display: "contents" }}>
+                <dt>{row.label}</dt>
+                <dd>{row.value}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </nav>
     </div>

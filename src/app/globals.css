@@ -36,6 +36,13 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* PC: 왼쪽 세로 메뉴(폭 264px) 자리를 비워 둡니다 */
+@media (min-width: 1280px) {
+  body {
+    padding-left: 264px;
+  }
+}
+
 /* 본문 렌더링 — 글쓴이가 입력한 줄바꿈을 그대로 유지 */
 .post-body {
   white-space: pre-wrap;

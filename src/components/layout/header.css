@@ -1,5 +1,11 @@
 /* ==============================================================
-   일산서울내과의원 상단 헤더
+   일산서울내과의원 메뉴
+
+   · 휴대폰·태블릿(1279px 이하): 위쪽 가는 띠 + 메뉴 버튼 → 전체 화면 메뉴
+   · PC(1280px 이상): 기존 홈페이지처럼 왼쪽에 세로 메뉴가 늘 떠 있음
+     - 메뉴를 누르면 그 아래에 하위 메뉴가 펼쳐집니다.
+     - 마우스를 올려도 아무것도 움직이지 않습니다. (원장님 요청: 화면이 잘려
+       내려오고 올라가는 움직임 없이, 정신없지 않게)
 ============================================================== */
 #eum_header_wrap {
   --eum-navy: #1a3a6c;
@@ -9,9 +15,8 @@
   --eum-text: #333333;
   --eum-gray: #666666;
   --eum-border: #eeeeee;
-  --eum-header-h: 80px;
   --eum-m-header-h: 60px;
-  --eum-drop-h: 310px;
+  --eum-side-w: 264px;
 }
 
 .eum_header_wrap,
@@ -39,15 +44,12 @@
 }
 .eum_header_inner {
   position: relative;
-  max-width: 1680px;
-  margin: 0 auto;
-  height: var(--eum-header-h);
+  height: var(--eum-m-header-h);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 clamp(16px, 2vw, 32px);
+  padding: 0 16px;
   background-color: transparent;
-  z-index: 20;
 }
 
 /* 로고 */
@@ -69,7 +71,7 @@
 }
 .eum_logo_mark {
   display: block;
-  font-size: clamp(19px, 1.35vw, 25px);
+  font-size: 18px;
   font-weight: 800;
   letter-spacing: -0.045em;
   color: var(--eum-navy);
@@ -81,478 +83,343 @@
 }
 .eum_logo_en {
   display: block;
-  font-size: 9.5px;
+  font-size: 8px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   color: #9aa8bb;
   white-space: nowrap;
 }
 
-/* PC 네비 */
-.eum_pc_nav {
-  height: 100%;
-  flex: 1 1 auto;
-  min-width: 0;
-  margin-left: clamp(16px, 2vw, 34px);
-  margin-right: clamp(12px, 1.4vw, 20px);
-}
-.eum_gnb {
+/* 메뉴 버튼 (휴대폰) */
+.eum_hamburger {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  height: 100%;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
-.eum_gnb > li {
-  height: 100%;
-  position: relative;
-  /* 메뉴가 3개뿐이라 넉넉히 잡습니다 — 서브메뉴 글자가 줄바꿈되지 않도록 */
-  flex: 0 1 200px;
-  min-width: 140px;
-  max-width: 230px;
-  text-align: center;
+.eum_hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: var(--eum-navy);
+  transition: 0.3s;
 }
-.eum_gnb > li > a {
+
+/* ──────────────────────────────────────────────
+   메뉴 본체 (휴대폰에서는 전체 화면, PC에서는 왼쪽 세로 메뉴)
+────────────────────────────────────────────── */
+.eum_mobile_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s ease;
+  z-index: 99995;
+}
+.eum_mobile_overlay.eum_active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.eum_mobile_nav {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  max-width: 100%;
+  height: 100vh;
+  background: var(--eum-navy);
+  z-index: 99999;
+  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.eum_mobile_nav.eum_active {
+  right: 0;
+}
+.eum_m_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  height: var(--eum-m-header-h);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+.eum_m_logo {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  line-height: 1;
+}
+.eum_m_logo .eum_logo_mark {
+  font-size: 17px;
+  color: #ffffff;
+}
+.eum_m_logo .eum_logo_mark em {
+  color: #9bbfe8;
+}
+.eum_m_logo .eum_logo_en {
+  font-size: 8px;
+  color: rgba(255, 255, 255, 0.5);
+}
+.eum_m_close {
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  font-size: 26px;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.eum_m_tel_banner {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  padding: 0 6px;
-  font-size: clamp(13px, 0.82vw, 16px);
-  line-height: 1.22;
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  color: var(--eum-text);
-  word-break: keep-all;
-  position: relative;
-  transition: color 0.2s;
-  z-index: 2;
+  gap: 8px;
+  padding: 14px 20px;
+  background-color: rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
 }
-.eum_gnb > li::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: var(--eum-header-h);
-  background-color: transparent;
-  transition:
-    height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    background-color 0.2s;
-  z-index: 1;
-}
-.eum_header_wrap:hover .eum_gnb > li::before {
-  height: var(--eum-drop-h);
-}
-.eum_gnb > li:hover::before {
-  background-color: var(--eum-navy);
-}
-.eum_gnb > li:hover > a {
-  color: #ffffff;
-}
-.eum_gnb > li::after {
-  content: "";
-  position: absolute;
-  top: var(--eum-header-h);
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 1px;
-  background-color: rgba(255, 255, 255, 0);
-  transition:
-    width 0.3s ease,
-    background-color 0.3s ease;
-  z-index: 5;
-}
-.eum_gnb > li:hover::after {
-  width: 100%;
-  background-color: rgba(255, 255, 255, 0.3);
-}
-.eum_header_bg {
-  position: absolute;
-  top: var(--eum-header-h);
-  left: 0;
-  width: 100%;
-  height: 0;
-  background-color: #ffffff;
-  border-top: 1px solid transparent;
-  transition:
-    height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.4s ease;
-  z-index: 10;
-  pointer-events: none;
-  border-bottom: 1px solid transparent;
-  box-shadow: none;
-}
-.eum_lnb {
-  position: absolute;
-  top: var(--eum-header-h);
-  left: 0;
-  width: 100%;
-  text-align: center;
-  padding: 24px 6px 0;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease;
-  z-index: 15;
-}
-.eum_lnb li {
-  margin-bottom: 12px;
-}
-.eum_lnb a {
-  display: block;
-  padding: 4px 5px;
-  font-size: 14px;
-  line-height: 1.36;
-  letter-spacing: -0.04em;
-  color: var(--eum-gray);
-  font-weight: 300;
-  transition: all 0.2s;
-  white-space: normal;
-  word-break: keep-all;
-  overflow-wrap: anywhere;
-  position: relative;
-  z-index: 2;
-}
-.eum_gnb > li:hover .eum_lnb a {
-  color: rgba(255, 255, 255, 0.65);
-}
-.eum_gnb > li:hover .eum_lnb a:hover {
-  color: #ffffff;
-  font-weight: 500;
-}
-
-/* 버튼 그룹 */
-.eum_header_btns {
+.eum_m_tel_banner a {
   display: flex;
   align-items: center;
   gap: 8px;
-  flex-shrink: 0;
-  z-index: 20;
-  position: relative;
-}
-.eum_header_hours,
-.eum_header_cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 15px;
+  font-size: 15px;
+  font-weight: 600;
   color: #ffffff;
+}
+.eum_m_reserve_btns {
+  display: flex;
+  gap: 8px;
+  padding: 14px 20px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+.eum_m_reserve_btns a {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px 8px;
+  border-radius: 8px;
   font-size: 13px;
   font-weight: 600;
-  border-radius: 50px;
+  text-align: center;
   white-space: nowrap;
-  transition: all 0.3s ease;
 }
-.eum_header_hours {
-  background-color: #ffffff;
-  color: var(--eum-navy);
-  border: 1px solid #d7e0ec;
+.eum_m_btn_hours {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
 }
-.eum_header_hours:hover {
-  background-color: #f2f6fb;
-  border-color: var(--eum-sky);
-  transform: translateY(-1px);
+.eum_m_body {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 40px;
+  -webkit-overflow-scrolling: touch;
 }
-.eum_header_cta {
-  gap: 7px;
-  padding: 10px 18px;
-  background-color: var(--eum-navy);
+.eum_m_gnb > li {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.eum_m_gnb > li > a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  font-size: clamp(15px, 4.5vw, 17px);
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+  word-break: keep-all;
+}
+.eum_m_has_sub > a::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+  transform: translateY(-3px) rotate(45deg);
+  transition: transform 0.3s ease;
   flex-shrink: 0;
+  margin-left: 12px;
 }
-.eum_header_cta:hover {
-  background-color: var(--eum-blue);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(26, 58, 108, 0.25);
+.eum_m_has_sub.eum_open > a::after {
+  transform: translateY(2px) rotate(-135deg);
+  border-color: var(--eum-sky);
 }
-
-/* PC 드롭다운 활성화 */
-@media (min-width: 1201px) {
-  .eum_header_wrap:hover .eum_header_bg {
-    height: calc(var(--eum-drop-h) - var(--eum-header-h));
-    border-top-color: var(--eum-border);
-    border-bottom: 1px solid #e0e0e0;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
-    pointer-events: auto;
-  }
-  .eum_header_wrap:hover .eum_lnb {
-    opacity: 1;
-    visibility: visible;
-    transition-delay: 0.1s;
-  }
-  .eum_hamburger,
-  .eum_mobile_overlay,
-  .eum_mobile_nav {
-    display: none !important;
-  }
+.eum_m_has_sub.eum_open > a {
+  color: var(--eum-sky);
 }
-
-@media (min-width: 1201px) and (max-width: 1480px) {
-  .eum_header_inner {
-    padding: 0 14px;
-  }
-  .eum_logo_mark {
-    font-size: 20px;
-  }
-  .eum_pc_nav {
-    margin-left: 12px;
-    margin-right: 10px;
-  }
-  .eum_gnb > li {
-    flex-basis: 168px;
-    min-width: 124px;
-  }
-  .eum_gnb > li > a {
-    font-size: 14px;
-    padding: 0 4px;
-  }
-  .eum_lnb {
-    padding-left: 4px;
-    padding-right: 4px;
-  }
-  .eum_lnb a {
-    font-size: 13px;
-    letter-spacing: -0.05em;
-  }
-  .eum_header_btns {
-    gap: 6px;
-  }
-  .eum_header_hours,
-  .eum_header_cta {
-    padding: 9px 11px;
-    font-size: 12px;
-  }
+.eum_m_lnb {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease-out;
+}
+.eum_m_lnb_inner {
+  padding: 0 20px 18px;
+}
+.eum_m_lnb a {
+  display: block;
+  padding: 11px 12px;
+  font-size: clamp(13px, 3.8vw, 14px);
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 400;
+  border-radius: 6px;
+  letter-spacing: -0.03em;
+  word-break: keep-all;
+}
+.eum_m_lnb a:hover,
+.eum_m_lnb a:active {
+  background-color: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+}
+.eum_m_lnb a.eum_cur {
+  color: #ffffff;
+  font-weight: 700;
 }
 
-@media (min-width: 1481px) and (max-width: 1640px) {
-  .eum_gnb > li {
-    flex-basis: 186px;
-    min-width: 132px;
-  }
-}
-
-/* 모바일 / 태블릿 */
-@media (max-width: 1200px) {
-  .eum_pc_nav,
-  .eum_header_bg,
-  .eum_header_btns {
-    display: none;
-  }
-  .eum_header_inner {
-    height: var(--eum-m-header-h);
-    padding: 0 16px;
-  }
-  .eum_logo_mark {
-    font-size: 18px;
-  }
-  .eum_logo_en {
-    font-size: 8px;
-    letter-spacing: 0.1em;
-  }
-
-  .eum_hamburger {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    width: 44px;
-    height: 44px;
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-  .eum_hamburger span {
-    display: block;
-    width: 22px;
-    height: 2px;
-    background-color: var(--eum-navy);
-    transition: 0.3s;
-  }
-
-  .eum_mobile_overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.45);
-    opacity: 0;
-    visibility: hidden;
-    transition: 0.3s ease;
-    z-index: 99995;
-  }
-  .eum_mobile_overlay.eum_active {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .eum_mobile_nav {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 100%;
-    max-width: 100%;
-    height: 100vh;
-    background: var(--eum-navy);
-    z-index: 99999;
-    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-  .eum_mobile_nav.eum_active {
-    right: 0;
-  }
-  .eum_m_header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    height: var(--eum-m-header-h);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    flex-shrink: 0;
-  }
-  .eum_m_logo {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    line-height: 1;
-  }
-  .eum_m_logo .eum_logo_mark {
-    font-size: 17px;
-    color: #ffffff;
-  }
-  .eum_m_logo .eum_logo_mark em {
-    color: #9bbfe8;
-  }
-  .eum_m_logo .eum_logo_en {
-    font-size: 8px;
-    color: rgba(255, 255, 255, 0.5);
-  }
-  .eum_m_close {
-    width: 40px;
-    height: 40px;
-    background: none;
-    border: none;
-    font-size: 26px;
-    color: #ffffff;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-  }
-  .eum_m_tel_banner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 14px 20px;
-    background-color: rgba(255, 255, 255, 0.06);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    flex-shrink: 0;
-  }
-  .eum_m_tel_banner a {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 15px;
-    font-weight: 600;
-    color: #ffffff;
-  }
-  .eum_m_reserve_btns {
-    display: flex;
-    gap: 8px;
-    padding: 14px 20px;
-    background-color: rgba(255, 255, 255, 0.03);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    flex-shrink: 0;
-  }
-  .eum_m_reserve_btns a {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    padding: 10px 8px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    text-align: center;
-    white-space: nowrap;
-  }
-  .eum_m_btn_hours {
-    background-color: rgba(255, 255, 255, 0.12);
-    color: #ffffff;
-  }
-  .eum_m_body {
-    flex: 1;
-    overflow-y: auto;
-    padding-bottom: 40px;
-    -webkit-overflow-scrolling: touch;
-  }
-  .eum_m_gnb > li {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  }
-  .eum_m_gnb > li > a {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    font-size: clamp(15px, 4.5vw, 17px);
-    font-weight: 600;
-    color: #ffffff;
-    letter-spacing: -0.03em;
-    word-break: keep-all;
-  }
-  .eum_m_has_sub > a::after {
-    content: "";
-    width: 8px;
-    height: 8px;
-    border-right: 2px solid rgba(255, 255, 255, 0.5);
-    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
-    transform: translateY(-3px) rotate(45deg);
-    transition: transform 0.3s ease;
-    flex-shrink: 0;
-    margin-left: 12px;
-  }
-  .eum_m_has_sub.eum_open > a::after {
-    transform: translateY(2px) rotate(-135deg);
-    border-color: var(--eum-sky);
-  }
-  .eum_m_has_sub.eum_open > a {
-    color: var(--eum-sky);
-  }
-  .eum_m_lnb {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.35s ease-out;
-  }
-  .eum_m_lnb_inner {
-    padding: 0 20px 18px;
-  }
-  .eum_m_lnb a {
-    display: block;
-    padding: 11px 12px;
-    font-size: clamp(13px, 3.8vw, 14px);
-    line-height: 1.4;
-    color: rgba(255, 255, 255, 0.6);
-    font-weight: 400;
-    border-radius: 6px;
-    letter-spacing: -0.03em;
-    word-break: keep-all;
-  }
-  .eum_m_lnb a:hover,
-  .eum_m_lnb a:active {
-    background-color: rgba(255, 255, 255, 0.06);
-    color: #ffffff;
-  }
+/* 진료시간 (PC 세로 메뉴 아래쪽에만 보임) */
+.eum_side_foot {
+  display: none;
 }
 
 /* 본문이 고정 헤더에 가리지 않도록 하는 여백 */
 .eum_header_spacer {
-  height: 80px;
+  height: 60px;
 }
-@media (max-width: 1200px) {
+
+/* ──────────────────────────────────────────────
+   PC — 왼쪽 세로 메뉴
+────────────────────────────────────────────── */
+@media (min-width: 1280px) {
+  .eum_header_wrap {
+    position: static;
+    width: 0;
+    height: 0;
+    border: 0;
+    background: none;
+    box-shadow: none !important;
+  }
+  .eum_header_inner,
+  .eum_mobile_overlay,
+  .eum_m_close {
+    display: none !important;
+  }
   .eum_header_spacer {
-    height: 60px;
+    height: 0;
+  }
+
+  .eum_mobile_nav {
+    top: 0;
+    left: 0;
+    right: auto;
+    width: var(--eum-side-w);
+    height: 100vh;
+    transition: none;
+    box-shadow: 4px 0 24px rgba(10, 25, 50, 0.12);
+  }
+  .eum_m_header {
+    height: auto;
+    padding: 24px 24px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .eum_m_header a {
+    display: block;
+  }
+  .eum_m_logo .eum_logo_mark {
+    font-size: 24px;
+  }
+  .eum_m_logo .eum_logo_en {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+  }
+  .eum_m_tel_banner {
+    padding: 14px 24px;
+    justify-content: flex-start;
+  }
+  .eum_m_tel_banner a {
+    font-size: 17px;
+    font-weight: 700;
+  }
+  /* 진료시간은 아래쪽에 표로 보이므로 위쪽 버튼은 숨깁니다 */
+  .eum_m_reserve_btns {
+    display: none;
+  }
+  .eum_m_body {
+    padding-bottom: 12px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+  }
+  .eum_m_gnb > li > a {
+    padding: 13px 24px;
+    font-size: 16.5px;
+    font-weight: 700;
+  }
+  .eum_m_gnb > li > a:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  .eum_m_lnb {
+    transition: none;
+  }
+  .eum_m_lnb_inner {
+    padding: 0 16px 12px 24px;
+  }
+  .eum_m_lnb a {
+    padding: 7px 12px;
+    font-size: 14.5px;
+  }
+
+  .eum_side_foot {
+    display: block;
+    flex-shrink: 0;
+    padding: 14px 24px 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  .eum_side_foot h2 {
+    font-size: 12.5px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: #9bbfe8;
+    margin-bottom: 10px;
+  }
+  .eum_side_foot dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 5px 12px;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.78);
+  }
+  .eum_side_foot dt {
+    font-weight: 600;
+    color: #ffffff;
+  }
+  .eum_side_foot dd {
+    text-align: right;
+  }
+}
+
+@media (max-width: 1279px) {
+  .eum_side_foot {
+    display: none;
   }
 }

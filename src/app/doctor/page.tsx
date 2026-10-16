@@ -5,7 +5,6 @@ import JsonLd from "@/components/JsonLd";
 import {
   SubPage,
   SubHero,
-  HeroInfoCard,
   KeyAnswer,
   Section,
   SectionHeader,
@@ -70,19 +69,6 @@ export default function DoctorPage() {
           image={DOCTOR.photo}
           imageAlt={`${CLINIC.name} ${DOCTOR.name}`}
           badges={DOCTOR.tags.map((tag) => tag.label)}
-          cards={
-            <>
-              <HeroInfoCard icon="user" label="진료" delay="d2">
-                {DOCTOR.position}
-              </HeroInfoCard>
-              <HeroInfoCard icon="cap" label="학력" teal delay="d3">
-                이화여자대학교 의과대학 졸업 (1989)
-              </HeroInfoCard>
-              <HeroInfoCard icon="phone" label="상담·예약" delay="d4">
-                {CLINIC.telephoneDisplay}
-              </HeroInfoCard>
-            </>
-          }
         />
 
         <Section tightTop narrow>
