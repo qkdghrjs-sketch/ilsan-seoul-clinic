@@ -800,3 +800,87 @@
 .hm_wave path {
   fill: currentColor;
 }
+
+/* ══════════════════════════════════════════════
+   공지 띠 (첫 화면, 공지가 있을 때만)
+══════════════════════════════════════════════ */
+.hm_notice {
+  background: #eef3fa;
+  padding: 0 20px;
+}
+.hm_notice_inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 16px 0;
+}
+.hm_notice_label {
+  flex: 0 0 auto;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #1a3a6c;
+}
+.hm_notice_list {
+  flex: 1 1 auto;
+  min-width: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.hm_notice_list a {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  color: #25324a;
+  text-decoration: none;
+  font-size: 15.5px;
+}
+.hm_notice_list a:hover .hm_notice_title {
+  text-decoration: underline;
+}
+.hm_notice_pin {
+  flex: 0 0 auto;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #b0322a;
+}
+.hm_notice_title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+}
+.hm_notice_date {
+  flex: 0 0 auto;
+  margin-left: auto;
+  font-size: 13px;
+  color: #7d8aa0;
+}
+.hm_notice_more {
+  flex: 0 0 auto;
+  font-size: 14px;
+  font-weight: 700;
+  color: #2b5ba8;
+  text-decoration: none;
+}
+@media (max-width: 640px) {
+  .hm_notice_inner {
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    padding: 14px 0;
+  }
+  .hm_notice_list {
+    flex-basis: 100%;
+    order: 3;
+  }
+  .hm_notice_more {
+    margin-left: auto;
+  }
+}

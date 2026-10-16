@@ -1,9 +1,13 @@
 import type { MetadataRoute } from "next";
 import { NAV } from "@/lib/nav";
 import { ESSAYS } from "@/lib/essays";
+import { getNotices } from "@/lib/notices";
 import { CONTENT_UPDATED, SITE_URL } from "@/lib/site";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+/** 새 공지가 사이트맵에도 반영되도록 1시간마다 새로 만듭니다 */
+export const revalidate = 3600;
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lastModified = new Date(CONTENT_UPDATED);
 
   const entries: MetadataRoute.Sitemap = [
@@ -29,6 +33,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.8,
       });
     }
+  }
+
+  /* 공지 글은 올릴 때마다 생기므로 사이트맵에도 하나씩 넣습니다 */
+  for (const notice of await getNotices()) {
+    entries.push({
+      url: `${SITE_URL}/notice/${notice.id}`,
+      lastModified: new Date(notice.updatedAt),
+      changeFrequency: "monthly",
+      priority: 0.4,
+    });
   }
 
   /* 에세이 글은 메뉴에 따로 없으므로 하나씩 추가합니다 */

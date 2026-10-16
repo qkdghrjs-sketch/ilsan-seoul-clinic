@@ -7,6 +7,7 @@ import { CLINIC } from "@/lib/site";
 import { DOCTOR } from "@/lib/doctor";
 import { CHECKUPS } from "@/lib/checkups";
 import { ESSAYS } from "@/lib/essays";
+import { formatNoticeDate, getNotices } from "@/lib/notices";
 
 const CheckMark = () => (
   <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -68,6 +69,38 @@ export function HomeHero() {
           </Link>
         </div>
       </Reveal>
+    </section>
+  );
+}
+
+/* ══════════════════════════════════════════════
+   1-2. 공지 띠 — 공지가 있을 때만 보입니다 (휴진 안내 등)
+══════════════════════════════════════════════ */
+export async function HomeNotices() {
+  const notices = (await getNotices()).slice(0, 3);
+  if (notices.length === 0) return null;
+
+  return (
+    <section className="hm_notice" aria-label="공지사항">
+      <div className="hm_notice_inner">
+        <strong className="hm_notice_label">공지사항</strong>
+        <ul className="hm_notice_list">
+          {notices.map((item) => (
+            <li key={item.id}>
+              <Link href={`/notice/${item.id}`}>
+                {item.pinned && <b className="hm_notice_pin">중요</b>}
+                <span className="hm_notice_title">{item.title}</span>
+                <time className="hm_notice_date">
+                  {formatNoticeDate(item.createdAt)}
+                </time>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <Link href="/notice" className="hm_notice_more">
+          전체 보기 →
+        </Link>
+      </div>
     </section>
   );
 }

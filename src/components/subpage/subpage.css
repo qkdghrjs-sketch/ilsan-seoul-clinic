@@ -2597,3 +2597,24 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ══════════════════════════════════════════════
+   공지사항
+══════════════════════════════════════════════ */
+.no_body p {
+  white-space: pre-line;
+}
+.no_pin {
+  color: #b0322a;
+  font-weight: 800;
+}
+.es_empty {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 44px 20px;
+  text-align: center;
+  font-size: 16.5px;
+  color: #667489;
+  background: #f4f7fb;
+  border-radius: 16px;
+}

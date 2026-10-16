@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import {
   HomeHero,
+  HomeNotices,
   HomeStats,
   HomeServices,
   HomeDoctor,
@@ -21,7 +22,10 @@ import {
   SITE_URL,
 } from "@/lib/site";
 
-const PAGE_TITLE = `${CLINIC.name} | 일산 주엽동 내과 · 수면 위내시경`;
+/** 공지가 올라오면 첫 화면에도 1분 안에 보이도록 합니다 */
+export const revalidate = 60;
+
+const PAGE_TITLE =`${CLINIC.name} | 일산 주엽동 내과 · 수면 위내시경`;
 
 export const metadata: Metadata = {
   title: { absolute: PAGE_TITLE },
@@ -86,6 +90,7 @@ export default function HomePage() {
     <div className="hm">
       <JsonLd data={homeSchemas()} />
       <HomeHero />
+      <HomeNotices />
       <HomeStats />
       <HomeServices />
       <HomeDoctor />

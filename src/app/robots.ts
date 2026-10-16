@@ -42,7 +42,8 @@ const SEARCH_CRAWLERS = [
 ];
 
 export default function robots(): MetadataRoute.Robots {
-  const allowAll = { allow: "/" };
+  /* 관리자 화면(/admin)은 모든 검색엔진·AI 크롤러에서 제외합니다 */
+  const allowAll = { allow: "/", disallow: ["/admin"] };
 
   return {
     rules: [

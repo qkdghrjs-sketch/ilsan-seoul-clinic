@@ -27,6 +27,11 @@ export const NAV: NavGroup[] = [
     ],
   },
   {
+    label: "공지사항",
+    href: "/notice",
+    children: [{ label: "공지사항", href: "/notice" }],
+  },
+  {
     label: "수면 위내시경",
     href: "/endoscopy",
     children: [
