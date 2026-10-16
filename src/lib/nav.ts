@@ -22,6 +22,7 @@ export const NAV: NavGroup[] = [
     href: "/doctor",
     children: [
       { label: "원장님 소개", href: "/doctor" },
+      { label: "본원 둘러보기", href: "/tour" },
       { label: "찾아오시는 길", href: "/location" },
     ],
   },
@@ -31,6 +32,17 @@ export const NAV: NavGroup[] = [
     children: [
       { label: "수면 위 내시경이란?", href: "/endoscopy" },
       { label: "수면 위 내시경 FAQ", href: "/endoscopy/faq" },
+    ],
+  },
+  {
+    label: "초음파검사",
+    href: "/ultrasound",
+    children: [
+      { label: "초음파검사 안내", href: "/ultrasound" },
+      { label: "심장 초음파", href: "/ultrasound/heart" },
+      { label: "갑상선 초음파", href: "/ultrasound/thyroid" },
+      { label: "경동맥 초음파", href: "/ultrasound/carotid" },
+      { label: "복부 초음파", href: "/ultrasound/abdomen" },
     ],
   },
   {
@@ -44,6 +56,11 @@ export const NAV: NavGroup[] = [
       { label: "국민공단검진", href: "/checkup/nhis" },
       { label: "정밀종합검사", href: "/checkup/premium" },
     ],
+  },
+  {
+    label: "수액 치료센터",
+    href: "/iv",
+    children: [{ label: "수액 치료센터 안내", href: "/iv" }],
   },
 ];
 

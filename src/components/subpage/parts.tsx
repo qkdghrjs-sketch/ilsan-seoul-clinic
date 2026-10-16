@@ -421,3 +421,30 @@ export function SubCta({
     </div>
   );
 }
+
+/* ══════════════════════════════════════════════
+   사진 모음 (검사 화면 예시 · 본원 둘러보기)
+══════════════════════════════════════════════ */
+export function Gallery({
+  items,
+  wide,
+}: {
+  items: Array<{ src: string; alt: string; caption?: string }>;
+  /** 가로로 긴 사진(병원 내부)일 때 */
+  wide?: boolean;
+}) {
+  return (
+    <div className={`sp_gallery${wide ? " wide" : ""}`}>
+      {items.map((item, index) => (
+        <figure
+          className={`eum_rv d${Math.min(index + 2, 5)} sp_gallery_item`}
+          key={item.src}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={item.src} alt={item.alt} loading="lazy" />
+          {item.caption && <figcaption>{item.caption}</figcaption>}
+        </figure>
+      ))}
+    </div>
+  );
+}

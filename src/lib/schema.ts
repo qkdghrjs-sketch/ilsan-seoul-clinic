@@ -34,12 +34,17 @@ export function doctorSchema() {
       {
         "@type": "EducationalOccupationalCredential",
         credentialCategory: "전문의",
-        name: "소화기내시경 전문의 (1999)",
+        name: "소화기내시경 세부전문의",
+      },
+      {
+        "@type": "EducationalOccupationalCredential",
+        credentialCategory: "인증",
+        name: "심장초음파 세부인증의",
       },
       {
         "@type": "EducationalOccupationalCredential",
         credentialCategory: "학위",
-        name: "의학박사 (1996)",
+        name: "의학박사 학위 수료 (1996)",
       },
     ],
     award: DOCTOR.awards.map((item) => `${item.year} ${item.text}`),

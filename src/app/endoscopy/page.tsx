@@ -12,6 +12,7 @@ import {
   SectionHeader,
   IntroBox,
   SummaryBox,
+  Gallery,
   Note,
   SubCta,
 } from "@/components/subpage/parts";
@@ -117,6 +118,33 @@ export default function EndoscopyPage() {
               <span key={index}>{paragraph}</span>
             ))}
           />
+        </Section>
+
+        {/* 검사 화면 예시 — 원장님 요청: 참고용으로 두 장만 */}
+        <Section tightTop narrow>
+          <SectionHeader
+            eyebrow="EXAMPLE"
+            title="검사 화면 예시"
+            desc="내시경 검사 중 촬영한 영상의 예시입니다."
+          />
+          <Gallery
+            items={[
+              {
+                src: "/images/endo/endo-1.jpg",
+                alt: "위내시경 검사 화면 예시",
+                caption: "위내시경 영상 예시 1",
+              },
+              {
+                src: "/images/endo/endo-2.jpg",
+                alt: "위내시경 검사 화면 예시",
+                caption: "위내시경 영상 예시 2",
+              },
+            ]}
+          />
+          <p className="sp_gallery_note">
+            개인 식별정보는 제외한 화면이며, 검사 소견은 개인의 상태에 따라
+            다르게 나타날 수 있습니다.
+          </p>
         </Section>
 
         {/* 검사 진행 순서 */}

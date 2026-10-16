@@ -2377,3 +2377,55 @@
     bottom: -24px;
   }
 }
+
+/* ══════════════════════════════════════════════
+   사진 모음 — 테두리 대신 그림자
+══════════════════════════════════════════════ */
+.sp_gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+.sp_gallery.wide {
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+.sp_gallery_item {
+  margin: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #0b1020;
+  box-shadow: 0 10px 30px rgba(26, 58, 108, 0.14);
+}
+.sp_gallery_item img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.sp_gallery.wide .sp_gallery_item {
+  background: #fff;
+}
+.sp_gallery_item figcaption {
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: #1a3a6c;
+}
+.sp_gallery.wide .sp_gallery_item img {
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+.sp_gallery_note {
+  margin: 16px 0 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #6b7a90;
+  text-align: center;
+}
+@media (max-width: 640px) {
+  .sp_gallery,
+  .sp_gallery.wide {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

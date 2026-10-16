@@ -109,7 +109,7 @@ export function pageSchemas({
     page.reviewedBy = {
       "@type": "Person",
       name: `${CLINIC.founder} 원장`,
-      jobTitle: "내과 전문의 · 소화기내시경 전문의",
+      jobTitle: "내과 전문의 · 소화기내시경 세부전문의",
       affiliation: { "@id": CLINIC_ID },
     };
   }

@@ -3,6 +3,8 @@ import { DOCTOR } from "@/lib/doctor";
 import { ENDOSCOPY_INTRO, ENDOSCOPY_STEPS, ENDOSCOPY_FAQ } from "@/lib/endoscopy";
 import { CHECKUPS, NHIS_SECTIONS, PREMIUM_GROUPS } from "@/lib/checkups";
 import { reactToText } from "@/lib/page-schema";
+import { ULTRASOUNDS } from "@/lib/ultrasound";
+import { IV_ITEMS } from "@/lib/iv";
 
 /**
  * /llms-full.txt — 사이트의 모든 안내 내용을 요약 없이 담은 평문 문서.
@@ -125,6 +127,33 @@ export function GET() {
   }
   lines.push("");
   lines.push(`출처: ${SITE_URL}/checkup/premium`);
+  lines.push("");
+
+  /* ── 초음파검사 ── */
+  lines.push("## 초음파검사");
+  lines.push("");
+  for (const item of ULTRASOUNDS) {
+    lines.push(`### ${item.label}`);
+    lines.push("");
+    lines.push(item.answerA);
+    lines.push("");
+    for (const point of item.points) lines.push(`- ${point}`);
+    lines.push("");
+    lines.push(`출처: ${SITE_URL}${item.path}`);
+    lines.push("");
+  }
+
+  /* ── 수액 치료센터 ── */
+  lines.push("## 수액 치료센터");
+  lines.push("");
+  for (const item of IV_ITEMS) {
+    const parts = [item.purpose, item.contents.length > 0 ? `구성: ${item.contents.join(", ")}` : ""]
+      .filter(Boolean)
+      .join(" / ");
+    lines.push(`- ${item.title}${parts ? ` — ${parts}` : ""}`);
+  }
+  lines.push("");
+  lines.push(`출처: ${SITE_URL}/iv`);
   lines.push("");
 
   /* ── 오시는 길 ── */

@@ -77,7 +77,7 @@ export function HomeHero() {
 const STATS = [
   { num: "1989", label: "이화여자대학교\n의과대학 졸업" },
   { num: "30년+", label: "내과 진료 경력" },
-  { num: "1999", label: "소화기내시경\n전문의 수료" },
+  { num: "세부전문", label: "소화기내시경\n심장초음파 인증" },
   { num: "1:1", label: "내시경 시 한 시간 간격\n한 분씩 검사" },
 ];
 
@@ -125,11 +125,11 @@ const SERVICES: ServiceCard[] = [
     accent: "#2b5ba8",
   },
   {
-    icon: "list",
-    title: "수면 위 내시경 FAQ",
-    desc: "가능한 연령대, 소요 시간, 금식 시간, 복용 중인 약 처리까지 자주 묻는 10가지 질문에 답해 드립니다.",
-    tags: ["금식 안내", "고혈압·당뇨 복약", "예약 방법"],
-    href: "/endoscopy/faq",
+    icon: "pulse",
+    title: "초음파검사",
+    desc: "심장초음파 세부인증의인 원장이 심장·갑상선·경동맥·복부 초음파를 직접 검사하고 영상으로 설명해 드립니다.",
+    tags: ["심장", "갑상선", "경동맥", "복부"],
+    href: "/ultrasound",
     accent: "#2e9580",
   },
   {
@@ -139,6 +139,14 @@ const SERVICES: ServiceCard[] = [
     tags: ["6개월 정기검사", "공단검진", "정밀종합검사"],
     href: "/checkup",
     accent: "#2f9fc4",
+  },
+  {
+    icon: "drop",
+    title: "수액 치료센터",
+    desc: "진찰 후 현재 상태에 맞는 수액을 안내해 드립니다. 감기수액부터 어르신 수액, 프리미엄 집중 수액까지 일곱 가지를 운영합니다.",
+    tags: ["감기수액", "어르신 수액", "수험생 수액"],
+    href: "/iv",
+    accent: "#4bb89c",
   },
 ];
 
@@ -211,7 +219,7 @@ export function HomeDoctor() {
             <p className="hm_doc_sign">
               <b>{DOCTOR.name}</b>
               <br />
-              {DOCTOR.current.join(" · ")}
+              {DOCTOR.currentShort.join(" · ")}
             </p>
             <Link href="/doctor" className="hm_doc_btn">
               원장님 소개 보기
