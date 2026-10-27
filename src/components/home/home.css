@@ -1,6 +1,6 @@
 /* ==============================================================
    일산서울내과의원 홈 화면
-   사진 대신 글자·아이콘·여백으로 신뢰감을 만드는 구성입니다.
+   첫 화면은 병원 실제 사진을 대문처럼 크게, 아래는 글자·아이콘·여백으로 구성합니다.
 ============================================================== */
 .hm {
   --navy: #1a3a6c;
@@ -84,31 +84,187 @@
 .hm_hero {
   position: relative;
   overflow: hidden;
-  background:
-    radial-gradient(
-      120% 90% at 82% 12%,
-      rgba(74, 144, 217, 0.28) 0%,
-      rgba(26, 58, 108, 0) 60%
-    ),
-    linear-gradient(135deg, #12294e 0%, #1a3a6c 52%, #23508f 100%);
+  background: #12294e;
   color: #ffffff;
-  padding: clamp(84px, 11vw, 150px) 20px clamp(70px, 9vw, 120px);
+  /* 첫 화면 = 사진 대문 + 아래 신뢰 지표 띠까지 한 화면에 */
+  min-height: max(600px, calc(100svh - 150px));
+  display: flex;
+  align-items: center;
+  padding: clamp(84px, 9vw, 130px) 20px clamp(96px, 9vw, 130px);
 }
-/* 은은한 격자 — 사진 없이 화면에 밀도를 줍니다 */
-.hm_hero::after {
+
+/* 배경 사진 — 18초에 한 바퀴, 한 장씩 천천히 다가오며 바뀝니다 */
+.hm_hero_bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.hm_hero_photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  animation: hm_photo 18s linear infinite;
+}
+.hm_hero_photo.p1,
+.hm_hero_cap.p1,
+.hm_hero_bars .p1::after {
+  animation-delay: -0.9s;
+}
+.hm_hero_photo.p2,
+.hm_hero_cap.p2,
+.hm_hero_bars .p2::after {
+  animation-delay: 5.1s;
+}
+.hm_hero_photo.p3,
+.hm_hero_cap.p3,
+.hm_hero_bars .p3::after {
+  animation-delay: 11.1s;
+}
+@keyframes hm_photo {
+  0% {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+  5% {
+    opacity: 1;
+  }
+  33% {
+    opacity: 1;
+  }
+  38% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+/* 글이 잘 읽히도록 왼쪽은 짙은 남색, 오른쪽으로 갈수록 사진이 보입니다 */
+.hm_hero_bg::after {
   content: "";
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
-  background-size: 62px 62px;
-  mask-image: radial-gradient(90% 80% at 50% 40%, #000 20%, transparent 90%);
+  background:
+    linear-gradient(
+      90deg,
+      rgba(13, 31, 62, 0.86) 0%,
+      rgba(16, 38, 76, 0.62) 45%,
+      rgba(18, 41, 78, 0.22) 100%
+    ),
+    linear-gradient(180deg, rgba(13, 31, 62, 0) 55%, rgba(13, 31, 62, 0.55) 100%);
+}
+
+/* 사진 이름표 + 진행 막대 (왼쪽 아래) */
+.hm_hero_caps {
+  position: absolute;
+  z-index: 3;
+  left: max(20px, calc((100% - 1180px) / 2));
+  bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-width: 260px;
+  height: 20px;
   pointer-events: none;
 }
+.hm_hero_cap {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: rgba(255, 255, 255, 0.85);
+  white-space: nowrap;
+  opacity: 0;
+  animation: hm_cap 18s linear infinite;
+}
+.hm_hero_cap b {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #9bd4f0;
+}
+@keyframes hm_cap {
+  0% {
+    opacity: 0;
+  }
+  5%,
+  33% {
+    opacity: 1;
+  }
+  38%,
+  100% {
+    opacity: 0;
+  }
+}
+.hm_hero_bars {
+  display: flex;
+  gap: 6px;
+  margin-left: 150px;
+}
+.hm_hero_bars i {
+  position: relative;
+  display: block;
+  width: 34px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.25);
+  overflow: hidden;
+}
+.hm_hero_bars i::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+  transform-origin: left center;
+  opacity: 0;
+  animation: hm_bar 18s linear infinite;
+}
+@keyframes hm_bar {
+  0% {
+    transform: scaleX(0);
+    opacity: 1;
+  }
+  36% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  40%,
+  100% {
+    transform: scaleX(1);
+    opacity: 0;
+  }
+}
+
+/* 움직임 줄이기 설정이면 첫 사진 한 장만 고정 */
+@media (prefers-reduced-motion: reduce) {
+  .hm_hero_photo,
+  .hm_hero_cap,
+  .hm_hero_bars i::after {
+    animation: none;
+  }
+  .hm_hero_photo.p1,
+  .hm_hero_cap.p1 {
+    opacity: 1;
+  }
+  .hm_hero_bars {
+    display: none;
+  }
+}
+
 .hm_hero_inner {
   position: relative;
   z-index: 2;
+  width: 100%;
   max-width: 1180px;
   margin: 0 auto;
   display: grid;
@@ -198,11 +354,13 @@
 
 /* 히어로 우측 — 원장 요약 카드 */
 .hm_hero_card {
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(13, 31, 62, 0.58);
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 20px;
   padding: clamp(24px, 2.6vw, 34px);
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 24px 60px rgba(5, 14, 32, 0.35);
 }
 .hm_card_label {
   display: inline-block;
@@ -266,6 +424,36 @@
 }
 
 @media (max-width: 900px) {
+  /* 휴대폰: 사진은 위쪽 글자 영역까지만, 아래 원장 카드는 남색 바탕 */
+  .hm_hero {
+    display: block;
+    min-height: 0;
+    padding: 64px 20px 56px;
+  }
+  .hm_hero_bg {
+    bottom: auto;
+    height: min(100%, 640px);
+  }
+  .hm_hero_bg::after {
+    background:
+      linear-gradient(180deg, rgba(13, 31, 62, 0.6) 0%, rgba(13, 31, 62, 0.66) 55%, #12294e 100%);
+  }
+  .hm_hero_caps {
+    left: auto;
+    right: 20px;
+    top: 22px;
+    bottom: auto;
+    min-width: 0;
+    justify-content: flex-end;
+  }
+  .hm_hero_cap {
+    left: auto;
+    right: 0;
+    font-size: 12px;
+  }
+  .hm_hero_bars {
+    display: none;
+  }
   .hm_hero_inner {
     grid-template-columns: 1fr;
     gap: 34px;

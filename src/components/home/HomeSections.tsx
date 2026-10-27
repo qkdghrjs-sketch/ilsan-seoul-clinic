@@ -17,10 +17,45 @@ const CheckMark = () => (
 
 /* ══════════════════════════════════════════════
    1. 히어로 — 30년 진료 경력의 여의사 원장
+   병원 실제 사진이 화면을 가득 채우며 천천히 바뀝니다 (대문 역할).
 ══════════════════════════════════════════════ */
+const HERO_PHOTOS = [
+  { src: "/images/tour/entrance.jpg", caption: "병원 입구", pos: "28% 50%" },
+  { src: "/images/tour/lobby.jpg", caption: "접수 · 대기 공간", pos: "40% 50%" },
+  { src: "/images/tour/exam-1.jpg", caption: "검사실", pos: "70% 50%" },
+];
+
 export function HomeHero() {
   return (
     <section className="hm_hero">
+      <div className="hm_hero_bg" aria-hidden="true">
+        {HERO_PHOTOS.map((photo, index) => (
+          <img
+            key={photo.src}
+            src={photo.src}
+            alt=""
+            className={`hm_hero_photo p${index + 1}`}
+            style={{ objectPosition: photo.pos }}
+            fetchPriority={index === 0 ? "high" : "low"}
+            loading={index === 0 ? "eager" : "lazy"}
+          />
+        ))}
+      </div>
+
+      <div className="hm_hero_caps" aria-hidden="true">
+        {HERO_PHOTOS.map((photo, index) => (
+          <span className={`hm_hero_cap p${index + 1}`} key={photo.src}>
+            <b>{String(index + 1).padStart(2, "0")}</b>
+            {photo.caption}
+          </span>
+        ))}
+        <span className="hm_hero_bars">
+          {HERO_PHOTOS.map((photo, index) => (
+            <i className={`p${index + 1}`} key={photo.src} />
+          ))}
+        </span>
+      </div>
+
       <Reveal className="hm_hero_inner" selector=".rv">
         <div>
           <span className="rv hm_eyebrow">
