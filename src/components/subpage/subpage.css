@@ -3139,3 +3139,15 @@
   font-size: 13px;
   color: var(--sp-faint);
 }
+
+/* 「공지」 표시가 좁은 휴대폰에서 세로로 꺾이지 않게 */
+.bd_pin {
+  white-space: nowrap;
+}
+@media (max-width: 640px) {
+  .bd_pin {
+    margin-right: 0;
+    padding: 2px 5px;
+    font-size: 11px;
+  }
+}
