@@ -4,6 +4,7 @@ import SubPageHeader from "@/components/layout/SubPageHeader";
 import JsonLd from "@/components/JsonLd";
 import { SubPage, Section } from "@/components/subpage/parts";
 import Board, { toPage, BOARD_PAGE_SIZE } from "@/components/subpage/Board";
+import AdminBar from "@/components/subpage/AdminBar";
 import { pageSchemas } from "@/lib/page-schema";
 import { formatNoticeDate, getNotices } from "@/lib/notices";
 
@@ -60,6 +61,7 @@ export default async function NoticeIndexPage({
             basePath={PATH}
             emptyText="등록된 공지가 없습니다."
           />
+          <AdminBar writeHref="/notice/write" returnPath="/notice" />
         </Section>
       </SubPage>
     </>

@@ -472,3 +472,60 @@
     padding-bottom: 8px;
   }
 }
+
+/* ──────────────────────────────────────────────
+   메뉴 바로 밑 「찾아오시는 길」 — 주소 · 전화
+────────────────────────────────────────────── */
+.eum_side_loc {
+  display: block;
+  flex-shrink: 0;
+  margin: 8px 16px 12px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+.eum_side_loc:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+.eum_side_loc h2 {
+  margin: 0 0 6px;
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #9bbfe8;
+}
+.eum_side_loc p {
+  margin: 0 0 6px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+  word-break: keep-all;
+}
+.eum_side_loc strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 16px;
+  font-weight: 800;
+  color: #ffffff;
+}
+@media (min-width: 1280px) and (max-height: 780px) {
+  .eum_side_loc {
+    margin: 4px 16px 8px;
+    padding: 8px 12px;
+  }
+  .eum_side_loc h2 {
+    margin-bottom: 3px;
+  }
+  .eum_side_loc p {
+    margin-bottom: 3px;
+    font-size: 12px;
+  }
+  .eum_side_loc strong {
+    font-size: 15px;
+  }
+}

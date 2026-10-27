@@ -38,6 +38,7 @@
 - 주소 이전(iseoulmed.com → 이 사이트)은 원장님이 "옮겨 주세요" 한 뒤에 M서클에 연락.
 
 ### 관리자(/admin) 운영 설정 — 2026-10-17 완료
+- (2026-10-27) 공지사항·에세이 목록 아래 「관리자 로그인」(맨 아래 정보 줄에도 있음) → 로그인하면 원래 페이지로 돌아오고 「✎ 글쓰기」가 생긴다. 글쓰기는 블로그식 화면 `/notice/write`·`/essay/write`(`src/app/admin/editor.tsx`, 이 기기에 임시 저장). 글 화면 아래 「수정·삭제」는 관리자에게만 보인다(옛 에세이 8편은 수정 불가). 비밀번호는 2026-10-27 사용자가 정한 값으로 Vercel에서 교체함.
 - 공지·에세이는 원장님이 `/admin`에서 올린다(탭 2개). 아이디 `admin`. **비밀번호는 Vercel 환경변수 `ADMIN_PASSWORD`에만 있고, 문서·코드·채팅·깃허브에 적지 않는다.** 바꿀 때는 Vercel(Settings → Environment Variables, Production)에서 값을 바꾸고 Redeploy(`vercel redeploy <최근 배포 주소>`). 바꾸면 기존 로그인은 모두 풀린다.
 - 글 저장소: Vercel Blob `ilsan-seoul-posts`(비공개, 프로젝트에 연결됨). 파일 `notices/notices.json`, `essays/essays.json`. 환경변수 `ADMIN_ID` · `ADMIN_PASSWORD` · `ADMIN_SESSION_SECRET`(Production만) + `BLOB_READ_WRITE_TOKEN`(자동).
 - ⚠ **이 폴더 `.env.local`에는 (1) 이움내과 운영 DB 키·옛 관리자 값이 복사되어 있고(이 사이트는 안 쓰며 깃에는 안 올라감), (2) `vercel link`/`create-store`가 `BLOB_READ_WRITE_TOKEN`·`VERCEL_OIDC_TOKEN`을 넣어 두었다.** 그래서 로컬 `next dev`/`next start`는 **운영 글 저장소에 그대로 쓰기**가 된다. 로컬에서 시험할 때는 `.env.development.local`(깃 제외)에 `BLOB_READ_WRITE_TOKEN=`(빈 값)과 시험용 `ADMIN_*`를 두어 `.data/` 파일 저장으로 돌리고, 끝나면 그 파일과 `.data/`를 지운다. 시험 글에는 「(시험)」「(예시)」를 붙인다.

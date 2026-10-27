@@ -4,6 +4,7 @@ import SubPageHeader from "@/components/layout/SubPageHeader";
 import JsonLd from "@/components/JsonLd";
 import { SubPage, Section } from "@/components/subpage/parts";
 import Board, { toPage, BOARD_PAGE_SIZE } from "@/components/subpage/Board";
+import AdminBar from "@/components/subpage/AdminBar";
 import { pageSchemas } from "@/lib/page-schema";
 import { CLINIC, SITE_URL } from "@/lib/site";
 import type { Essay } from "@/lib/essays";
@@ -79,6 +80,7 @@ export default async function EssayIndexPage({
             basePath={PATH}
             emptyText="등록된 글이 없습니다."
           />
+          <AdminBar writeHref="/essay/write" returnPath="/essay" />
         </Section>
       </SubPage>
     </>

@@ -8,6 +8,8 @@ import { SubPage, Section } from "@/components/subpage/parts";
 import { pageSchemas } from "@/lib/page-schema";
 import { CLINIC } from "@/lib/site";
 import { formatNoticeDate, getNotice } from "@/lib/notices";
+import { AdminPostTools } from "@/components/subpage/AdminBar";
+import { deleteNoticeAction } from "@/app/admin/actions";
 
 type Params = { params: Promise<{ id: string }> };
 
@@ -87,8 +89,14 @@ export default async function NoticePage({ params }: Params) {
               공지 목록으로 →
             </Link>
           </div>
-        </Section>
 
+          <AdminPostTools
+            editHref={`/notice/write?edit=${notice.id}`}
+            deleteAction={deleteNoticeAction}
+            id={notice.id}
+            confirmMessage="이 공지를 삭제할까요? 삭제하면 되돌릴 수 없습니다."
+          />
+        </Section>
       </SubPage>
     </>
   );

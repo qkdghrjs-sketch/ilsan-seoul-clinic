@@ -25,6 +25,7 @@ type SearchParams = Promise<{
   deleted?: string;
   error?: string;
   edit?: string;
+  next?: string;
 }>;
 
 export default async function AdminPage({
@@ -44,11 +45,17 @@ export default async function AdminPage({
           <p className="ad_kicker">ADMIN</p>
           <h1 className="ad_title">관리자 로그인</h1>
           <p className="ad_desc">
-            공지사항과 에세이를 올리고 고치는 곳입니다. 원장님만 들어올 수
-            있습니다.
+            로그인하면 공지사항과 김금미 에세이에 「글쓰기」 단추가 생깁니다.
+            원장님만 들어올 수 있습니다.
           </p>
           {configured ? (
-            <LoginForm />
+            <LoginForm
+              next={
+                params.next?.startsWith("/") && !params.next.startsWith("//")
+                  ? params.next
+                  : undefined
+              }
+            />
           ) : (
             <p className="ad_error" role="alert">
               관리자 설정이 아직 끝나지 않았습니다. 담당자에게 문의해 주세요.

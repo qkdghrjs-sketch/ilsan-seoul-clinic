@@ -127,17 +127,29 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-template-rows: repeat(2, minmax(0, 1fr));
+  /* 찾아오시는 길은 PC에선 왼쪽 메뉴 밑에 있으므로, 에세이가 오른쪽 두 칸을 씁니다 */
   grid-template-areas:
     "doc endo essay"
-    "tour us loc";
+    "tour us essay";
   gap: clamp(8px, 1.4vh, 14px);
 }
 .a_doc { grid-area: doc; }
 .a_endo { grid-area: endo; }
 .a_essay { grid-area: essay; }
+/* 두 칸에 걸친 에세이 상자가 글 개수만큼 줄 높이를 늘리지 않게 */
+@media (min-width: 1280px) {
+  .a_essay {
+    contain: size;
+  }
+}
 .a_tour { grid-area: tour; }
 .a_us { grid-area: us; }
 .a_loc { grid-area: loc; }
+@media (min-width: 1280px) {
+  .hm_box.a_loc {
+    display: none;
+  }
+}
 
 .hm_box {
   display: flex;
@@ -343,8 +355,8 @@
   font-size: 12px;
   color: #8a97ad;
 }
-/* 화면이 낮으면 3편만 */
-@media (max-height: 820px) {
+/* 화면이 낮으면 3편만 (휴대폰·태블릿) */
+@media (max-height: 820px) and (max-width: 1279px) {
   .hm_essay_list li:nth-child(n + 4) {
     display: none;
   }
@@ -519,5 +531,26 @@
   }
   .hm_essay_list li:nth-child(n + 4) {
     display: none;
+  }
+}
+
+/* 휴대폰: 에세이는 4편까지 */
+@media (max-width: 1279px) {
+  .hm_essay_list li:nth-child(n + 5) {
+    display: none;
+  }
+}
+/* PC 낮은 화면: 에세이 5편까지 */
+@media (min-width: 1280px) and (max-height: 700px) {
+  .hm_essay_list li:nth-child(n + 6) {
+    display: none;
+  }
+}
+
+/* PC: 두 칸 높이 에세이 상자는 위에서부터 */
+@media (min-width: 1280px) {
+  .a_essay .hm_essay_list {
+    justify-content: flex-start;
+    gap: 2px;
   }
 }

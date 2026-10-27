@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 
 import {
   login,
@@ -9,19 +9,24 @@ import {
   type FormState,
 } from "./actions";
 
-export function LoginForm() {
+export function LoginForm({ next }: { next?: string }) {
   const [state, action, pending] = useActionState<FormState, FormData>(
     login,
     undefined,
   );
+  /* 비밀번호가 틀려도 아이디는 지워지지 않게 */
+  const [loginId, setLoginId] = useState("");
 
   return (
     <form action={action} className="ad_form" autoComplete="on">
+      {next && <input type="hidden" name="next" value={next} />}
       <label className="ad_field">
         <span>아이디</span>
         <input
           name="id"
           type="text"
+          value={loginId}
+          onChange={(event) => setLoginId(event.target.value)}
           autoComplete="username"
           required
           autoFocus

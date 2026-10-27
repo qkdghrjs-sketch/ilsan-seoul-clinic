@@ -10,6 +10,8 @@ import { DOCTOR_ID } from "@/lib/schema";
 import { SITE_URL } from "@/lib/site";
 import { ESSAYS } from "@/lib/essays";
 import { findEssayAny, getAllEssays } from "@/lib/essay-posts";
+import { AdminPostTools } from "@/components/subpage/AdminBar";
+import { deleteEssayAction } from "@/app/admin/actions";
 
 type Params = { params: Promise<{ id: string }> };
 
@@ -143,8 +145,17 @@ export default async function EssayPage({ params }: Params) {
               에세이 목록으로 →
             </Link>
           </div>
-        </Section>
 
+          {/* 원장님이 새로 올린 글만 수정·삭제 (옛 홈페이지 8편은 원문 보존) */}
+          {!ESSAYS.some((item) => String(item.id) === String(essay.id)) && (
+            <AdminPostTools
+              editHref={`/essay/write?edit=${essay.id}`}
+              deleteAction={deleteEssayAction}
+              id={String(essay.id)}
+              confirmMessage="이 에세이를 삭제할까요? 삭제하면 되돌릴 수 없습니다."
+            />
+          )}
+        </Section>
       </SubPage>
     </>
   );

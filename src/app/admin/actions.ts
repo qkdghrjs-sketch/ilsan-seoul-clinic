@@ -33,6 +33,12 @@ async function clientIp() {
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
+/** 로그인·저장 뒤 돌아갈 주소 — 우리 사이트 안의 주소만 받습니다 */
+function safeNext(value: FormDataEntryValue | null, fallback: string) {
+  const next = String(value ?? "");
+  return next.startsWith("/") && !next.startsWith("//") ? next : fallback;
+}
+
 /** 관리자 로그인 */
 export async function login(
   _state: FormState,
@@ -63,13 +69,13 @@ export async function login(
 
   clearFailures(ip);
   await startAdminSession();
-  redirect("/admin");
+  redirect(safeNext(formData.get("next"), "/admin"));
 }
 
 /** 로그아웃 */
-export async function logout() {
+export async function logout(formData?: FormData) {
   await endAdminSession();
-  redirect("/admin");
+  redirect(safeNext(formData?.get("next") ?? null, "/admin"));
 }
 
 /** 공지 새로 쓰기 / 수정 */
@@ -101,8 +107,10 @@ export async function saveNoticeAction(
     return { error: `내용은 ${BODY_MAX.toLocaleString("ko-KR")}자 이내로 적어 주세요.` };
   }
 
+  let savedId = "";
   try {
     const saved = await saveNotice({ id, title, body, pinned });
+    savedId = saved.id;
     revalidatePath("/notice");
     revalidatePath(`/notice/${saved.id}`);
     revalidatePath("/");
@@ -112,7 +120,10 @@ export async function saveNoticeAction(
     return { error: "저장하지 못했습니다. 잠시 뒤 다시 시도해 주세요." };
   }
 
-  redirect("/admin?saved=1");
+  // 글쓰기 화면에서 올리면 방금 올린 글로 바로 이동합니다
+  redirect(
+    formData.get("return") === "post" ? `/notice/${savedId}` : "/admin?saved=1",
+  );
 }
 
 /** 공지 삭제 */
@@ -132,7 +143,7 @@ export async function deleteNoticeAction(formData: FormData) {
       redirect("/admin?error=delete");
     }
   }
-  redirect("/admin?deleted=1");
+  redirect(formData.get("return") === "board" ? "/notice" : "/admin?deleted=1");
 }
 
 /* ── 에세이 ───────────────────────────────────────────── */
@@ -186,6 +197,7 @@ export async function saveEssayAction(
     };
   }
 
+  let savedId = "";
   try {
     const saved = await saveEssayPost({
       id,
@@ -194,6 +206,7 @@ export async function saveEssayAction(
       source: source || null,
       body,
     });
+    savedId = saved.id;
     revalidatePath("/essay");
     revalidatePath(`/essay/${saved.id}`);
     revalidatePath("/");
@@ -203,7 +216,11 @@ export async function saveEssayAction(
     return { error: "저장하지 못했습니다. 잠시 뒤 다시 시도해 주세요." };
   }
 
-  redirect("/admin?tab=essay&saved=1");
+  redirect(
+    formData.get("return") === "post"
+      ? `/essay/${savedId}`
+      : "/admin?tab=essay&saved=1",
+  );
 }
 
 /** 에세이 삭제 */
@@ -223,5 +240,7 @@ export async function deleteEssayAction(formData: FormData) {
       redirect("/admin?tab=essay&error=delete");
     }
   }
-  redirect("/admin?tab=essay&deleted=1");
+  redirect(
+    formData.get("return") === "board" ? "/essay" : "/admin?tab=essay&deleted=1",
+  );
 }

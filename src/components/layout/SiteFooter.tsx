@@ -150,6 +150,9 @@ export default function SiteFooter() {
                 </button>
                 <Link href="/doctor">원장님 소개</Link>
                 <Link href="/location">오시는 길</Link>
+                <Link href="/admin?next=/notice" rel="nofollow">
+                  관리자 로그인
+                </Link>
               </div>
             </div>
           </div>

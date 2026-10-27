@@ -63,7 +63,7 @@ function BoxHead({
 }
 
 export async function HomeGate() {
-  const essays = (await getAllEssays()).slice(0, 4);
+  const essays = (await getAllEssays()).slice(0, 6);
 
   return (
     <section className="hm_gate" aria-label={`${CLINIC.name} 첫 화면`}>
