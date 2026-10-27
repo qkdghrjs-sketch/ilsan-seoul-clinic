@@ -280,8 +280,8 @@
   background: var(--sky);
 }
 
-/* 에세이 목록 — 화면이 낮으면 3편만 */
-@media (max-height: 860px) and (min-width: 1280px) {
+/* 에세이 목록 — PC 한 화면에는 3편만 (휴대폰은 4편) */
+@media (min-width: 1280px) {
   .hm_essay_list li:nth-child(n + 4) {
     display: none;
   }
