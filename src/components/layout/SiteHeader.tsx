@@ -256,29 +256,33 @@ export default function SiteHeader() {
           </ul>
         </div>
 
-        {/* 메뉴 바로 밑: 찾아오시는 길 (원장님 요청 2026-10-27 — 옛 홈피처럼 메뉴 아래) */}
-        <Link href="/location" className="eum_side_loc">
-          <h2>찾아오시는 길</h2>
-          <p>{CLINIC.address.full}</p>
-          <strong>
-            <PhoneIcon size={13} />
+        {/*
+          메뉴 바로 밑 — 옛 홈페이지 「상담 및 예약전화 · 진료시간」 상자 그대로
+          (원장님 요청 2026-10-27) + 찾아오시는 길(주소)
+        */}
+        <div className="eum_side_info">
+          <p className="si_title">상담 및 예약전화</p>
+          <a href={`tel:${CLINIC.telephoneDisplay}`} className="si_tel">
             {CLINIC.telephoneDisplay}
-          </strong>
-        </Link>
-
-        {/* PC 세로 메뉴 아래쪽: 진료시간 */}
-        <div className="eum_side_foot">
-          <h2>진료시간</h2>
-          <dl>
+          </a>
+          <p className="si_pill">진료시간</p>
+          <ul className="si_hours">
             {CLINIC.outpatientRows.map((row) => (
-              <div key={row.label} style={{ display: "contents" }}>
-                <dt>{row.label}</dt>
-                <dd>{row.value}</dd>
-              </div>
+              <li
+                key={row.label}
+                className={
+                  row.label === "점심시간" || row.value === "휴진" ? "hl" : ""
+                }
+              >
+                <span>{row.label}</span> : {row.value}
+              </li>
             ))}
-          </dl>
-        </div>
-      </nav>
+          </ul>
+          <Link href="/location" className="si_loc">
+            <b>찾아오시는 길</b>
+            {CLINIC.address.full}
+          </Link>
+        </div>      </nav>
     </div>
   );
 }
