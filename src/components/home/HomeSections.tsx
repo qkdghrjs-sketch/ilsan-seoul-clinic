@@ -76,9 +76,13 @@ export async function HomeGate() {
         <FlowerLogo className="hm_banner_logo" />
       </div>
 
-      {/* 2. 바로가기 상자 6개 */}
+      {/*
+        2. 바로가기 상자 6개 — 옛 홈페이지 배치 그대로
+           윗줄: 원장님 소개 | 수면 위내시경 | 김금미 에세이
+           아랫줄: 본원 둘러보기 | 초음파 검사 | 찾아오시는 길(주소·전화, 에세이 바로 밑)
+      */}
       <div className="hm_boxes">
-        <article className="hm_box">
+        <article className="hm_box a_doc">
           <BoxHead title="원장님 소개" en="DOCTOR" href="/doctor" />
           <Link href="/doctor" className="hm_box_body">
             <span className="hm_thumb portrait">
@@ -87,14 +91,13 @@ export async function HomeGate() {
             </span>
             <span className="hm_box_text">
               <strong>{DOCTOR.name}</strong>
-              {DOCTOR.highlights.slice(0, 2).map((line) => (
-                <span key={line}>{line}</span>
-              ))}
+              <span>이화여자대학교 의과대학 졸업</span>
+              <span className="pc_only">내과 전문의 · 의학박사</span>
             </span>
           </Link>
         </article>
 
-        <article className="hm_box">
+        <article className="hm_box a_endo feature">
           <BoxHead title="수면 위내시경 검사" en="ENDOSCOPY" href="/endoscopy" />
           <Link href="/endoscopy" className="hm_box_body">
             <span className="hm_thumb">
@@ -102,41 +105,16 @@ export async function HomeGate() {
               <img src="/images/endo/endo-1.jpg" alt="위내시경 검사 화면 예시" />
             </span>
             <span className="hm_box_text">
-              <strong>위 식도 내시경 검사</strong>
+              <strong>위 식도 내시경</strong>
               <span className="clamp">
                 식도, 위, 십이지장의 질환을 가장 정확하게 진단할 수 있는 검사
-                방법은 위 식도 내시경 검사입니다.
+                방법입니다.
               </span>
             </span>
           </Link>
         </article>
 
-        <article className="hm_box">
-          <BoxHead title="초음파 검사" en="ULTRASOUND" href="/ultrasound" />
-          <div className="hm_us_links">
-            {ULTRASOUNDS.map((item) => (
-              <Link key={item.slug} href={`/ultrasound#${item.slug}`}>
-                {item.label}
-              </Link>
-            ))}
-          </div>
-        </article>
-
-        <article className="hm_box">
-          <BoxHead title="본원 둘러보기" en="HOSPITAL TOUR" href="/tour" />
-          <Link href="/tour" className="hm_box_body two">
-            <span className="hm_thumb">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/tour/lobby.jpg" alt="접수 · 대기 공간" />
-            </span>
-            <span className="hm_thumb">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/tour/clinic-room.jpg" alt="진료실" />
-            </span>
-          </Link>
-        </article>
-
-        <article className="hm_box">
+        <article className="hm_box a_essay">
           <BoxHead title="김금미 에세이" en="ESSAY" href="/essay" />
           <ul className="hm_essay_list">
             {essays.map((item) => (
@@ -150,14 +128,37 @@ export async function HomeGate() {
           </ul>
         </article>
 
-        <article className="hm_box">
-          <BoxHead title="찾아오시는 길" en="LOCATION" href="/location" />
-          <Link href="/location" className="hm_box_body">
-            <span className="hm_box_text">
-              <strong>{CLINIC.address.street}</strong>
-              <span>지하철 3호선 주엽역 인근 · 롯데마트 근처</span>
-              <span className="hm_tel">{CLINIC.telephoneDisplay}</span>
+        <article className="hm_box a_tour">
+          <BoxHead title="본원 둘러보기" en="TOUR" href="/tour" />
+          <Link href="/tour" className="hm_box_body two">
+            <span className="hm_thumb">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/tour/lobby.jpg" alt="접수 · 대기 공간" />
             </span>
+            <span className="hm_thumb">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/tour/clinic-room.jpg" alt="진료실" />
+            </span>
+          </Link>
+        </article>
+
+        <article className="hm_box a_us">
+          <BoxHead title="초음파 검사" en="ULTRASOUND" href="/ultrasound" />
+          <div className="hm_us_links">
+            {ULTRASOUNDS.map((item) => (
+              <Link key={item.slug} href={`/ultrasound#${item.slug}`}>
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </article>
+
+        <article className="hm_box a_loc">
+          <BoxHead title="찾아오시는 길" en="LOCATION" href="/location" />
+          <Link href="/location" className="hm_loc">
+            <span className="hm_loc_addr">{CLINIC.address.full}</span>
+            <span className="hm_loc_sub">지하철 3호선 주엽역 인근 · 롯데마트 근처</span>
+            <span className="hm_tel">TEL. {CLINIC.telephoneDisplay}</span>
           </Link>
         </article>
       </div>

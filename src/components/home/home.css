@@ -1,7 +1,8 @@
 /* ==============================================================
    일산서울내과의원 첫 화면 (대문)
-   옛 홈페이지 구성: 위쪽 대문 띠 + 바로가기 상자 6개 + 아래 병원 정보 한 줄.
-   PC(1280px 이상)에서는 한 화면에 고정되어 스크롤이 없습니다.
+   옛 홈페이지 배치 그대로: 위쪽 대문 띠 + 바로가기 상자 6개(3칸 × 2줄).
+   원장님 요청(2026-10-27): 열자마자 한 화면에 다 보이게, 사진은 작게.
+   PC·휴대폰 모두 한 화면 안에 들어가도록 크기를 잡았습니다.
 ============================================================== */
 .hm {
   --navy: #1a3a6c;
@@ -18,8 +19,8 @@
   word-break: keep-all;
 }
 
-/* PC: 한 화면 고정 — 화면 높이가 너무 낮을 때만 스크롤을 허용합니다 */
-@media (min-width: 1280px) and (min-height: 640px) {
+/* 한 화면 고정 — 화면 높이가 아주 낮을 때만 스크롤을 허용합니다 */
+@media (min-height: 560px) {
   body:has(.hm_gate) {
     height: 100svh;
     overflow: hidden;
@@ -43,8 +44,8 @@
 .hm_gate {
   display: flex;
   flex-direction: column;
-  gap: clamp(12px, 1.6vh, 18px);
-  padding: clamp(14px, 2vh, 22px) clamp(16px, 1.8vw, 26px);
+  gap: clamp(8px, 1.4vh, 14px);
+  padding: clamp(10px, 1.6vh, 18px) clamp(12px, 1.6vw, 22px);
   background: var(--mist);
 }
 
@@ -54,46 +55,48 @@
 .hm_banner {
   position: relative;
   flex: 0 0 auto;
-  height: clamp(190px, 31vh, 300px);
+  height: clamp(140px, 27vh, 250px);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
-  padding: 0 clamp(28px, 5vw, 80px);
+  gap: 20px;
+  padding: 0 clamp(26px, 5vw, 80px);
   overflow: hidden;
-  border-radius: 6px;
+  border-radius: 4px;
   /* 옛 대문처럼 은은한 가로 줄무늬 바탕 */
   background:
     repeating-linear-gradient(
       180deg,
-      rgba(255, 255, 255, 0.5) 0 18px,
-      rgba(255, 255, 255, 0) 18px 36px
+      rgba(255, 255, 255, 0.5) 0 16px,
+      rgba(255, 255, 255, 0) 16px 32px
     ),
     linear-gradient(120deg, #dfe6f5 0%, #cfd9ee 55%, #c3cfe9 100%);
-  box-shadow: 0 10px 30px rgba(26, 58, 108, 0.1);
+  box-shadow: 0 8px 24px rgba(26, 58, 108, 0.1);
 }
 .hm_banner_text {
   position: relative;
   z-index: 1;
+  min-width: 0;
 }
 .hm_banner_slogan {
-  margin: 0 0 clamp(14px, 3vh, 30px);
-  font-size: clamp(18px, 1.9vw, 28px);
+  margin: 0 0 clamp(10px, 2.6vh, 26px);
+  font-size: clamp(17px, 1.8vw, 26px);
   font-weight: 700;
   letter-spacing: 0.04em;
   color: var(--navy);
 }
 .hm_banner_name {
   margin: 0;
-  font-size: clamp(30px, 4.2vw, 62px);
+  font-size: clamp(30px, 4vw, 58px);
   font-weight: 800;
-  letter-spacing: 0.34em;
+  letter-spacing: 0.32em;
   line-height: 1.1;
+  white-space: nowrap;
   color: var(--navy-deep);
 }
 .hm_banner_logo {
   flex: 0 0 auto;
-  width: clamp(130px, 22vh, 230px);
+  width: clamp(100px, 19vh, 200px);
   height: auto;
   margin-right: clamp(0px, 2vw, 40px);
 }
@@ -116,7 +119,7 @@
 }
 
 /* ══════════════════════════════════════════════
-   2. 바로가기 상자 6개
+   2. 바로가기 상자 6개 (윗줄: 원장·내시경·에세이 / 아랫줄: 둘러보기·초음파·오시는 길)
 ══════════════════════════════════════════════ */
 .hm_boxes {
   flex: 1;
@@ -124,116 +127,138 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-template-rows: repeat(2, minmax(0, 1fr));
-  gap: clamp(12px, 1.6vh, 18px);
+  grid-template-areas:
+    "doc endo essay"
+    "tour us loc";
+  gap: clamp(8px, 1.4vh, 14px);
 }
+.a_doc { grid-area: doc; }
+.a_endo { grid-area: endo; }
+.a_essay { grid-area: essay; }
+.a_tour { grid-area: tour; }
+.a_us { grid-area: us; }
+.a_loc { grid-area: loc; }
+
 .hm_box {
   display: flex;
   flex-direction: column;
   min-height: 0;
+  min-width: 0;
   overflow: hidden;
-  padding: clamp(14px, 2.2vh, 22px) clamp(16px, 1.5vw, 24px);
+  padding: clamp(10px, 1.8vh, 18px) clamp(14px, 1.3vw, 20px);
   background: #ffffff;
-  border-radius: 6px;
-  box-shadow: 0 6px 20px rgba(26, 58, 108, 0.08);
+  border-radius: 4px;
+  box-shadow: 0 4px 16px rgba(26, 58, 108, 0.07);
+}
+/* 옛 대문의 「위 내시경 검사 사례」처럼 가운데 윗상자만 연한 남색 바탕 */
+.hm_box.feature {
+  background: #e3e9f6;
 }
 .hm_box_head {
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  margin-bottom: clamp(10px, 1.6vh, 16px);
-  padding-bottom: clamp(8px, 1.2vh, 12px);
+  gap: 8px;
+  margin-bottom: clamp(6px, 1.2vh, 12px);
+  padding-bottom: clamp(5px, 0.9vh, 9px);
   border-bottom: 2px solid var(--navy);
 }
 .hm_box_title {
   display: inline-flex;
   align-items: baseline;
-  gap: 10px;
-  font-size: clamp(17px, 1.4vw, 21px);
+  gap: 8px;
+  min-width: 0;
+  font-size: clamp(15px, 1.25vw, 19px);
   font-weight: 800;
   letter-spacing: -0.03em;
+  white-space: nowrap;
   color: var(--navy-deep);
   text-decoration: none;
 }
 .hm_box_title span {
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   color: #8a97ad;
 }
 .hm_box_more {
   flex: 0 0 auto;
-  padding: 4px 12px;
+  padding: 3px 10px;
   border-radius: 30px;
   background: var(--mist);
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 800;
   letter-spacing: 0.1em;
   color: var(--blue);
   text-decoration: none;
   transition: background 0.2s ease, color 0.2s ease;
 }
+.hm_box.feature .hm_box_more {
+  background: #ffffff;
+}
 .hm_box_more:hover {
   background: var(--navy);
   color: #ffffff;
 }
 
+/* 사진 + 글 — 사진은 작게 */
 .hm_box_body {
   flex: 1;
   min-height: 0;
   display: flex;
-  gap: clamp(12px, 1.2vw, 18px);
+  align-items: center;
+  gap: clamp(10px, 1vw, 16px);
   color: var(--ink);
   text-decoration: none;
 }
 .hm_box_body.two {
-  gap: 10px;
+  justify-content: center;
+  gap: 8px;
 }
 .hm_thumb {
   flex: 0 0 auto;
-  width: 46%;
-  min-height: 0;
+  width: clamp(96px, 8.6vw, 130px);
+  aspect-ratio: 4 / 3;
+  max-height: 100%;
   overflow: hidden;
-  border-radius: 4px;
+  border-radius: 3px;
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(26, 58, 108, 0.18);
   background: var(--mist);
-}
-.hm_box_body.two .hm_thumb {
-  flex: 1 1 0;
-  width: auto;
 }
 .hm_thumb.portrait {
   width: auto;
+  height: min(100%, 120px);
   aspect-ratio: 3 / 4;
-  height: 100%;
+}
+.hm_box_body.two .hm_thumb {
+  flex: 0 1 auto;
+  width: auto;
+  height: min(100%, 104px);
+  aspect-ratio: 4 / 3;
 }
 .hm_thumb img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
 }
 .hm_thumb.portrait img {
   object-position: center top;
 }
-.hm_box_body:hover .hm_thumb img {
-  transform: scale(1.04);
-}
 .hm_box_text {
   flex: 1;
   min-width: 0;
-  min-height: 0;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  gap: 6px;
-  font-size: clamp(13px, 0.95vw, 14.5px);
-  line-height: 1.55;
+  gap: 4px;
+  font-size: clamp(12.5px, 0.9vw, 14px);
+  line-height: 1.5;
   color: var(--gray);
 }
 .hm_box_text strong {
-  font-size: clamp(15px, 1.15vw, 18px);
+  font-size: clamp(14.5px, 1.1vw, 17px);
   font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--ink);
@@ -244,48 +269,39 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.hm_tel {
-  margin-top: 4px;
-  font-size: clamp(18px, 1.5vw, 22px);
-  font-weight: 800;
-  color: var(--navy);
-}
 
-/* 초음파 4종 */
+/* 초음파 4종 — 옛 대문 「검사안내」 버튼처럼 */
 .hm_us_links {
   flex: 1;
   min-height: 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-auto-rows: 1fr;
-  gap: 10px;
+  grid-template-rows: repeat(2, minmax(0, 46px));
+  align-content: center;
+  gap: 8px;
 }
 .hm_us_links a {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 6px;
-  background: var(--navy);
-  font-size: clamp(15px, 1.2vw, 18px);
-  font-weight: 800;
+  border: 2px solid #9fb0d6;
+  border-radius: 30px;
+  background: #f4f6fc;
+  font-size: clamp(13.5px, 1vw, 16px);
+  font-weight: 700;
   letter-spacing: -0.02em;
-  color: #ffffff;
+  white-space: nowrap;
+  color: var(--navy);
   text-decoration: none;
-  transition: background 0.2s ease;
-}
-.hm_us_links a:nth-child(2n) {
-  background: var(--blue);
+  transition: background 0.2s ease, color 0.2s ease;
 }
 .hm_us_links a:hover {
-  background: var(--sky);
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #ffffff;
 }
 
-/* 에세이 목록 — PC 한 화면에는 3편만 (휴대폰은 4편) */
-@media (min-width: 1280px) {
-  .hm_essay_list li:nth-child(n + 4) {
-    display: none;
-  }
-}
+/* 에세이 목록 */
 .hm_essay_list {
   flex: 1;
   min-height: 0;
@@ -294,18 +310,16 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-}
-.hm_essay_list li + li {
-  border-top: 1px dashed var(--line);
+  justify-content: safe center;
+  overflow: hidden;
 }
 .hm_essay_list a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: clamp(5px, 0.9vh, 9px) 0;
-  font-size: clamp(13.5px, 1vw, 15px);
+  gap: 10px;
+  padding: clamp(3px, 0.7vh, 7px) 0;
+  font-size: clamp(13px, 0.95vw, 14.5px);
   color: var(--ink);
   text-decoration: none;
 }
@@ -317,7 +331,7 @@
 }
 .hm_essay_list a span::before {
   content: "›";
-  margin-right: 8px;
+  margin-right: 7px;
   font-weight: 800;
   color: var(--blue);
 }
@@ -326,59 +340,184 @@
 }
 .hm_essay_list time {
   flex: 0 0 auto;
-  font-size: 12.5px;
+  font-size: 12px;
   color: #8a97ad;
+}
+/* 화면이 낮으면 3편만 */
+@media (max-height: 820px) {
+  .hm_essay_list li:nth-child(n + 4) {
+    display: none;
+  }
+}
+
+/* 찾아오시는 길 — 주소 · 전화 */
+.hm_loc {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  text-decoration: none;
+}
+.hm_loc_addr {
+  font-size: clamp(13.5px, 1vw, 15.5px);
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.hm_loc_sub {
+  font-size: clamp(12.5px, 0.9vw, 13.5px);
+  color: var(--gray);
+}
+.hm_tel {
+  margin-top: 4px;
+  font-size: clamp(17px, 1.4vw, 22px);
+  font-weight: 800;
+  color: var(--navy);
 }
 
 /* ══════════════════════════════════════════════
-   휴대폰·태블릿 — 한 화면에 다 담을 수 없어 위에서 아래로 이어집니다
+   태블릿·휴대폰 — 2칸으로 접어도 한 화면에 들어가게
+   원장·내시경 / 둘러보기·초음파 / 에세이 / 오시는 길(에세이 바로 밑)
 ══════════════════════════════════════════════ */
+/* 낮은 PC 화면: 주소 아래 안내 한 줄은 생략 */
+@media (max-height: 640px) {
+  .hm_loc_sub {
+    display: none;
+  }
+}
 @media (max-width: 1279px) {
+  .hm_banner {
+    height: clamp(96px, 16vh, 170px);
+  }
+  .hm_banner_logo {
+    width: clamp(56px, 11vh, 120px);
+  }
+  .hm_banner_slogan {
+    margin-bottom: clamp(6px, 1.4vh, 14px);
+  }
   .hm_boxes {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: none;
-    grid-auto-rows: minmax(210px, auto);
+    grid-template-rows: repeat(3, minmax(0, 1fr)) auto;
+    grid-template-areas:
+      "doc endo"
+      "tour us"
+      "essay essay"
+      "loc loc";
   }
 }
 @media (max-width: 720px) {
   .hm_gate {
-    padding: 14px 14px 20px;
+    gap: 7px;
+    padding: 8px;
   }
   .hm_banner {
     height: auto;
-    padding: 30px 22px;
+    padding: 12px 14px;
+    gap: 8px;
   }
   .hm_banner_slogan {
-    margin-bottom: 12px;
-    font-size: 16px;
-  }
-  .hm_banner {
-    gap: 12px;
+    margin-bottom: 5px;
+    font-size: 13px;
   }
   .hm_banner_name {
-    font-size: clamp(20px, 6.2vw, 28px);
-    letter-spacing: 0.06em;
-    white-space: nowrap;
+    font-size: clamp(19px, 5.8vw, 24px);
+    letter-spacing: 0.1em;
   }
   .hm_banner_logo {
-    width: 64px;
+    width: 48px;
     margin: 0;
   }
   .hm_boxes {
-    grid-template-columns: 1fr;
-    grid-auto-rows: auto;
+    gap: 7px;
   }
-  .hm_box_body,
-  .hm_us_links {
-    min-height: 120px;
+  .hm_box {
+    padding: 8px 10px;
   }
-  .hm_us_links {
-    grid-auto-rows: 58px;
+  .hm_box_head {
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+  }
+  .hm_box_title {
+    font-size: 14px;
+  }
+  .hm_box_title span,
+  .hm_box_more,
+  .pc_only {
+    display: none;
+  }
+  .hm_box_body {
+    gap: 8px;
+  }
+  .hm_thumb {
+    width: 52px;
+    border-width: 2px;
   }
   .hm_thumb.portrait {
-    height: 150px;
+    width: auto;
+    height: min(100%, 70px);
   }
   .hm_box_body.two .hm_thumb {
-    height: 120px;
+    height: min(100%, 64px);
+  }
+  .hm_box_text {
+    gap: 2px;
+    font-size: 11.5px;
+    line-height: 1.4;
+  }
+  .hm_box_text strong {
+    font-size: 13px;
+  }
+  .hm_box_text .clamp {
+    -webkit-line-clamp: 2;
+  }
+  .hm_us_links {
+    grid-template-rows: repeat(2, minmax(0, 34px));
+    gap: 5px;
+  }
+  .hm_us_links a {
+    font-size: 12px;
+    border-width: 1.5px;
+    letter-spacing: -0.04em;
+  }
+  .hm_essay_list a {
+    padding: 2px 0;
+    font-size: 12.5px;
+  }
+  .hm_essay_list li:nth-child(n + 4) {
+    display: none;
+  }
+  .hm_loc {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 10px;
+  }
+  .hm_loc_addr {
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .hm_loc_sub {
+    display: none;
+  }
+  .hm_tel {
+    margin: 0;
+    font-size: 15px;
+  }
+}
+/* 아주 작은 휴대폰: 에세이는 2편만 */
+@media (max-width: 720px) and (max-height: 680px) {
+  .hm_essay_list li:nth-child(n + 3) {
+    display: none;
+  }
+}
+/* 태블릿: 에세이 줄은 글 3편 높이만큼 */
+@media (min-width: 721px) and (max-width: 1279px) {
+  .hm_boxes {
+    grid-template-rows: repeat(2, minmax(0, 1fr)) auto auto;
+  }
+  .hm_essay_list li:nth-child(n + 4) {
+    display: none;
   }
 }
