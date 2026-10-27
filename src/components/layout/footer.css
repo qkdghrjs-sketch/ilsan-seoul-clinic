@@ -622,3 +622,66 @@ body.eum_modal_body_locked {
     font-size: 13.5px;
   }
 }
+
+/* ══════════════════════════════════════════════
+   첫 화면(대문) 아래 — 병원명 · 주소 · 전화 한 줄
+══════════════════════════════════════════════ */
+.eum_footer_wrap.eum_footer_home {
+  padding: 14px clamp(16px, 1.8vw, 26px) 16px;
+  background: var(--eum-navy);
+}
+.eum_footer_home .eum_footer_inner {
+  max-width: none;
+}
+.eum_footer_home .eum_footer_bottom {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+.eum_footer_home .eum_fb_top {
+  margin: 0;
+  padding: 0;
+}
+.eum_footer_home .eum_footer_logo .eum_logo_mark {
+  color: #ffffff;
+  letter-spacing: 0.12em;
+}
+.eum_footer_home .eum_footer_logo .eum_logo_en {
+  color: rgba(255, 255, 255, 0.55);
+}
+.eum_footer_home .eum_fb_info_row {
+  flex: 1;
+  align-items: center;
+}
+.eum_footer_home .eum_addr {
+  color: #ffffff;
+  font-size: 14.5px;
+}
+.eum_footer_home .eum_label,
+.eum_footer_home .eum_val {
+  color: #ffffff;
+  font-weight: 700;
+}
+.eum_footer_home .eum_copyright,
+.eum_footer_home .eum_divider {
+  color: rgba(255, 255, 255, 0.5);
+}
+.eum_footer_home .eum_policy_links a,
+.eum_footer_home .eum_policy_links button {
+  color: rgba(255, 255, 255, 0.7);
+}
+.eum_footer_home .eum_policy_links a:hover,
+.eum_footer_home .eum_policy_links button:hover,
+.eum_footer_home .eum_policy_links .eum_privacy {
+  color: #ffffff;
+}
+@media (max-width: 1100px) {
+  .eum_footer_home .eum_footer_bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .eum_footer_home .eum_fb_info_row {
+    width: 100%;
+  }
+}

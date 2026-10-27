@@ -6,19 +6,14 @@ import JsonLd from "@/components/JsonLd";
 import {
   SubPage,
   SubHero,
-  HeroInfoCard,
-  KeyAnswer,
   Section,
   SectionHeader,
-  IntroBox,
   SummaryBox,
   Gallery,
   Note,
-  SubCta,
 } from "@/components/subpage/parts";
 import Icon from "@/components/subpage/icons";
 import { pageSchemas, toFaqPairs } from "@/lib/page-schema";
-import { CLINIC } from "@/lib/site";
 import {
   ENDOSCOPY_INTRO,
   ENDOSCOPY_STEPS,
@@ -60,68 +55,19 @@ export default function EndoscopyPage() {
       <SubPageHeader currentPath={PATH} />
 
       <SubPage>
+        {/* 원장님 요청(2026-10-27): 파란 바탕에 「위 식도 내시경 검사」 설명을 흰 글씨로 */}
         <SubHero
-          eyebrow="SEDATION ENDOSCOPY · 수면 위 내시경"
-          title={
-            <>
-              불편해서 미뤄 온 검사,
-              <br />
-              <em>잠든 사이</em>에 끝냅니다
-            </>
-          }
-          sub={
-            <>
-              수면 위 내시경은 환자가 잠이 든 상태에서 5분에서 10분간 진행하는
-              검사입니다.
-              <br />
-              검사 중 촬영한 영상으로 결과를 함께 보며 설명해 드립니다.
-            </>
-          }
-          cards={
-            <>
-              <HeroInfoCard icon="clock" label="총 소요시간" delay="d2">
-                1시간 ~ 1시간 30분
-              </HeroInfoCard>
-              <HeroInfoCard icon="meal" label="금식" teal delay="d3">
-                전날 저녁 9시부터
-              </HeroInfoCard>
-              <HeroInfoCard icon="phone" label="예약" delay="d4">
-                {CLINIC.telephoneDisplay}
-              </HeroInfoCard>
-            </>
-          }
+          blue
+          eyebrow="GASTROSCOPY · 수면 위 내시경"
+          title="위 식도 내시경 검사"
+          sub={ENDOSCOPY_INTRO.map((paragraph, index) => (
+            <p key={index}>{paragraph}</p>
+          ))}
+          subLong
         />
 
-        <Section tightTop narrow>
-          <KeyAnswer
-            question="수면 위 내시경은 어떤 검사인가요?"
-            facts={[
-              "검사 시간 5~10분",
-              "총 소요 1시간~1시간 30분",
-              "당일 영상으로 결과 확인",
-              "예약제 운영",
-            ]}
-          >
-            수면 위 내시경은 수면 유도제를 사용해 환자가 잠이 든 상태에서
-            시행하는 위 내시경 검사입니다. 일산서울내과의원에서는 검사 전 심장
-            상태·혈압·경련성 질환 과거력·호흡기계 질환을 확인한 뒤 금기사항이
-            없으면 시행하며, 검사 중 촬영한 영상으로 수면에서 깬 뒤 결과를 함께
-            확인하고 상담해 드립니다.
-          </KeyAnswer>
-        </Section>
-
-        <Section tightTop>
-          <IntroBox
-            title="위 식도 내시경 검사"
-            en="GASTROSCOPY"
-            paragraphs={ENDOSCOPY_INTRO.map((paragraph, index) => (
-              <span key={index}>{paragraph}</span>
-            ))}
-          />
-        </Section>
-
         {/* 검사 화면 예시 — 원장님 요청: 참고용으로 두 장만 */}
-        <Section tightTop narrow>
+        <Section narrow>
           <SectionHeader
             eyebrow="EXAMPLE"
             title="검사 화면 예시"
@@ -267,19 +213,7 @@ export default function EndoscopyPage() {
           </div>
         </Section>
 
-        <SubCta
-          title={
-            <>
-              내시경 예약은
-              <br />
-              전화로 해 주세요
-            </>
-          }
-          sub="소독 과정을 지키기 위해 한 시간 간격으로 한 분씩만 검사합니다."
-          note={`${CLINIC.name} · ${CLINIC.address.full}`}
-          secondaryLabel="자주 묻는 질문 보기 →"
-          secondaryHref="/endoscopy/faq"
-        />
+
       </SubPage>
     </>
   );

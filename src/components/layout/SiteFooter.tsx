@@ -2,28 +2,17 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import "./footer.css";
 import { CLINIC } from "@/lib/site";
 import { EXTERNAL } from "@/lib/nav";
 import { POLICIES, type PolicyKey } from "@/lib/policies";
 
-/** 푸터에서 바로 갈 수 있는 주요 안내 */
-const QUICK_LINKS = [
-  {
-    href: "/endoscopy",
-    title: "수면 위 내시경 안내",
-    sub: "검사 과정과 준비사항을 확인해 보세요.",
-  },
-  {
-    href: "/checkup",
-    title: "검사안내 전체보기",
-    sub: "정기검사 · 공단검진 · 정밀종합검사",
-  },
-];
-
 export default function SiteFooter() {
   const [openPolicy, setOpenPolicy] = useState<PolicyKey | null>(null);
+  /* 첫 화면(대문)은 한 화면 고정이라 병원 정보 한 줄만 보여 줍니다 */
+  const isHome = usePathname() === "/";
 
   useEffect(() => {
     if (openPolicy) {
@@ -46,30 +35,10 @@ export default function SiteFooter() {
 
   return (
     <>
-      <footer className="eum_footer_wrap">
+      <footer className={`eum_footer_wrap${isHome ? " eum_footer_home" : ""}`}>
         <div className="eum_footer_inner">
+          {!isHome && (
           <div className="eum_footer_top">
-            {/* 주요 안내 바로가기 */}
-            <div className="eum_footer_notice">
-              <div className="eum_top_header">
-                <div className="eum_top_titles">
-                  <h3>진료 안내</h3>
-                  <p>궁금하신 내용을 바로 확인하실 수 있습니다.</p>
-                </div>
-              </div>
-              <div className="eum_notice_cta_list">
-                {QUICK_LINKS.map((item) => (
-                  <Link key={item.href} href={item.href} className="eum_notice_cta">
-                    <span className="eum_notice_cta_text">
-                      <span className="eum_notice_cta_title">{item.title}</span>
-                      <span className="eum_notice_cta_sub">{item.sub}</span>
-                    </span>
-                    <span className="eum_notice_cta_arrow">&rarr;</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-
             {/* 대표전화 */}
             <div className="eum_footer_contact">
               <div className="eum_top_header">
@@ -129,6 +98,7 @@ export default function SiteFooter() {
               </div>
             </div>
           </div>
+          )}
 
           {/* 하단 병원 정보 */}
           <div className="eum_footer_bottom">

@@ -45,8 +45,8 @@ export const NAV: NavGroup[] = [
     children: [
       { label: "초음파검사 안내", href: "/ultrasound" },
       { label: "심장 초음파", href: "/ultrasound/heart" },
-      { label: "갑상선 초음파", href: "/ultrasound/thyroid" },
       { label: "경동맥 초음파", href: "/ultrasound/carotid" },
+      { label: "갑상선 초음파", href: "/ultrasound/thyroid" },
       { label: "복부 초음파", href: "/ultrasound/abdomen" },
     ],
   },

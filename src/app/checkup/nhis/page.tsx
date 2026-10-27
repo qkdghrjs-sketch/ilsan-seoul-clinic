@@ -6,15 +6,12 @@ import {
   SubPage,
   SubHero,
   HeroInfoCard,
-  KeyAnswer,
   Section,
   SectionHeader,
   Note,
-  SubCta,
 } from "@/components/subpage/parts";
 import Icon from "@/components/subpage/icons";
 import { pageSchemas } from "@/lib/page-schema";
-import { CLINIC } from "@/lib/site";
 import { NHIS_SECTIONS } from "@/lib/checkups";
 
 const PATH = "/checkup/nhis";
@@ -92,22 +89,6 @@ export default function NhisPage() {
           }
         />
 
-        <Section tightTop narrow>
-          <KeyAnswer
-            question="일산서울내과의원에서 국민건강보험공단 검진을 받을 수 있나요?"
-            facts={[
-              "일반건강검진",
-              "위암·간암 검진",
-              "생애전환기 건강진단",
-              "검진 대상 확인 가능",
-            ]}
-          >
-            받으실 수 있습니다. 일산서울내과의원에서는 일반건강검진, 5대암 검진
-            중 위암검진과 간암검진, 그리고 만 40세·만 66세 생애전환기
-            건강진단을 시행합니다. 대장암·유방암·자궁암 검진은 해당 검사가
-            가능한 다른 의료기관에서 받으실 수 있습니다.
-          </KeyAnswer>
-        </Section>
 
         <Section tightTop>
           <SectionHeader
@@ -163,19 +144,6 @@ export default function NhisPage() {
           </p>
         </Section>
 
-        <SubCta
-          title={
-            <>
-              공단검진 예약은
-              <br />
-              전화로 문의해 주세요
-            </>
-          }
-          sub="위암검진(내시경)은 예약제로 운영됩니다."
-          note={`${CLINIC.name} · ${CLINIC.address.full}`}
-          secondaryLabel="수면 위 내시경 안내 →"
-          secondaryHref="/endoscopy"
-        />
       </SubPage>
     </>
   );

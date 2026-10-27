@@ -7,11 +7,9 @@ import {
   SubPage,
   SubHero,
   HeroInfoCard,
-  KeyAnswer,
   Section,
   SectionHeader,
   Note,
-  SubCta,
 } from "@/components/subpage/parts";
 import Icon, { type IconName } from "@/components/subpage/icons";
 import { pageSchemas } from "@/lib/page-schema";
@@ -129,23 +127,6 @@ export default function CheckupIndexPage() {
           }
         />
 
-        <Section tightTop narrow>
-          <KeyAnswer
-            question="일산서울내과의원에서는 어떤 검사를 받을 수 있나요?"
-            facts={[
-              "고혈압·당뇨병·B형간염 정기검사",
-              "국민건강보험공단 검진",
-              "위암·간암 검진",
-              "정밀종합검사",
-            ]}
-          >
-            일산서울내과의원에서는 고혈압·당뇨병·B형간염으로 치료 중인 분들을
-            위한 6개월 주기 정기검사, 국민건강보험공단 일반건강검진과 위암·간암
-            검진, 만 40세·만 66세 생애전환기 건강진단, 그리고 수면 위내시경과
-            초음파·혈액 51종·암 표지자 검사를 포함한 정밀종합검사를 받으실 수
-            있습니다.
-          </KeyAnswer>
-        </Section>
 
         <Section tightTop>
           <SectionHeader
@@ -198,19 +179,6 @@ export default function CheckupIndexPage() {
           </Note>
         </Section>
 
-        <SubCta
-          title={
-            <>
-              어떤 검사가 필요한지
-              <br />
-              모르시겠다면 문의해 주세요
-            </>
-          }
-          sub="내원하시면 올해 공단검진 대상인지도 확인해 드립니다."
-          note={`${CLINIC.name} · ${CLINIC.address.full}`}
-          secondaryLabel="찾아오시는 길 →"
-          secondaryHref="/location"
-        />
       </SubPage>
     </>
   );

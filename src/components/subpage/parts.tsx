@@ -1,9 +1,7 @@
-import Link from "next/link";
 import "./subpage.css";
 
 import Reveal from "@/components/Reveal";
 import Icon, { type IconName } from "./icons";
-import { CLINIC } from "@/lib/site";
 
 /* ══════════════════════════════════════════════
    페이지 래퍼
@@ -28,6 +26,8 @@ export function SubHero({
   imageAlt,
   imageFit = "cover",
   cards,
+  blue,
+  subLong,
 }: {
   eyebrow: string;
   title: React.ReactNode;
@@ -37,9 +37,13 @@ export function SubHero({
   imageAlt?: string;
   imageFit?: "cover" | "contain";
   cards?: React.ReactNode;
+  /** 파란 바탕 (원장님 요청 2026-10-27) */
+  blue?: boolean;
+  /** 여러 문단 설명을 흰 큰 글씨로 (sub 에 <p> 여러 개를 넘깁니다) */
+  subLong?: boolean;
 }) {
   return (
-    <div className="sp_hero">
+    <div className={`sp_hero${blue ? " blue" : ""}`}>
       <div className="sp_hero_glow" />
       <div className={`sp_hero_inner${cards ? " center" : ""}`}>
         <div className="sp_hero_text">
@@ -48,7 +52,12 @@ export function SubHero({
             {eyebrow}
           </div>
           <h1 className="eum_rv d2 sp_hero_title">{title}</h1>
-          {sub && <p className="eum_rv d3 sp_hero_sub">{sub}</p>}
+          {sub &&
+            (subLong ? (
+              <div className="eum_rv d3 sp_hero_sub long">{sub}</div>
+            ) : (
+              <p className="eum_rv d3 sp_hero_sub">{sub}</p>
+            ))}
           {badges && badges.length > 0 && (
             <div className="eum_rv d4 sp_badges">
               {badges.map((badge) => (
@@ -99,38 +108,6 @@ export function HeroInfoCard({
         <span className="sp_info_label">{label}</span>
         <span className="sp_info_val">{children}</span>
       </div>
-    </div>
-  );
-}
-
-/* ══════════════════════════════════════════════
-   핵심 답변 블록
-   AI가 이 부분만 읽어도 답이 되도록, 주어(일산서울내과의원)와
-   근거(수치·인증·위치)를 한 문단 안에 모두 담습니다.
-══════════════════════════════════════════════ */
-export function KeyAnswer({
-  question,
-  children,
-  facts,
-}: {
-  question: string;
-  children: React.ReactNode;
-  facts?: string[];
-}) {
-  return (
-    <div className="eum_rv d1 sp_answer">
-      <span className="sp_answer_label">한 줄 답변</span>
-      <p className="sp_answer_q">{question}</p>
-      <div className="sp_answer_a">{children}</div>
-      {facts && facts.length > 0 && (
-        <div className="sp_answer_meta">
-          {facts.map((fact) => (
-            <span className="sp_answer_fact" key={fact}>
-              {fact}
-            </span>
-          ))}
-        </div>
-      )}
     </div>
   );
 }
@@ -369,55 +346,6 @@ export function Note({
         </>
       )}
       {children}
-    </div>
-  );
-}
-
-/* ══════════════════════════════════════════════
-   CTA
-══════════════════════════════════════════════ */
-export function SubCta({
-  title,
-  sub,
-  note,
-  secondaryLabel = "오시는 길 안내 →",
-  secondaryHref = "/location",
-}: {
-  title: React.ReactNode;
-  sub?: React.ReactNode;
-  note?: React.ReactNode;
-  secondaryLabel?: string;
-  secondaryHref?: string;
-}) {
-  const isInternal = secondaryHref.startsWith("/");
-
-  return (
-    <div className="sp_cta">
-      <div className="sp_cta_inner">
-        <h2 className="eum_rv d1 sp_cta_title">{title}</h2>
-        {sub && <p className="eum_rv d2 sp_cta_sub">{sub}</p>}
-        {note && <span className="eum_rv d3 sp_cta_note">{note}</span>}
-        <div className="eum_rv d3 sp_cta_btns">
-          <a href={`tel:${CLINIC.telephoneDisplay}`} className="sp_btn_w">
-            <Icon name="phone" size={15} className="sp_btn_icon" />
-            {CLINIC.telephoneDisplay} 전화 문의
-          </a>
-          {isInternal ? (
-            <Link href={secondaryHref} className="sp_btn_o">
-              {secondaryLabel}
-            </Link>
-          ) : (
-            <a
-              href={secondaryHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="sp_btn_o"
-            >
-              {secondaryLabel}
-            </a>
-          )}
-        </div>
-      </div>
     </div>
   );
 }

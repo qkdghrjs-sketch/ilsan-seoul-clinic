@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 
 import SubPageHeader from "@/components/layout/SubPageHeader";
 import JsonLd from "@/components/JsonLd";
-import { SubPage, Section, SubCta } from "@/components/subpage/parts";
+import { SubPage, Section } from "@/components/subpage/parts";
 import { pageSchemas } from "@/lib/page-schema";
 import { CLINIC } from "@/lib/site";
 import { formatNoticeDate, getNotice } from "@/lib/notices";
@@ -89,19 +89,6 @@ export default async function NoticePage({ params }: Params) {
           </div>
         </Section>
 
-        <SubCta
-          title={
-            <>
-              궁금하신 점은
-              <br />
-              전화로 문의해 주세요
-            </>
-          }
-          sub="진료·검사 예약은 전화로 안내해 드립니다."
-          note={`${CLINIC.name} · ${CLINIC.address.full}`}
-          secondaryLabel="찾아오시는 길 →"
-          secondaryHref="/location"
-        />
       </SubPage>
     </>
   );

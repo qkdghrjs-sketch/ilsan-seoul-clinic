@@ -1,18 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
 import SubPageHeader from "@/components/layout/SubPageHeader";
 import JsonLd from "@/components/JsonLd";
-import {
-  SubPage,
-  SubHero,
-  HeroInfoCard,
-  Section,
-  SectionHeader,
-  SubCta,
-} from "@/components/subpage/parts";
+import { SubPage, Section } from "@/components/subpage/parts";
+import Board, { toPage, BOARD_PAGE_SIZE } from "@/components/subpage/Board";
 import { pageSchemas } from "@/lib/page-schema";
-import { CLINIC } from "@/lib/site";
 import { formatNoticeDate, getNotices } from "@/lib/notices";
 
 const PATH = "/notice";
@@ -30,8 +22,17 @@ export const metadata: Metadata = {
   openGraph: { title: TITLE, description: DESCRIPTION, url: PATH },
 };
 
-export default async function NoticeIndexPage() {
+/* 원장님 요청(2026-10-27): 머리 문구·「공지 목록」 없이 바로 일반 게시판 */
+export default async function NoticeIndexPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string | string[] }>;
+}) {
   const notices = await getNotices();
+  const page = toPage(
+    (await searchParams).page,
+    Math.ceil(notices.length / BOARD_PAGE_SIZE),
+  );
 
   return (
     <>
@@ -46,77 +47,20 @@ export default async function NoticeIndexPage() {
       <SubPageHeader currentPath={PATH} />
 
       <SubPage>
-        <SubHero
-          eyebrow="NOTICE · 공지사항"
-          title={
-            <>
-              진료 소식을
-              <br />
-              <em>알려 드립니다</em>
-            </>
-          }
-          sub="휴진 안내와 진료 관련 소식을 이곳에서 확인하실 수 있습니다."
-          cards={
-            <>
-              <HeroInfoCard icon="clock" label="진료시간" delay="d2">
-                {CLINIC.outpatientRows[0].value}
-              </HeroInfoCard>
-              <HeroInfoCard icon="phone" label="상담·예약" teal delay="d3">
-                {CLINIC.telephoneDisplay}
-              </HeroInfoCard>
-            </>
-          }
-        />
-
-        <Section tightTop>
-          <SectionHeader eyebrow="LIST" title="공지 목록" />
-
-          {notices.length === 0 ? (
-            <p className="eum_rv d2 es_empty">등록된 공지가 없습니다.</p>
-          ) : (
-            <ul className="es_list">
-              {notices.map((item, index) => (
-                <li
-                  key={item.id}
-                  className={`eum_rv d${Math.min(index + 1, 5)}`}
-                >
-                  <Link href={`${PATH}/${item.id}`} className="es_item">
-                    <span className="es_item_date">
-                      {formatNoticeDate(item.createdAt)}
-                    </span>
-                    <span className="es_item_body">
-                      <strong className="es_item_title">
-                        {item.pinned && <b className="no_pin">중요 </b>}
-                        {item.title}
-                      </strong>
-                      <span className="es_item_excerpt">
-                        {item.body.replace(/\s+/g, " ").slice(0, 80)}
-                        {item.body.length > 80 ? "…" : ""}
-                      </span>
-                    </span>
-                    <span className="es_item_arrow" aria-hidden="true">
-                      →
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
+        <Section narrow>
+          <Board
+            rows={notices.map((item) => ({
+              id: item.id,
+              title: item.title,
+              href: `${PATH}/${item.id}`,
+              date: formatNoticeDate(item.createdAt),
+              pinned: item.pinned,
+            }))}
+            page={page}
+            basePath={PATH}
+            emptyText="등록된 공지가 없습니다."
+          />
         </Section>
-
-        <SubCta
-          title={
-            <>
-              진료와 검사 예약은
-              <br />
-              전화로 해 주세요
-            </>
-          }
-          sub="진료시간은 사정에 따라 바뀔 수 있어 방문 전 전화로 확인하시면 좋습니다."
-          note={`${CLINIC.name} · ${CLINIC.address.full}`}
-          secondaryLabel="찾아오시는 길 →"
-          secondaryHref="/location"
-        />
       </SubPage>
     </>
   );

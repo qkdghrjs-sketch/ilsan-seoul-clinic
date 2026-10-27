@@ -6,21 +6,18 @@ import {
   SubPage,
   SubHero,
   HeroInfoCard,
-  KeyAnswer,
   Section,
   SectionHeader,
   Note,
-  SubCta,
 } from "@/components/subpage/parts";
 import Icon from "@/components/subpage/icons";
 import { pageSchemas } from "@/lib/page-schema";
-import { CLINIC } from "@/lib/site";
 import { PREMIUM_GROUPS } from "@/lib/checkups";
 
 const PATH = "/checkup/premium";
 const TITLE = "정밀종합검사";
 const DESCRIPTION =
-  "일산서울내과의원 정밀종합검사 안내. 수면 위내시경과 복부·갑상선 초음파, 골밀도, 폐기능, 흉부 엑스레이, 심전도에 종합 혈액검사 51종과 6종 암 표지자, 갑상선 호르몬·면역 검사까지 한 번에 확인합니다.";
+  "일산서울내과의원 정밀종합검사 안내. 수면 위내시경과 복부·갑상선·심장·경동맥 초음파, 골밀도, 폐기능, 흉부 엑스레이, 심전도에 종합 혈액검사 51종과 6종 암 표지자, 갑상선 호르몬·면역 검사까지 한 번에 확인합니다.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -54,7 +51,7 @@ export default function PremiumCheckupPage() {
           faq: [
             {
               q: "일산서울내과의원 정밀종합검사에는 어떤 항목이 포함되나요?",
-              a: "혈압·신체계측·비만도 측정, 수면 위내시경(전자내시경), 복부 초음파, 갑상선 초음파, 골밀도 검사, 폐기능 검사, 흉부 엑스레이, 심전도와 함께 종합 혈액검사 51종, 간암(AFP)·대장암(CEA)·췌장암(CA19-9)·난소암(CA125)·전립선암(PSA)·방광암 표지자 검사, 갑상선 호르몬과 면역항체, 에이즈·매독 검사, 류마티스 인자 검사가 포함됩니다.",
+              a: "혈압·신체계측·비만도 측정, 수면 위내시경(전자내시경), 복부 초음파, 갑상선 초음파, 심장 초음파, 경동맥 초음파, 골밀도 검사, 폐기능 검사, 흉부 엑스레이, 심전도와 함께 종합 혈액검사 51종, 간암(AFP)·대장암(CEA)·췌장암(CA19-9)·난소암(CA125)·전립선암(PSA)·방광암 표지자 검사, 갑상선 호르몬과 면역항체, 에이즈·매독 검사, 류마티스 인자 검사가 포함됩니다.",
             },
           ],
         })}
@@ -94,22 +91,6 @@ export default function PremiumCheckupPage() {
           }
         />
 
-        <Section tightTop narrow>
-          <KeyAnswer
-            question="정밀종합검사에는 어떤 항목이 포함되나요?"
-            facts={[
-              "수면 위내시경 포함",
-              "복부·갑상선 초음파",
-              "혈액검사 51종",
-              "암 표지자 6종",
-            ]}
-          >
-            일산서울내과의원 정밀종합검사는 혈압·신체계측·비만도 측정, 수면
-            위내시경, 복부 초음파, 갑상선 초음파, 골밀도 검사, 폐기능 검사, 흉부
-            엑스레이, 심전도와 함께 종합 혈액검사 51종, 6종 암 표지자 검사,
-            갑상선 호르몬·면역 검사까지 한 번에 확인하는 검사입니다.
-          </KeyAnswer>
-        </Section>
 
         <Section tightTop>
           <SectionHeader
@@ -160,19 +141,6 @@ export default function PremiumCheckupPage() {
           </p>
         </Section>
 
-        <SubCta
-          title={
-            <>
-              정밀종합검사는
-              <br />
-              예약 후 진행됩니다
-            </>
-          }
-          sub="검사 소요 시간과 준비사항을 전화로 안내해 드립니다."
-          note={`${CLINIC.name} · ${CLINIC.address.full}`}
-          secondaryLabel="검사안내 전체보기 →"
-          secondaryHref="/checkup"
-        />
       </SubPage>
     </>
   );

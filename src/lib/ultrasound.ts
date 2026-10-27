@@ -31,7 +31,7 @@ export type UltrasoundItem = {
   description: string;
 };
 
-export const ULTRASOUNDS: UltrasoundItem[] = [
+const ALL_ULTRASOUNDS: UltrasoundItem[] = [
   {
     slug: "heart",
     path: "/ultrasound/heart",
@@ -177,6 +177,13 @@ export const ULTRASOUNDS: UltrasoundItem[] = [
       "일산서울내과의원 복부 초음파 안내. 간, 담낭, 신장, 췌장, 비장을 방사선 노출 없이 직접 검사하고 설명합니다.",
   },
 ];
+
+/** 보여 주는 순서 — 원장님 요청(2026-10-27): 심장 → 경동맥 → 갑상선 → 복부 */
+const ORDER = ["heart", "carotid", "thyroid", "abdomen"];
+
+export const ULTRASOUNDS: UltrasoundItem[] = ORDER.map(
+  (slug) => ALL_ULTRASOUNDS.find((item) => item.slug === slug)!,
+);
 
 export function findUltrasound(slug: string) {
   return ULTRASOUNDS.find((item) => item.slug === slug);

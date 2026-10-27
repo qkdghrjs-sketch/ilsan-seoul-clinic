@@ -4,10 +4,10 @@ import { notFound } from "next/navigation";
 
 import SubPageHeader from "@/components/layout/SubPageHeader";
 import JsonLd from "@/components/JsonLd";
-import { SubPage, Section, SubCta } from "@/components/subpage/parts";
+import { SubPage, Section } from "@/components/subpage/parts";
 import { pageSchemas } from "@/lib/page-schema";
 import { DOCTOR_ID } from "@/lib/schema";
-import { CLINIC, SITE_URL } from "@/lib/site";
+import { SITE_URL } from "@/lib/site";
 import { ESSAYS } from "@/lib/essays";
 import { findEssayAny, getAllEssays } from "@/lib/essay-posts";
 
@@ -145,19 +145,6 @@ export default async function EssayPage({ params }: Params) {
           </div>
         </Section>
 
-        <SubCta
-          title={
-            <>
-              진료와 검사 예약은
-              <br />
-              전화로 해 주세요
-            </>
-          }
-          sub="충분히 듣고, 정확히 검사하고, 끝까지 함께 보는 진료를 합니다."
-          note={`${CLINIC.name} · ${CLINIC.address.full}`}
-          secondaryLabel="찾아오시는 길 →"
-          secondaryHref="/location"
-        />
       </SubPage>
     </>
   );

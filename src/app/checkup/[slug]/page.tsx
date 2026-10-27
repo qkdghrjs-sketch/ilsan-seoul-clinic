@@ -7,11 +7,8 @@ import {
   SubPage,
   SubHero,
   HeroInfoCard,
-  KeyAnswer,
   Section,
   SectionHeader,
-  Note,
-  SubCta,
 } from "@/components/subpage/parts";
 import Icon from "@/components/subpage/icons";
 import { pageSchemas } from "@/lib/page-schema";
@@ -102,14 +99,6 @@ export default async function CheckupDetailPage({ params }: Params) {
           }
         />
 
-        <Section tightTop narrow>
-          <KeyAnswer
-            question={checkup.answerQ}
-            facts={[checkup.cycle, `검사 항목 ${totalItems}개`, "원장 직접 시행"]}
-          >
-            {checkup.answerA}
-          </KeyAnswer>
-        </Section>
 
         <Section tightTop narrow>
           <SectionHeader
@@ -162,30 +151,13 @@ export default async function CheckupDetailPage({ params }: Params) {
         </Section>
 
         <Section narrow>
-          <Note title="검사 전 안내" navy>
-            혈액검사와 복부 초음파는 공복이 필요할 수 있습니다. 검사 예약 시
-            식사·복약과 관련된 준비사항을 미리 안내해 드리니, 복용 중인 약이
-            있다면 알려 주세요.
-          </Note>
+
           <p className="eum_rv d2 sp_disclaimer">
             위 내용은 일반적인 안내이며, 개인의 건강 상태와 치료 경과에 따라
             검사 항목과 주기가 달라질 수 있습니다.
           </p>
         </Section>
 
-        <SubCta
-          title={
-            <>
-              {checkup.label},
-              <br />
-              전화로 예약하실 수 있습니다
-            </>
-          }
-          sub="검사 결과는 원장이 직접 확인하고 설명해 드립니다."
-          note={`${CLINIC.name} · ${CLINIC.address.full}`}
-          secondaryLabel="다른 검사 보기 →"
-          secondaryHref="/checkup"
-        />
       </SubPage>
     </>
   );

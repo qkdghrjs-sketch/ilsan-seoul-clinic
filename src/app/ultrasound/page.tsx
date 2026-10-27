@@ -1,18 +1,13 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
 import SubPageHeader from "@/components/layout/SubPageHeader";
 import JsonLd from "@/components/JsonLd";
 import {
   SubPage,
-  SubHero,
-  HeroInfoCard,
-  KeyAnswer,
   Section,
-  SectionHeader,
-  SubCta,
+  SummaryBox,
+  Gallery,
 } from "@/components/subpage/parts";
-import Icon from "@/components/subpage/icons";
 import { pageSchemas } from "@/lib/page-schema";
 import { CLINIC, SITE_URL } from "@/lib/site";
 import { ULTRASOUNDS } from "@/lib/ultrasound";
@@ -20,7 +15,7 @@ import { ULTRASOUNDS } from "@/lib/ultrasound";
 const PATH = "/ultrasound";
 const TITLE = "초음파검사 안내";
 const DESCRIPTION =
-  "일산서울내과의원 초음파검사 안내. 심장초음파 세부인증의 김금미 원장이 심장·갑상선·경동맥·복부 초음파를 직접 검사하고 결과를 설명합니다.";
+  "일산서울내과의원 초음파검사 안내. 심장초음파 세부인증의 김금미 원장이 심장·경동맥·갑상선·복부 초음파를 직접 검사하고 결과를 설명합니다.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -44,9 +39,11 @@ function collectionSchema() {
   };
 }
 
-/** 카드별 강조색 — 파랑·청록 계열 안에서만 변주합니다 */
-const ACCENTS = ["#1a3a6c", "#2b5ba8", "#2f9fc4", "#2e9580"];
-
+/*
+  원장님 요청(2026-10-22·10-27)
+  · 첫 상자는 절반 크기, 오른쪽에 심장·경동맥·갑상선·복부 큰 상자 → 누르면 같은 페이지 아래로 이동
+  · 네 가지 검사를 한 페이지에 차례로: 제목 → 검사 화면 예시 → 살펴보는 내용
+*/
 export default function UltrasoundIndexPage() {
   return (
     <>
@@ -65,97 +62,57 @@ export default function UltrasoundIndexPage() {
       <SubPageHeader currentPath={PATH} />
 
       <SubPage>
-        <SubHero
-          eyebrow="ULTRASOUND · 초음파검사"
-          title={
-            <>
-              영상으로 확인하고,
-              <br />
-              <em>바로 설명해 드립니다</em>
-            </>
-          }
-          sub={
-            <>
-              심장초음파 세부인증의인 원장이 직접 검사하고
-              <br />
-              검사 영상을 함께 보며 결과를 설명해 드립니다.
-            </>
-          }
-          cards={
-            <>
-              <HeroInfoCard icon="pulse" label="검사 종류" delay="d2">
-                심장 · 갑상선 · 경동맥 · 복부
-              </HeroInfoCard>
-              <HeroInfoCard icon="user" label="검사" teal delay="d3">
-                원장 직접 시행
-              </HeroInfoCard>
-              <HeroInfoCard icon="phone" label="검사 문의" delay="d4">
-                {CLINIC.telephoneDisplay}
-              </HeroInfoCard>
-            </>
-          }
-        />
+        <div className="sp_hero blue us_hero">
+          <div className="sp_hero_glow" />
+          <div className="us_hero_inner">
+            <div>
+              <div className="eum_rv d1 sp_eyebrow">
+                <span className="sp_eyebrow_line" />
+                ULTRASOUND · 초음파검사
+              </div>
+              <h2 className="eum_rv d2 sp_hero_title">
+                영상으로 확인하고,
+                <br />
+                <em>바로 설명해 드립니다</em>
+              </h2>
+              <p className="eum_rv d3 sp_hero_sub">
+                심장초음파 세부인증의인 원장이 직접 검사하고 검사 영상을 함께
+                보며 결과를 설명해 드립니다.
+              </p>
+            </div>
 
-        <Section tightTop narrow>
-          <KeyAnswer
-            question="일산서울내과의원에서는 어떤 초음파검사를 받을 수 있나요?"
-            facts={["심장 초음파", "갑상선 초음파", "경동맥 초음파", "복부 초음파"]}
-          >
-            일산서울내과의원에서는 심장초음파 세부인증의인 김금미 원장이 심장
-            초음파, 갑상선 초음파, 경동맥 초음파, 복부 초음파를 직접 검사하고
-            결과를 설명해 드립니다.
-          </KeyAnswer>
-        </Section>
-
-        <Section tightTop>
-          <SectionHeader
-            eyebrow="PROGRAMS"
-            title="초음파검사 종류"
-            desc="궁금한 검사를 눌러 자세한 내용을 확인해 보세요."
-          />
-
-          <div className="sp_trt_grid">
-            {ULTRASOUNDS.map((item, index) => (
-              <Link
-                href={item.path}
-                key={item.path}
-                className={`eum_rv d${Math.min(index + 2, 5)} sp_trt_card`}
-                data-accent=""
-                style={
-                  {
-                    "--accent": ACCENTS[index % ACCENTS.length],
-                  } as React.CSSProperties
-                }
-              >
-                <div className="sp_deco" />
-                <div className="sp_trt_icon">
-                  <Icon name={item.icon} />
-                </div>
-                <h3 className="sp_trt_title">{item.label}</h3>
-                <div className="sp_trt_list">
-                  <div className="sp_trt_item">
-                    <span className="sp_dot" />
-                    <span className="sp_trt_text">{item.summary}</span>
-                  </div>
-                </div>
-              </Link>
-            ))}
+            <nav className="eum_rv d3 us_jump" aria-label="초음파 검사 종류">
+              {ULTRASOUNDS.map((item) => (
+                <a key={item.slug} href={`#${item.slug}`}>
+                  {item.label}
+                  <span aria-hidden="true">↓</span>
+                </a>
+              ))}
+            </nav>
           </div>
-        </Section>
+        </div>
 
-        <SubCta
-          title={
-            <>
-              어떤 검사가 필요한지
-              <br />
-              모르시겠다면 문의해 주세요
-            </>
-          }
-          sub="증상과 복용 중인 약을 말씀해 주시면 필요한 검사를 안내해 드립니다."
-          note={`${CLINIC.name} · ${CLINIC.address.full}`}
-          secondaryLabel="찾아오시는 길 →"
-          secondaryHref="/location"
-        />
+        {ULTRASOUNDS.map((item, index) => (
+          <section id={item.slug} className="us_block" key={item.slug}>
+            <Section alt={index % 2 === 1}>
+              <h2 className="eum_rv d1 us_block_title">
+                {item.label}, <em>원장이 직접</em> 검사합니다
+              </h2>
+              <Gallery items={item.images} />
+              <SummaryBox
+                title={`${item.label}로 살펴보는 내용`}
+                items={item.points}
+              />
+            </Section>
+          </section>
+        ))}
+
+        <Section narrow tightTop>
+          <p className="eum_rv d1 sp_disclaimer">
+            검사 화면은 개인 식별정보를 제외한 예시이며, 검사 방법과 결과
+            해석은 개인의 건강 상태에 따라 달라질 수 있습니다.
+          </p>
+        </Section>
       </SubPage>
     </>
   );

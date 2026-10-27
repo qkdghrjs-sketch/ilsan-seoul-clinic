@@ -6,11 +6,9 @@ import {
   SubPage,
   SubHero,
   HeroInfoCard,
-  KeyAnswer,
   Section,
   SectionHeader,
   Note,
-  SubCta,
 } from "@/components/subpage/parts";
 import Icon from "@/components/subpage/icons";
 import { pageSchemas } from "@/lib/page-schema";
@@ -72,17 +70,6 @@ export default function IvPage() {
           }
         />
 
-        <Section tightTop narrow>
-          <KeyAnswer
-            question="일산서울내과의원 수액 치료센터에서는 어떤 수액을 맞을 수 있나요?"
-            facts={IV_ITEMS.map((item) => item.title)}
-          >
-            일산서울내과의원 수액 치료센터에서는 감기수액, 어르신 수액, 수험생
-            수액, 간보충 수액, 신경통 만성질환 수액, 프리미엄 집중 수액, 어르신
-            집중 수액을 운영합니다. 진찰 후 현재 상태에 맞는 수액을 안내해
-            드립니다.
-          </KeyAnswer>
-        </Section>
 
         <Section tightTop>
           <SectionHeader
@@ -142,19 +129,6 @@ export default function IvPage() {
           </p>
         </Section>
 
-        <SubCta
-          title={
-            <>
-              수액이 궁금하시면
-              <br />
-              전화로 문의해 주세요
-            </>
-          }
-          sub="몸 상태를 말씀해 주시면 필요한 수액을 안내해 드립니다."
-          note={`${CLINIC.name} · ${CLINIC.address.full}`}
-          secondaryLabel="찾아오시는 길 →"
-          secondaryHref="/location"
-        />
       </SubPage>
     </>
   );

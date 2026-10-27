@@ -7,10 +7,8 @@ import {
   SubPage,
   SubHero,
   HeroInfoCard,
-  KeyAnswer,
   Section,
   SectionHeader,
-  SubCta,
 } from "@/components/subpage/parts";
 import { pageSchemas, toFaqPairs } from "@/lib/page-schema";
 import { CLINIC } from "@/lib/site";
@@ -79,22 +77,6 @@ export default function EndoscopyFaqPage() {
           }
         />
 
-        <Section tightTop narrow>
-          <KeyAnswer
-            question="수면 위 내시경 예약은 어떻게 하나요?"
-            facts={[
-              "전화 예약",
-              "한 시간에 한 분",
-              "12시간 이상 공복",
-              "당일 결과 확인",
-            ]}
-          >
-            일산서울내과의원 {CLINIC.telephoneDisplay} 로 전화하시면 수면 위
-            내시경 예약이 가능합니다. 대한소화기내시경학회 권장 소독 과정을
-            지키기 위해 자동소독기로 소독하며, 한 시간 간격으로 한 분씩만 검사를
-            진행합니다.
-          </KeyAnswer>
-        </Section>
 
         <Section tightTop narrow>
           <SectionHeader
@@ -111,19 +93,6 @@ export default function EndoscopyFaqPage() {
           </p>
         </Section>
 
-        <SubCta
-          title={
-            <>
-              답을 찾지 못하셨다면
-              <br />
-              전화로 물어보세요
-            </>
-          }
-          sub="예약 시 준비사항을 하나하나 자세히 설명해 드립니다."
-          note={`${CLINIC.name} · ${CLINIC.address.full}`}
-          secondaryLabel="수면 위 내시경 안내 →"
-          secondaryHref="/endoscopy"
-        />
       </SubPage>
     </>
   );

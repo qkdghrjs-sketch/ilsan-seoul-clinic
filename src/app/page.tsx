@@ -1,16 +1,7 @@
 import type { Metadata } from "next";
 
-import {
-  HomeHero,
-  HomeNotices,
-  HomeStats,
-  HomeServices,
-  HomeDoctor,
-  HomeCheckups,
-  HomeEssays,
-  HomeCta,
-} from "@/components/home/HomeSections";
-import LocationSection from "@/components/layout/LocationSection";
+import { HomeGate } from "@/components/home/HomeSections";
+
 import JsonLd from "@/components/JsonLd";
 import { CORE_ANSWERS } from "@/lib/core-answers";
 import { doctorSchema } from "@/lib/schema";
@@ -68,7 +59,7 @@ function homeSchemas() {
       dateModified: CONTENT_UPDATED,
       speakable: {
         "@type": "SpeakableSpecification",
-        cssSelector: [".hm_hero_title", ".hm_hero_sub"],
+        cssSelector: [".hm_banner_slogan", ".hm_banner_name"],
       },
     },
     {
@@ -89,15 +80,8 @@ export default function HomePage() {
   return (
     <div className="hm">
       <JsonLd data={homeSchemas()} />
-      <HomeHero />
-      <HomeNotices />
-      <HomeStats />
-      <HomeServices />
-      <HomeDoctor />
-      <HomeCheckups />
-      <HomeEssays />
-      <LocationSection />
-      <HomeCta />
+      <HomeGate />
+
     </div>
   );
 }
