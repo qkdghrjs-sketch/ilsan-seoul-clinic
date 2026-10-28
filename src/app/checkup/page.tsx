@@ -100,9 +100,9 @@ export default function CheckupIndexPage() {
           eyebrow="CHECK-UP · 검사안내"
           title={
             <>
-              검사하고 끝이 아니라,
+              상세한 검사 후,
               <br />
-              <em>결과를 함께 봅니다</em>
+              <em>친절한 설명, 정확한 치료로 해결해드립니다</em>
             </>
           }
           sub={

@@ -38,8 +38,8 @@ const PHOTOS = [
   },
   {
     src: "/images/tour/waiting.jpg",
-    alt: "일산서울내과의원 대기 의자와 검사실 안내",
-    caption: "대기 의자와 검사실 안내",
+    alt: "일산서울내과의원 로비와 임상병리 검사실",
+    caption: "로비 및 임상병리 검사실",
   },
   {
     src: "/images/tour/clinic-room.jpg",
@@ -48,8 +48,8 @@ const PHOTOS = [
   },
   {
     src: "/images/tour/exam-1.jpg",
-    alt: "일산서울내과의원 초음파 장비와 내시경 장비가 있는 검사실",
-    caption: "검사실 (초음파 · 내시경 장비)",
+    alt: "일산서울내과의원 초음파실과 위내시경실",
+    caption: "초음파실, 위내시경실",
   },
 ];
 

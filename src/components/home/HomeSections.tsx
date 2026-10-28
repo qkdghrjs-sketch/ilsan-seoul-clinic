@@ -5,37 +5,27 @@ import { CLINIC } from "@/lib/site";
 import { DOCTOR } from "@/lib/doctor";
 import { ULTRASOUNDS } from "@/lib/ultrasound";
 import { getAllEssays } from "@/lib/essay-posts";
+import { EXTERNAL } from "@/lib/nav";
 
 /*
   첫 화면 = 옛 홈페이지 대문 구성 (원장님 요청 2026-10-22·10-27)
-  · 위 1/3: 「정확한 검사 · 친절한 진료 / 일산서울내과의원」 + 꽃 로고
+  · 위 1/3: 「정확한 검사 · 친절한 진료 / 일산서울내과의원」(「서울」만 하늘색) + 꽃 로고
   · 아래: 바로가기 상자 6개
   · 맨 아래: 병원명·주소·전화 (SiteFooter 가 홈에서는 이 줄만 보여 줍니다)
   · PC에서는 한 화면에 고정되어 스크롤이 없습니다.
 */
 
-/** 꽃 로고 — 잎 다섯 장이 가운데를 감싸는 모양 */
+/** 꽃 로고 — 원장님이 보내 주신 원본(로고.ai, 2026-10-28)을 SVG로 옮긴 것 */
 export function FlowerLogo({ className }: { className?: string }) {
   return (
-    <svg
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
       className={className}
-      viewBox="-100 -100 200 200"
-      role="img"
-      aria-label={`${CLINIC.name} 로고`}
-    >
-      {[0, 72, 144, 216, 288].map((angle) => (
-        <g key={angle} transform={`rotate(${angle})`}>
-          <path
-            className="petal"
-            d="M0 -14 C 26 -30 34 -62 0 -94 C -34 -62 -26 -30 0 -14 Z"
-          />
-          <path className="vein" d="M0 -20 L0 -84" />
-          <path className="vein" d="M0 -40 L13 -54 M0 -56 L12 -68 M0 -40 L-13 -54 M0 -56 L-12 -68" />
-        </g>
-      ))}
-      <circle className="core" r="15" />
-      <circle className="core_in" r="6" />
-    </svg>
+      src="/images/logo-flower.svg"
+      alt={`${CLINIC.name} 로고`}
+      width={387}
+      height={370}
+    />
   );
 }
 
@@ -71,7 +61,9 @@ export async function HomeGate() {
       <div className="hm_banner">
         <div className="hm_banner_text">
           <p className="hm_banner_slogan">정확한 검사 · 친절한 진료</p>
-          <h2 className="hm_banner_name">{CLINIC.name}</h2>
+          <h2 className="hm_banner_name" aria-label={CLINIC.name}>
+            일산<em>서울</em>내과의원
+          </h2>
         </div>
         <FlowerLogo className="hm_banner_logo" />
       </div>
@@ -91,8 +83,13 @@ export async function HomeGate() {
             </span>
             <span className="hm_box_text">
               <strong>{DOCTOR.name}</strong>
-              <span>이화여자대학교 의과대학 졸업</span>
+              <span className="hm_doc_grad">이화여자대학교 의과대학 졸업</span>
               <span className="pc_only">내과 전문의 · 의학박사</span>
+              <span className="hm_doc_cert">
+                소화기내시경 세부전문의
+                <br />
+                심장초음파 세부인증의
+              </span>
             </span>
           </Link>
         </article>
@@ -126,6 +123,26 @@ export async function HomeGate() {
               </li>
             ))}
           </ul>
+          {/* 원장님 요청(2026-10-28): 에세이 아래 빈 곳에 오시는 길 — PC에서만 (휴대폰은 아래 상자) */}
+          <div className="hm_essay_loc">
+            <Link href="/location" className="hm_essay_loc_head">
+              오시는 길
+              <span>LOCATION</span>
+            </Link>
+            <Link href="/location" className="hm_loc">
+              <span className="hm_loc_addr">{CLINIC.address.full}</span>
+              <span className="hm_loc_sub">지하철 3호선 주엽역 인근 · 롯데마트 근처</span>
+              <span className="hm_tel">TEL. {CLINIC.telephoneDisplay}</span>
+            </Link>
+            <div className="hm_map_links">
+              <a href={EXTERNAL.naverMap} target="_blank" rel="noopener noreferrer">
+                네이버 지도
+              </a>
+              <a href={EXTERNAL.kakaoMap} target="_blank" rel="noopener noreferrer">
+                카카오맵
+              </a>
+            </div>
+          </div>
         </article>
 
         <article className="hm_box a_tour">

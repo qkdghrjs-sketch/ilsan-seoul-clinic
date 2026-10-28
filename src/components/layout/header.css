@@ -427,6 +427,24 @@
   .eum_side_foot {
     display: none;
   }
+  /*
+    휴대폰 메뉴: 「상담 및 예약전화」 상자가 메뉴를 가리지 않게
+    메뉴 목록 아래로 내려 함께 스크롤합니다 (원장님 요청 2026-10-28).
+    전화번호는 메뉴 맨 위 띠에 이미 있습니다.
+  */
+  .eum_mobile_nav {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .eum_m_body {
+    flex: 0 0 auto;
+    overflow: visible;
+    padding-bottom: 8px;
+  }
+  .eum_side_info {
+    margin-top: 18px;
+    margin-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  }
 }
 
 /* ──────────────────────────────────────────────

@@ -71,9 +71,9 @@ export default function UltrasoundIndexPage() {
                 ULTRASOUND · 초음파검사
               </div>
               <h2 className="eum_rv d2 sp_hero_title">
-                영상으로 확인하고,
+                영상으로 함께 확인,
                 <br />
-                <em>바로 설명해 드립니다</em>
+                <em>바로 설명해드리고, 치료에 적용합니다</em>
               </h2>
               <p className="eum_rv d3 sp_hero_sub">
                 심장초음파 세부인증의인 원장이 직접 검사하고 검사 영상을 함께

@@ -94,30 +94,17 @@
   white-space: nowrap;
   color: var(--navy-deep);
 }
+/* 위쪽 메뉴 로고처럼 「서울」만 하늘색 (원장님 요청 2026-10-28) */
+.hm_banner_name em {
+  font-style: normal;
+  color: var(--sky);
+}
 .hm_banner_logo {
   flex: 0 0 auto;
   width: clamp(100px, 19vh, 200px);
   height: auto;
   margin-right: clamp(0px, 2vw, 40px);
 }
-.hm_banner_logo .petal {
-  fill: #5b74b8;
-  stroke: #3d5698;
-  stroke-width: 2;
-}
-.hm_banner_logo .vein {
-  fill: none;
-  stroke: #dfe6f5;
-  stroke-width: 2.4;
-  stroke-linecap: round;
-}
-.hm_banner_logo .core {
-  fill: #3d5698;
-}
-.hm_banner_logo .core_in {
-  fill: #dfe6f5;
-}
-
 /* ══════════════════════════════════════════════
    2. 바로가기 상자 6개 (윗줄: 원장·내시경·에세이 / 아랫줄: 둘러보기·초음파·오시는 길)
 ══════════════════════════════════════════════ */
@@ -274,6 +261,34 @@
   font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--ink);
+}
+/* 원장님 소개: 세부전문의·세부인증의 (원장님 요청 2026-10-28) */
+.hm_doc_cert {
+  margin-top: 2px;
+  font-weight: 700;
+  color: var(--navy);
+}
+/* 휴대폰·낮은 화면에서는 세부전문의를 남기고 학력 줄을 줄입니다 */
+@media (max-width: 720px) {
+  .hm_doc_grad {
+    display: none;
+  }
+  .hm_doc_cert {
+    margin-top: 0;
+    font-size: 11px;
+    line-height: 1.35;
+    letter-spacing: -0.03em;
+  }
+}
+@media (min-width: 1280px) and (max-height: 700px) {
+  .a_doc .pc_only {
+    display: none;
+  }
+}
+@media (min-width: 1280px) and (max-height: 640px) {
+  .a_doc .hm_doc_grad {
+    display: none;
+  }
 }
 .hm_box_text .clamp {
   display: -webkit-box;
@@ -543,6 +558,78 @@
 /* PC 낮은 화면: 에세이 5편까지 */
 @media (min-width: 1280px) and (max-height: 700px) {
   .hm_essay_list li:nth-child(n + 6) {
+    display: none;
+  }
+}
+
+/* 에세이 아래 오시는 길 — PC에서만 (휴대폰·태블릿은 따로 있는 아래 상자) */
+.hm_essay_loc {
+  display: none;
+}
+@media (min-width: 1280px) {
+  .hm_essay_loc {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(4px, 0.8vh, 8px);
+    margin-top: clamp(6px, 1.2vh, 12px);
+    padding-top: clamp(8px, 1.4vh, 14px);
+    border-top: 1px solid var(--line);
+  }
+  .hm_essay_loc_head {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    font-size: clamp(14px, 1.05vw, 16px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--navy-deep);
+    text-decoration: none;
+  }
+  .hm_essay_loc_head span {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: #8a97ad;
+  }
+  .hm_essay_loc .hm_loc {
+    flex: 0 0 auto;
+    gap: 2px;
+  }
+  .hm_essay_loc .hm_tel {
+    margin-top: 2px;
+  }
+  .hm_map_links {
+    display: flex;
+    gap: 6px;
+  }
+  .hm_map_links a {
+    flex: 1;
+    padding: 6px 0;
+    border-radius: 30px;
+    background: var(--mist);
+    font-size: 12.5px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--navy);
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .hm_map_links a:hover {
+    background: var(--navy);
+    color: #ffffff;
+  }
+}
+@media (min-width: 1280px) and (max-height: 760px) {
+  .hm_map_links {
+    display: none;
+  }
+  .a_essay .hm_essay_list li:nth-child(n + 5) {
+    display: none;
+  }
+}
+@media (min-width: 1280px) and (max-height: 660px) {
+  .a_essay .hm_essay_list li:nth-child(n + 4) {
     display: none;
   }
 }
