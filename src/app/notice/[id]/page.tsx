@@ -13,11 +13,12 @@ import { deleteNoticeAction } from "@/app/admin/actions";
 
 type Params = { params: Promise<{ id: string }> };
 
-/** 공지는 올릴 때마다 생기므로 미리 만들어 두지 않고, 처음 열 때 만들어 1분간 보관합니다. */
-export const revalidate = 60;
-export async function generateStaticParams() {
-  return [];
-}
+/**
+ * 공지 화면은 열 때마다 새로 만듭니다.
+ * 아래 「수정·삭제」가 관리자 로그인(쿠키)을 확인하므로 미리 만들어 둘 수 없습니다.
+ * (2026-10-28 원장님이 올린 공지가 「보관」 방식 때문에 서버 오류로 안 열렸던 것을 고침)
+ */
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { id } = await params;

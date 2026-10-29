@@ -45,6 +45,7 @@
 - ⚠ **이 폴더 `.env.local`에는 (1) 이움내과 운영 DB 키·옛 관리자 값이 복사되어 있고(이 사이트는 안 쓰며 깃에는 안 올라감), (2) `vercel link`/`create-store`가 `BLOB_READ_WRITE_TOKEN`·`VERCEL_OIDC_TOKEN`을 넣어 두었다.** 그래서 로컬 `next dev`/`next start`는 **운영 글 저장소에 그대로 쓰기**가 된다. 로컬에서 시험할 때는 `.env.development.local`(깃 제외)에 `BLOB_READ_WRITE_TOKEN=`(빈 값)과 시험용 `ADMIN_*`를 두어 `.data/` 파일 저장으로 돌리고, 끝나면 그 파일과 `.data/`를 지운다. 시험 글에는 「(시험)」「(예시)」를 붙인다.
 - 원장님용 사용 설명서: `문서\일산서울내과_글쓰기_안내서\일산서울내과_글쓰기_안내서.pdf` (비밀번호는 안 적힘). 보고서: `문서\일산서울내과_수정보고서_2026-10-16\일산서울내과_수정보고서_2026-10-17.pdf`.
 - 코드: `src/lib/admin-auth.ts`(로그인·세션·5회 잠금) · `src/lib/store.ts`(저장소) · `src/lib/notices.ts` · `src/lib/essay-posts.ts` · `src/app/admin/*`.
+- ⚠ 관리자 확인(`isAdmin()`·`AdminBar`·`AdminPostTools`, 쿠키 읽음)이 들어간 화면에는 `revalidate`·`generateStaticParams`를 쓰지 않고 `export const dynamic = "force-dynamic"`. 섞으면 새 글 화면이 실제 사이트에서만 500(`DYNAMIC_SERVER_USAGE`)이 난다 — 로컬 `next dev`에서는 재현 안 됨. (2026-10-28 원장님 공지 「설날 휴진 안내」가 안 열렸던 사고)
 
 ## 기본 정보 (변경 없음 — 그대로 사용)
 - 의원명: 일산서울내과의원

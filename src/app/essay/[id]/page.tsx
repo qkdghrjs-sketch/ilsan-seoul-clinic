@@ -16,14 +16,11 @@ import { deleteEssayAction } from "@/app/admin/actions";
 type Params = { params: Promise<{ id: string }> };
 
 /**
- * 옛 글(1~8)은 미리 만들어 두고, 원장님이 새로 올린 글은 처음 열 때 만들어
- * 1분간 보관합니다. (글을 고치거나 지우면 바로 반영됩니다)
+ * 에세이 화면은 열 때마다 새로 만듭니다.
+ * 아래 「수정·삭제」가 관리자 로그인(쿠키)을 확인하므로 미리 만들어 둘 수 없습니다.
+ * (공지와 같은 서버 오류가 새로 올린 에세이에서도 나므로 함께 고침, 2026-10-29)
  */
-export const revalidate = 60;
-
-export function generateStaticParams() {
-  return ESSAYS.map((item) => ({ id: String(item.id) }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { id } = await params;
