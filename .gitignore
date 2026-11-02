@@ -52,3 +52,7 @@ next-env.d.ts
 
 # 견본 파일은 올립니다 (실제 값은 들어 있지 않음)
 !.env.example
+
+# 주소 전환 예약 기록
+scripts/domain-switch/switch_log.txt
+scripts/domain-switch/_commit_msg.txt
