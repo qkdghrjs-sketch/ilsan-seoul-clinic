@@ -12,6 +12,8 @@ import { ESSAYS } from "@/lib/essays";
 import { findEssayAny, getAllEssays } from "@/lib/essay-posts";
 import { AdminPostTools } from "@/components/subpage/AdminBar";
 import { deleteEssayAction } from "@/app/admin/actions";
+import EssayViewCounter from "@/components/subpage/EssayViewCounter";
+import { getEssayView } from "@/lib/views";
 
 type Params = { params: Promise<{ id: string }> };
 
@@ -94,6 +96,7 @@ export default async function EssayPage({ params }: Params) {
               <span>{essay.date}</span>
               <span>김금미 원장</span>
               {essay.source && <span>{essay.source}</span>}
+              <EssayViewCounter id={String(essay.id)} initial={await getEssayView(String(essay.id))} />
             </div>
 
             <div className="eum_rv d2 es_body">

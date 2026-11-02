@@ -9,6 +9,7 @@ import { pageSchemas } from "@/lib/page-schema";
 import { CLINIC, SITE_URL } from "@/lib/site";
 import type { Essay } from "@/lib/essays";
 import { getAllEssays } from "@/lib/essay-posts";
+import { getEssayViews } from "@/lib/views";
 
 /** 원장님이 새 글을 올리면 바로 반영되고, 아니어도 1분 안에 갱신됩니다. */
 export const revalidate = 60;
@@ -47,6 +48,7 @@ export default async function EssayIndexPage({
   searchParams: Promise<{ page?: string | string[] }>;
 }) {
   const ESSAYS = await getAllEssays();
+  const VIEWS = await getEssayViews();
   const page = toPage(
     (await searchParams).page,
     Math.ceil(ESSAYS.length / BOARD_PAGE_SIZE),
@@ -75,7 +77,9 @@ export default async function EssayIndexPage({
               title: item.title,
               href: `${PATH}/${item.id}`,
               date: item.date.replace(/-/g, "."),
+              views: VIEWS[String(item.id)] ?? 0,
             }))}
+            showViews
             page={page}
             basePath={PATH}
             emptyText="등록된 글이 없습니다."

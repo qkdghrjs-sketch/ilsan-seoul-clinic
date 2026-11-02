@@ -84,6 +84,62 @@ export async function readJson<T>(name: string, fallback: T): Promise<T> {
   return fallback;
 }
 
+/**
+ * 읽고-고치고-쓰기를 안전하게 (조회수처럼 여러 사람이 동시에 바꾸는 값).
+ * - 운영(Blob): 읽은 뒤 다른 사람이 먼저 바꿨으면(ETag 다름) 다시 읽어서 재시도합니다.
+ * - 읽기 자체가 실패하면 쓰지 않습니다(빈 값으로 덮어써 숫자가 지워지는 일 방지).
+ */
+export async function updateJson<T>(name: string, fallback: T, change: (current: T) => T): Promise<T> {
+  const mode = storageMode();
+  if (mode === "file") {
+    const next = change(await fileRead(name, fallback));
+    await fileWrite(name, next);
+    return next;
+  }
+  if (mode !== "blob") throw new Error("저장소가 연결되지 않았습니다.");
+
+  for (let attempt = 0; attempt < 6; attempt++) {
+    // 1) 읽기 — 실패하면 예외를 그대로 던져 쓰지 않습니다.
+    let found: { data: T; etag: string } | null = null;
+    let access: "private" | "public" | null = null;
+    let lastError: unknown = null;
+    for (const candidate of accessOrder()) {
+      try {
+        const result = await get(blobPath(name), { access: candidate, useCache: false });
+        access = candidate;
+        if (result && result.statusCode === 200) {
+          found = {
+            data: JSON.parse(await new Response(result.stream).text()) as T,
+            etag: result.blob.etag,
+          };
+        }
+        break;
+      } catch (error) {
+        lastError = error;
+      }
+    }
+    if (!access) throw lastError;
+    blobAccess = access;
+
+    // 2) 쓰기 — 있던 파일이면 ETag 가 같을 때만, 없던 파일이면 새로 만들 때만.
+    const next = change(found ? found.data : fallback);
+    try {
+      await put(blobPath(name), JSON.stringify(next), {
+        access,
+        addRandomSuffix: false,
+        contentType: "application/json",
+        ...(found ? { allowOverwrite: true, ifMatch: found.etag } : { allowOverwrite: false }),
+      });
+      return next;
+    } catch (error) {
+      lastError = error;
+      // 다른 사람이 먼저 바꿨음 → 잠깐 쉬고 다시 읽기
+      await new Promise((resolve) => setTimeout(resolve, 60 + Math.random() * 140));
+    }
+  }
+  throw new Error(`[store] ${name} 저장 재시도 초과`);
+}
+
 export async function writeJson(name: string, data: unknown) {
   const mode = storageMode();
   if (mode === "blob") return blobWrite(name, data);

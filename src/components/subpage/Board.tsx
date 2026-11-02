@@ -12,6 +12,8 @@ export type BoardRow = {
   title: string;
   href: string;
   date: string;
+  /** 조회수 (에세이) */
+  views?: number;
   /** 위에 고정된 글(번호 대신 「공지」 표시) */
   pinned?: boolean;
 };
@@ -28,12 +30,15 @@ export default function Board({
   page,
   basePath,
   emptyText,
+  showViews,
 }: {
   /** 전체 글 (최신순) */
   rows: BoardRow[];
   page: number;
   basePath: string;
   emptyText: string;
+  /** 조회수 칸 보이기 (김금미 에세이) */
+  showViews?: boolean;
 }) {
   const pageCount = Math.max(1, Math.ceil(rows.length / BOARD_PAGE_SIZE));
   const start = (page - 1) * BOARD_PAGE_SIZE;
@@ -51,12 +56,17 @@ export default function Board({
             <th className="bd_date" scope="col">
               등록일
             </th>
+            {showViews && (
+              <th className="bd_views" scope="col">
+                조회수
+              </th>
+            )}
           </tr>
         </thead>
         <tbody>
           {visible.length === 0 ? (
             <tr>
-              <td className="bd_empty" colSpan={3}>
+              <td className="bd_empty" colSpan={showViews ? 4 : 3}>
                 {emptyText}
               </td>
             </tr>
@@ -74,6 +84,9 @@ export default function Board({
                   <Link href={row.href}>{row.title}</Link>
                 </td>
                 <td className="bd_date">{row.date}</td>
+                {showViews && (
+                  <td className="bd_views">{(row.views ?? 0).toLocaleString("ko-KR")}</td>
+                )}
               </tr>
             ))
           )}

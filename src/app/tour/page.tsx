@@ -101,7 +101,7 @@ export default function TourPage() {
             title="본원 모습"
             desc="입구, 대기 공간, 진료실, 검사실 순서로 보여 드립니다."
           />
-          <Gallery items={PHOTOS} wide />
+          <Gallery items={PHOTOS} wide zoom />
         </Section>
       </SubPage>
     </>

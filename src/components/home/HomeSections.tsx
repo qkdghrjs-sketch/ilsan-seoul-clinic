@@ -83,8 +83,8 @@ export async function HomeGate() {
             </span>
             <span className="hm_box_text">
               <strong>{DOCTOR.name}</strong>
-              <span className="hm_doc_grad">이화여자대학교 의과대학 졸업</span>
-              <span className="pc_only">내과 전문의 · 의학박사</span>
+              <span className="hm_doc_grad hm_doc_bold">이화여자대학교 의과대학 졸업</span>
+              <span className="pc_only hm_doc_bold">내과 전문의 · 의학박사</span>
               <span className="hm_doc_cert">
                 소화기내시경 세부전문의
                 <br />

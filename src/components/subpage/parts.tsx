@@ -2,6 +2,7 @@ import "./subpage.css";
 
 import Reveal from "@/components/Reveal";
 import Icon, { type IconName } from "./icons";
+import ZoomGallery from "./ZoomGallery";
 
 /* ══════════════════════════════════════════════
    페이지 래퍼
@@ -356,11 +357,15 @@ export function Note({
 export function Gallery({
   items,
   wide,
+  zoom,
 }: {
   items: Array<{ src: string; alt: string; caption?: string }>;
   /** 가로로 긴 사진(병원 내부)일 때 */
   wide?: boolean;
+  /** 사진을 누르면 화면 가득 크게 보기 (본원 둘러보기) */
+  zoom?: boolean;
 }) {
+  if (zoom) return <ZoomGallery items={items} wide={wide} />;
   return (
     <div className={`sp_gallery${wide ? " wide" : ""}`}>
       {items.map((item, index) => (

@@ -2423,6 +2423,124 @@
   aspect-ratio: 16 / 10;
   object-fit: cover;
 }
+/* 사진 크게 보기 (본원 둘러보기, 2026-11-02) */
+.zg_btn {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+.zg_btn img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.sp_gallery.wide .zg_btn img {
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+.zg_hint {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 11px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(10, 25, 50, 0.72);
+}
+.zg_overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 16px;
+  background: rgba(5, 12, 26, 0.92);
+}
+.zg_figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+  max-height: 100%;
+}
+.zg_figure img {
+  display: block;
+  max-width: min(1400px, 100%);
+  max-height: calc(100vh - 160px);
+  max-height: calc(100dvh - 160px);
+  width: auto;
+  height: auto;
+  border-radius: 6px;
+}
+.zg_figure figcaption {
+  margin-top: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+}
+.zg_count {
+  margin-left: 10px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.65);
+}
+.zg_close,
+.zg_nav {
+  position: absolute;
+  border: 0;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+  cursor: pointer;
+}
+.zg_close {
+  top: 12px;
+  right: 12px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 20px;
+}
+.zg_nav {
+  top: 50%;
+  width: 48px;
+  height: 64px;
+  margin-top: -32px;
+  border-radius: 10px;
+  font-size: 40px;
+  line-height: 1;
+}
+.zg_nav.prev {
+  left: 12px;
+}
+.zg_nav.next {
+  right: 12px;
+}
+.zg_close:hover,
+.zg_nav:hover {
+  background: rgba(255, 255, 255, 0.26);
+}
+@media (max-width: 640px) {
+  .zg_nav {
+    top: auto;
+    bottom: 14px;
+    margin-top: 0;
+    width: 44px;
+    height: 44px;
+    font-size: 30px;
+  }
+}
+
 .sp_gallery_note {
   margin: 16px 0 0;
   font-size: 13px;
@@ -2850,6 +2968,10 @@
 .bd_table .bd_date {
   width: 130px;
 }
+/* 조회수 (김금미 에세이, 2026-11-02) */
+.bd_table .bd_views {
+  width: 90px;
+}
 .bd_pin {
   display: inline-block;
   margin-right: 6px;
@@ -2903,6 +3025,10 @@
   }
   .bd_table .bd_date {
     width: 86px;
+    font-size: 12.5px;
+  }
+  .bd_table .bd_views {
+    width: 54px;
     font-size: 12.5px;
   }
   .bd_table th,
