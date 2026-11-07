@@ -205,7 +205,12 @@ def main():
         for host in HOSTS:
             run([VERCEL, "domains", "add", host, PROJECT], check=False)
         for rec in recs:
-            run([VERCEL, "dns", "rm", rec, "--yes"])
+            out = run([VERCEL, "dns", "rm", rec, "--yes"])
+            log("  → " + out.strip().replace("\n", " | ")[-400:])
+        left = old_records()
+        if left:
+            raise RuntimeError(f"옛 서버 A 레코드가 안 지워짐: {left}")
+        log("옛 서버 A 레코드 삭제 확인")
         run([GIT, "pull", "--ff-only", "origin", "main"], check=False)
         run([VERCEL, "deploy", "--prod", "--yes"], timeout=900)
     except Exception as e:  # noqa: BLE001
