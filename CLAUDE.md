@@ -39,7 +39,7 @@
 - 주소 이전(iseoulmed.com → 이 사이트): 원장님 확정 **2026-11-09부터 새 홈페이지**. 도메인은 아이네임즈(my.inames.co.kr, 원장님 명의 계정)에 있음. M서클 연락 불필요.
   - 방식: Vercel DNS. Vercel 팀에 iseoulmed.com 등록 + A 레코드 2개(@·www → 옛 서버 211.174.60.19)로 옛 화면 유지 → 원장님 본인인증으로 아이네임즈 네임서버를 ns1/ns2.vercel-dns.com 으로 → **11-08 21:00 예약 작업**(`\일산서울내과\주소전환_1108_2100`, `scripts/domain-switch/switch.py --run`)이 A 레코드 삭제·프로젝트 연결·재배포·https 확인, 실패 시 A 레코드 복구. 사전점검 11-07·11-08 10:00. 알림은 텔레그램(MAKE_WEBHOOK_URL), 기록 `scripts/domain-switch/switch_log.txt`.
   - 옛 주소(.asp) → 새 페이지 308 이어주기는 `next.config.ts` (board_view.asp?srno=N → /essay/N).
-  - 전환이 끝나면 예약 작업 3개를 지운다(한 번짜리).
+  - ✅ **2026-11-07 14:02 전환 완료**(사용자 지시로 앞당김). iseoulmed.com·www 모두 이 사이트, https 정상. 예약 작업은 전부 지움. 되돌리려면 Vercel DNS에 A 레코드 2개(@·www → 211.174.60.19)를 다시 추가.
 
 ### 관리자(/admin) 운영 설정 — 2026-10-17 완료
 - (2026-10-27) 공지사항·에세이 목록 아래 「관리자 로그인」(맨 아래 정보 줄에도 있음) → 로그인하면 원래 페이지로 돌아오고 「✎ 글쓰기」가 생긴다. 글쓰기는 블로그식 화면 `/notice/write`·`/essay/write`(`src/app/admin/editor.tsx`, 이 기기에 임시 저장). 글 화면 아래 「수정·삭제」는 관리자에게만 보인다(옛 에세이 8편은 수정 불가). 비밀번호는 2026-10-27 사용자가 정한 값으로 Vercel에서 교체함.
