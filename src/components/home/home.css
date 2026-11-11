@@ -738,6 +738,173 @@
   }
 }
 
+/* ══════════════════════════════════════════════
+   2안 (원장님 시안 2026-11-11) — 휴대폰에서만
+   · 상자 제목 앞 작은 아이콘 + 짧은 남색 밑줄
+   · 초음파: 남색 제목 띠 + 사진 위 / 이름 아래
+   · 찾아오시는 길: 한 줄 띠
+   PC·태블릿은 아이콘·띠를 숨기고 그대로입니다.
+══════════════════════════════════════════════ */
+.hm_ico,
+.hm_us_band,
+.hm_loc_row {
+  display: none;
+}
+@media (max-width: 720px) {
+  .hm_box {
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(26, 58, 108, 0.08);
+  }
+  .hm_banner {
+    border-radius: 10px;
+  }
+  .hm_box_head {
+    border-bottom: 0;
+    background:
+      linear-gradient(var(--navy), var(--navy)) left bottom / 26px 2px no-repeat,
+      linear-gradient(var(--line), var(--line)) left bottom / 100% 1px no-repeat;
+  }
+  .hm_box_title {
+    align-items: center;
+    gap: 5px;
+  }
+  .hm_ico {
+    display: inline-block;
+    flex: 0 0 auto;
+    width: 16px;
+    height: 16px;
+    color: var(--blue);
+  }
+
+  /* 초음파 상자 */
+  .hm_box.a_us {
+    padding: 0;
+  }
+  .a_us .hm_box_head {
+    display: none;
+  }
+  .hm_us_band {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 12px;
+    background: linear-gradient(110deg, var(--navy-deep) 0%, var(--navy) 60%, var(--blue) 100%);
+    color: #ffffff;
+    text-decoration: none;
+  }
+  .hm_us_band .hm_ico {
+    width: 18px;
+    height: 18px;
+    color: #ffffff;
+  }
+  .hm_us_band strong {
+    font-size: 14.5px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+  .hm_us_band span {
+    min-width: 0;
+    margin-left: 4px;
+    padding-left: 10px;
+    border-left: 1px solid rgba(255, 255, 255, 0.4);
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.85);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .hm_us_links {
+    padding: 8px 6px 9px;
+  }
+  .hm_us_links a,
+  .hm_us_links a:hover {
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    padding: 0 4px;
+  }
+  .hm_us_img {
+    width: 100%;
+    border-radius: 5px;
+  }
+  .hm_us_label {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    width: 100%;
+    padding: 4px 2px;
+    border-radius: 5px;
+    background: var(--mist);
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .hm_us_label .hm_ico {
+    width: 13px;
+    height: 13px;
+  }
+  .hm_us_label > span + span {
+    display: inline;
+  }
+
+  /* 찾아오시는 길 한 줄 띠 */
+  .hm_box.a_loc {
+    background: #f7f9fd;
+  }
+  .a_loc .hm_box_head,
+  .a_loc .hm_loc {
+    display: none;
+  }
+  .hm_loc_row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "title tel"
+      "addr addr";
+    align-items: center;
+    gap: 3px 10px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .hm_loc_row_title,
+  .hm_loc_row_tel {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 800;
+    white-space: nowrap;
+    color: var(--navy-deep);
+  }
+  .hm_loc_row_title {
+    grid-area: title;
+    font-size: 13.5px;
+  }
+  .hm_loc_row_tel {
+    grid-area: tel;
+    justify-self: end;
+    font-size: 15px;
+    color: var(--navy);
+  }
+  .hm_loc_row_addr {
+    grid-area: addr;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gray);
+  }
+}
+/* 400px 미만 휴대폰: 사진 아래 이름은 「심장·경동맥·갑상선·복부」만 (띠에 「초음파 검사」가 있음) */
+@media (max-width: 399px) {
+  .hm_us_label > span + span {
+    display: none;
+  }
+}
+@media (max-width: 359px) {
+  .hm_us_band span {
+    display: none;
+  }
+}
+
 /* PC: 두 칸 높이 에세이 상자는 위에서부터 */
 @media (min-width: 1280px) {
   .a_essay .hm_essay_list {
