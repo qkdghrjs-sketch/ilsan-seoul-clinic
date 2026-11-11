@@ -639,6 +639,105 @@
   }
 }
 
+/* ══════════════════════════════════════════════
+   초음파 대표 사진 — 휴대폰에서만 (원장님 요청 2026-11-11, 1안)
+   PC·태블릿은 사진을 숨기고 기존 글자 버튼 그대로입니다.
+══════════════════════════════════════════════ */
+.hm_us_img {
+  display: none;
+}
+@media (max-width: 720px) {
+  /* 초음파 상자를 한 줄 전체로, 둘러보기·에세이는 그 아래 나란히 */
+  .hm_boxes {
+    grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      "doc endo"
+      "us us"
+      "tour essay"
+      "loc loc";
+  }
+  .hm_us_links {
+    flex: 0 0 auto;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: auto;
+    gap: 0;
+  }
+  .hm_us_links a,
+  .hm_us_links a:hover {
+    justify-content: flex-start;
+    gap: 5px;
+    padding: 8px 4px;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    color: var(--navy-deep);
+    white-space: normal;
+  }
+  .hm_us_links a + a {
+    border-left: 1px solid var(--line);
+  }
+  .hm_us_img {
+    display: block;
+    flex: 0 0 auto;
+    width: 50px;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 3px;
+    background: #000000;
+    box-shadow: 0 2px 6px rgba(26, 58, 108, 0.2);
+  }
+  .hm_us_img img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hm_us_label {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    font-size: 11.5px;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.04em;
+  }
+  .hm_us_label > span {
+    white-space: nowrap;
+  }
+  /* 둘러보기 사진 두 장이 반 칸에 들어가게 */
+  .a_tour .hm_box_body.two .hm_thumb {
+    width: calc(50% - 4px);
+    height: auto;
+  }
+  .a_essay .hm_essay_list a {
+    gap: 4px;
+    font-size: 12px;
+  }
+  .a_essay .hm_essay_list time {
+    font-size: 11px;
+  }
+}
+
+/* 아주 좁은 휴대폰(380px 미만): 사진 아래에 이름 */
+@media (max-width: 379px) {
+  .hm_us_links a,
+  .hm_us_links a:hover {
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+  }
+  .hm_us_img {
+    width: 100%;
+  }
+  .hm_us_label {
+    font-size: 11.5px;
+  }
+  /* 상자 제목이 「초음파 검사」라 이름만 (심장·경동맥·갑상선·복부) */
+  .hm_us_label > span + span {
+    display: none;
+  }
+}
+
 /* PC: 두 칸 높이 에세이 상자는 위에서부터 */
 @media (min-width: 1280px) {
   .a_essay .hm_essay_list {

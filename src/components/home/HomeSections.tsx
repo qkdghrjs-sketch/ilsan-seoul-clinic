@@ -161,10 +161,17 @@ export async function HomeGate() {
 
         <article className="hm_box a_us">
           <BoxHead title="초음파 검사" en="ULTRASOUND" href="/ultrasound" />
+          {/* 원장님 요청(2026-11-11): 휴대폰에서는 대표 초음파 사진을 함께 보여 줍니다 (PC는 글자 버튼 그대로) */}
           <div className="hm_us_links">
             {ULTRASOUNDS.map((item) => (
               <Link key={item.slug} href={`/ultrasound#${item.slug}`}>
-                {item.label}
+                <span className="hm_us_img">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={`/images/us/home-${item.slug}.jpg`} alt={`${item.label} 검사 화면 예시`} />
+                </span>
+                <span className="hm_us_label">
+                  <span>{item.label.replace(/\s*초음파$/, "")}</span> <span>초음파</span>
+                </span>
               </Link>
             ))}
           </div>
