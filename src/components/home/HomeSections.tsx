@@ -168,11 +168,15 @@ export async function HomeGate() {
             <span className="hm_box_text">
               <strong>{DOCTOR.name}</strong>
               <span className="hm_doc_grad hm_doc_bold">이화여자대학교 의과대학 졸업</span>
-              <span className="pc_only hm_doc_bold">내과 전문의 · 의학박사</span>
+              {/* 원장님 요청(2026-11-12): 휴대폰에서도 4가지가 한 줄씩 보이게 */}
+              <span className="hm_doc_bold hm_doc_spec">
+                <span>내과 전문의</span>
+                <i aria-hidden="true"> · </i>
+                <span>의학박사</span>
+              </span>
               <span className="hm_doc_cert">
-                소화기내시경 세부전문의
-                <br />
-                심장초음파 세부인증의
+                <span>소화기내시경 세부전문의</span>
+                <span>심장초음파 세부인증의</span>
               </span>
             </span>
           </Link>
@@ -180,10 +184,17 @@ export async function HomeGate() {
 
         <article className="hm_box a_endo feature">
           <BoxHead title="수면 위내시경 검사" en="ENDOSCOPY" href="/endoscopy" icon="stomach" />
-          <Link href="/endoscopy" className="hm_box_body">
-            <span className="hm_thumb">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/endo/endo-1.jpg" alt="위내시경 검사 화면 예시" />
+          {/* 원장님 요청(2026-11-12): 위내시경 사진 2장 */}
+          <Link href="/endoscopy" className="hm_box_body hm_endo_body">
+            <span className="hm_endo_pics">
+              <span className="hm_thumb">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/images/endo/endo-1.jpg" alt="위내시경 검사 화면 예시 1" />
+              </span>
+              <span className="hm_thumb">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/images/endo/endo-2.jpg" alt="위내시경 검사 화면 예시 2" />
+              </span>
             </span>
             <span className="hm_box_text">
               <strong>위 식도 내시경</strong>

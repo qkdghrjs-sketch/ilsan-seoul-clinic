@@ -912,3 +912,93 @@
     gap: 2px;
   }
 }
+
+/* ══════════════════════════════════════════════
+   시안 1 (원장님 요청 2026-11-12) — 한 화면 유지
+   · 수면 위내시경: 사진 2장
+   · 원장님 소개: 내과 전문의 / 의학박사 / 소화기내시경 세부전문의 / 심장초음파 세부인증의
+   · 휴대폰 에세이: 6편
+══════════════════════════════════════════════ */
+.hm_doc_spec i {
+  font-style: normal;
+}
+.hm_doc_cert > span {
+  display: block;
+}
+.hm_endo_pics {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 8px;
+  max-height: 100%;
+}
+.hm_endo_pics .hm_thumb {
+  width: clamp(80px, 6.2vw, 120px);
+}
+@media (max-width: 720px) {
+  /* 원장님 소개: 한 줄에 하나씩 */
+  .hm_doc_spec {
+    display: flex;
+    flex-direction: column;
+  }
+  .hm_doc_spec i {
+    display: none;
+  }
+  .a_doc .hm_box_text {
+    gap: 1px;
+    font-size: 11px;
+    line-height: 1.35;
+    letter-spacing: -0.04em;
+  }
+  .a_doc .hm_box_text strong {
+    margin-bottom: 2px;
+  }
+  .hm_doc_cert > span {
+    white-space: nowrap;
+  }
+  /* 수면 위내시경: 사진 2장 위, 글 아래 */
+  .hm_endo_body {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 6px;
+  }
+  .hm_endo_pics {
+    gap: 5px;
+  }
+  .hm_endo_pics .hm_thumb {
+    flex: 1 1 0;
+    width: auto;
+    aspect-ratio: 4 / 3;
+  }
+  .hm_endo_body .hm_box_text .clamp {
+    -webkit-line-clamp: 1;
+  }
+  /* 에세이 6편 */
+  .a_essay .hm_essay_list li:nth-child(-n + 6) {
+    display: list-item;
+  }
+  .a_essay .hm_essay_list a {
+    padding: 1px 0;
+  }
+}
+/* 380px 미만: 원장님 사진을 작게 */
+@media (max-width: 379px) {
+  .a_doc .hm_thumb.portrait {
+    height: min(100%, 58px);
+  }
+  .a_doc .hm_box_text {
+    font-size: 10.5px;
+  }
+}
+/* 낮은 휴대폰(높이 680 이하): 에세이 4편 */
+@media (max-width: 720px) and (max-height: 680px) {
+  .a_essay .hm_essay_list li:nth-child(n + 5) {
+    display: none;
+  }
+}
+/* 높이 780 이하 휴대폰: 에세이 5편 */
+@media (max-width: 720px) and (max-height: 780px) and (min-height: 681px) {
+  .a_essay .hm_essay_list li:nth-child(n + 6) {
+    display: none;
+  }
+}
