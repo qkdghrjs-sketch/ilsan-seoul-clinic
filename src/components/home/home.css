@@ -914,17 +914,11 @@
 }
 
 /* ══════════════════════════════════════════════
-   시안 1 (원장님 요청 2026-11-12) — 한 화면 유지
+   시안 1 (원장님 요청 2026-11-12) — 한 화면 유지 · 휴대폰에만 적용(2026-11-13 확정)
    · 수면 위내시경: 사진 2장
    · 원장님 소개: 내과 전문의 / 의학박사 / 소화기내시경 세부전문의 / 심장초음파 세부인증의
    · 휴대폰 에세이: 6편
 ══════════════════════════════════════════════ */
-.hm_doc_spec i {
-  font-style: normal;
-}
-.hm_doc_cert > span {
-  display: block;
-}
 .hm_endo_pics {
   flex: 0 0 auto;
   display: flex;
@@ -940,9 +934,6 @@
     display: flex;
     flex-direction: column;
   }
-  .hm_doc_spec i {
-    display: none;
-  }
   .a_doc .hm_box_text {
     gap: 1px;
     font-size: 11px;
@@ -952,7 +943,7 @@
   .a_doc .hm_box_text strong {
     margin-bottom: 2px;
   }
-  .hm_doc_cert > span {
+  .hm_doc_cert {
     white-space: nowrap;
   }
   /* 수면 위내시경: 사진 2장 위, 글 아래 */
@@ -1000,24 +991,6 @@
 @media (max-width: 720px) and (max-height: 780px) and (min-height: 681px) {
   .a_essay .hm_essay_list li:nth-child(n + 6) {
     display: none;
-  }
-}
-
-/* 세로가 짧은 PC(높이 740 이하): 원장님 소개 글이 넘치지 않게 학력 줄을 줄이고 글씨를 조금 작게 */
-@media (min-width: 1280px) and (max-height: 740px) {
-  .a_doc .hm_doc_grad {
-    display: none;
-  }
-  .a_doc .hm_box_text {
-    gap: 2px;
-    font-size: 12.5px;
-  }
-  .a_doc .hm_box_text strong {
-    margin-bottom: 0;
-    font-size: 15px;
-  }
-  .a_doc .hm_thumb.portrait {
-    height: min(100%, 110px);
   }
 }
 
@@ -1131,17 +1104,38 @@
     aspect-ratio: 16 / 9;
   }
 }
-/* 세로가 짧은 PC(높이 740 이하): 위내시경 문구가 다 들어가게 사진·글씨를 조금 작게 */
-@media (min-width: 1280px) and (max-height: 740px) {
-  .hm_endo_pics .hm_thumb {
-    width: clamp(64px, 5vw, 96px);
+/* 아주 낮은 휴대폰(세로 660 이하, 예: 360×640): 에세이·공지 3편까지, 원장님 소개 글 간격을 조금 좁게 */
+@media (max-width: 720px) and (max-height: 660px) {
+  .a_essay .hm_essay_list li:nth-child(n + 4),
+  .a_notice .hm_essay_list li:nth-child(n + 4) {
+    display: none;
   }
-  .hm_endo_body .hm_box_text {
-    gap: 2px;
-    font-size: 12px;
-    line-height: 1.4;
+  .a_doc .hm_box_text {
+    gap: 0;
+    font-size: 10.5px;
+    line-height: 1.3;
   }
-  .hm_endo_body .hm_box_text strong {
-    font-size: 14px;
+  .a_doc .hm_box_text strong {
+    margin-bottom: 1px;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   원장님 확정 (2026-11-13 카톡)
+   · PC 첫 화면은 「지금 그대로」 — 720px 초과 화면은 예전 칸·문구를 그대로 씁니다.
+   · 휴대폰(720px 이하)만 새 배치 + 위내시경 문구 3.
+   hm_mo_only = 휴대폰에서만 보이는 것, pc_only = 휴대폰에서 숨기는 것
+══════════════════════════════════════════════ */
+.hm_mo_only,
+.hm_box_body.hm_mo_only {
+  display: none;
+}
+@media (max-width: 720px) {
+  .hm_box_body.pc_only {
+    display: none;
+  }
+  .hm_box_body.hm_mo_only,
+  .hm_doc_spec.hm_mo_only {
+    display: flex;
   }
 }
