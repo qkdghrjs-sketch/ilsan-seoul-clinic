@@ -6,6 +6,7 @@ import { DOCTOR } from "@/lib/doctor";
 import { ULTRASOUNDS } from "@/lib/ultrasound";
 import { getAllEssays } from "@/lib/essay-posts";
 import { EXTERNAL } from "@/lib/nav";
+import { formatNoticeDate, getNotices } from "@/lib/notices";
 
 /*
   첫 화면 = 옛 홈페이지 대문 구성 (원장님 요청 2026-10-22·10-27)
@@ -71,6 +72,12 @@ const HOME_ICONS = {
   ),
   liver: (
     <path d="M3 9c0-3 3-4 7-4h7c3 0 4 2 4 4 0 4-4 6-8 8-2 1-4 2-5 2-3 0-5-3-5-10z" />
+  ),
+  bell: (
+    <>
+      <path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z" />
+      <path d="M10 20a2 2 0 0 0 4 0" />
+    </>
   ),
   pin: (
     <>
@@ -138,6 +145,8 @@ function BoxHead({
 
 export async function HomeGate() {
   const essays = (await getAllEssays()).slice(0, 6);
+  // 원장님 요청(2026-11-12): 휴대폰 첫 화면 아래 「본원 둘러보기」 자리에 공지사항
+  const notices = (await getNotices().catch(() => [])).slice(0, 6);
 
   return (
     <section className="hm_gate" aria-label={`${CLINIC.name} 첫 화면`}>
@@ -197,10 +206,11 @@ export async function HomeGate() {
               </span>
             </span>
             <span className="hm_box_text">
-              <strong>위 식도 내시경</strong>
-              <span className="clamp">
+              {/* 원장님 문구(2026-11-12) — 줄이지 않고 전부 보이게 */}
+              <strong>위식도 내시경</strong>
+              <span className="hm_endo_desc">
                 식도, 위, 십이지장의 질환을 가장 정확하게 진단할 수 있는 검사
-                방법입니다.
+                방법은 위식도 내시경 검사입니다.
               </span>
             </span>
           </Link>
@@ -238,6 +248,24 @@ export async function HomeGate() {
               </a>
             </div>
           </div>
+        </article>
+
+        <article className="hm_box a_notice">
+          <BoxHead title="공지사항" en="NOTICE" href="/notice" icon="bell" />
+          {notices.length ? (
+            <ul className="hm_essay_list hm_notice_list">
+              {notices.map((item) => (
+                <li key={item.id}>
+                  <Link href={`/notice/${item.id}`}>
+                    <span>{item.title}</span>
+                    <time>{formatNoticeDate(item.createdAt).slice(2)}</time>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="hm_notice_empty">등록된 공지사항이 없습니다.</p>
+          )}
         </article>
 
         <article className="hm_box a_tour">
