@@ -1131,3 +1131,17 @@
     aspect-ratio: 16 / 9;
   }
 }
+/* 세로가 짧은 PC(높이 740 이하): 위내시경 문구가 다 들어가게 사진·글씨를 조금 작게 */
+@media (min-width: 1280px) and (max-height: 740px) {
+  .hm_endo_pics .hm_thumb {
+    width: clamp(64px, 5vw, 96px);
+  }
+  .hm_endo_body .hm_box_text {
+    gap: 2px;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  .hm_endo_body .hm_box_text strong {
+    font-size: 14px;
+  }
+}
