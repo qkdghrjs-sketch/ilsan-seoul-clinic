@@ -271,7 +271,7 @@ export async function HomeGate() {
             <Link href={`/notice/${notices[0].id}`} className="hm_notice_lead">
               <span className="hm_notice_lead_top">
                 <strong>{notices[0].title}</strong>
-                <time>{formatNoticeDate(notices[0].createdAt)}</time>
+                <time>{formatNoticeDate(notices[0].createdAt).slice(2)}</time>
               </span>
               <span className="hm_notice_lead_body">
                 {notices[0].body.replace(/\s+/g, " ").trim().slice(0, 160)}
