@@ -266,6 +266,18 @@ export async function HomeGate() {
 
         <article className="hm_box a_notice">
           <BoxHead title="공지사항" en="NOTICE" href="/notice" icon="bell" />
+          {/* PC 시안 2(2026-11-13): 가장 위 공지 한 편은 제목·날짜·본문 앞부분까지 (휴대폰은 숨김) */}
+          {notices[0] && (
+            <Link href={`/notice/${notices[0].id}`} className="hm_notice_lead">
+              <span className="hm_notice_lead_top">
+                <strong>{notices[0].title}</strong>
+                <time>{formatNoticeDate(notices[0].createdAt)}</time>
+              </span>
+              <span className="hm_notice_lead_body">
+                {notices[0].body.replace(/\s+/g, " ").trim().slice(0, 160)}
+              </span>
+            </Link>
+          )}
           {notices.length ? (
             <ul className="hm_essay_list hm_notice_list">
               {notices.map((item) => (
