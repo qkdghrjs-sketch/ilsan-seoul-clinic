@@ -72,19 +72,42 @@
   margin: 0;
 }
 
-/* ── 공지 글 화면 ── */
-.np_photos {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 18px;
-  margin-top: 32px;
+.bl_photo_no {
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  padding: 2px 8px;
+  border-radius: 20px;
+  background: rgba(18, 41, 78, 0.86);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #ffffff;
 }
-.np_photo {
+
+/* 글쓰기 화면 아래 미리 보기 */
+.bl_preview {
+  padding: 18px 20px 22px;
+  border: 1px solid #dfe5ef;
+  border-radius: 12px;
+  background: #ffffff;
+}
+.bl_preview_head {
+  margin: 0 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e3e8f1;
+  font-size: 14px;
+  font-weight: 800;
+  color: #1a3a6c;
+}
+
+/* ── 공지 글 화면 — 사진은 본문 속 원장님이 정한 자리에 ── */
+.es_body .np_photo {
   display: block;
+  width: fit-content;
   max-width: 100%;
+  margin: 26px auto;
 }
-.np_photo img {
+.es_body .np_photo img {
   display: block;
   width: auto;
   max-width: 100%;

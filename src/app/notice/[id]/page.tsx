@@ -10,6 +10,7 @@ import { CLINIC } from "@/lib/site";
 import { formatNoticeDate, getNotice } from "@/lib/notices";
 import { AdminPostTools } from "@/components/subpage/AdminBar";
 import { deleteNoticeAction } from "@/app/admin/actions";
+import { noticePlainText, parseNoticeBody } from "@/lib/notice-body";
 import "@/components/subpage/photos.css";
 
 type Params = { params: Promise<{ id: string }> };
@@ -25,7 +26,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { id } = await params;
   const notice = await getNotice(id);
   if (!notice) return { robots: { index: false } };
-  const description = notice.body.replace(/\s+/g, " ").slice(0, 120);
+  const description = noticePlainText(notice.body).replace(/\s+/g, " ").trim().slice(0, 120);
   const path = `/notice/${notice.id}`;
 
   return {
@@ -42,8 +43,8 @@ export default async function NoticePage({ params }: Params) {
   if (!notice) notFound();
 
   const path = `/notice/${notice.id}`;
-  const description = notice.body.replace(/\s+/g, " ").slice(0, 120);
-  const paragraphs = notice.body.split(/\n{2,}/);
+  const description = noticePlainText(notice.body).replace(/\s+/g, " ").trim().slice(0, 120);
+  const blocks = parseNoticeBody(notice.body, notice.images ?? []);
 
   return (
     <>
@@ -77,35 +78,31 @@ export default async function NoticePage({ params }: Params) {
 
             {/* 글은 그대로 보여 주고(줄바꿈 유지), 어떤 코드도 실행하지 않습니다 */}
             <div className="eum_rv d2 es_body no_body">
-              {paragraphs.map((paragraph, index) => (
-                <p key={index}>{paragraph}</p>
-              ))}
-            </div>
-
-            {/* 원장님이 올린 사진 — 본문 아래에 올린 순서대로. 누르면 크게 열립니다 */}
-            {!!notice.images?.length && (
-              <div className="eum_rv d2 np_photos">
-                {notice.images.map((image, index) => (
+              {/* 사진은 원장님이 글쓰기에서 정한 자리(「[사진 1]」 줄)에 보입니다. 누르면 크게 열립니다 */}
+              {blocks.map((block, index) =>
+                block.type === "text" ? (
+                  <p key={index}>{block.text}</p>
+                ) : (
                   <a
-                    key={image.url}
-                    href={image.url}
+                    key={index}
+                    href={block.image.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="np_photo"
-                    aria-label={`사진 ${index + 1} 크게 보기`}
+                    aria-label="사진 크게 보기"
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={image.url}
-                      alt={`${notice.title} 사진 ${index + 1}`}
-                      width={image.w}
-                      height={image.h}
+                      src={block.image.url}
+                      alt={`${notice.title} 사진`}
+                      width={block.image.w}
+                      height={block.image.h}
                       loading="lazy"
                     />
                   </a>
-                ))}
-              </div>
-            )}
+                ),
+              )}
+            </div>
           </article>
 
           <div

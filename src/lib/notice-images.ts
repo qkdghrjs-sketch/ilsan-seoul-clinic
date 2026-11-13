@@ -19,6 +19,8 @@ export type NoticeImage = {
   /** 사진 가로·세로(px) — 자리를 미리 잡아 화면이 덜컹거리지 않게 */
   w: number;
   h: number;
+  /** 본문 속 자리 표시 번호 — 「[사진 1]」의 1 (없으면 글 맨 아래에 보임) */
+  n?: number;
 };
 
 /** 글 하나에 넣을 수 있는 사진 수 */
@@ -46,14 +48,20 @@ export function cleanImages(value: unknown): NoticeImage[] {
   const list: NoticeImage[] = [];
   for (const item of value) {
     if (!item || typeof item !== "object") continue;
-    const { url, w, h } = item as { url?: unknown; w?: unknown; h?: unknown };
+    const { url, w, h, n } = item as { url?: unknown; w?: unknown; h?: unknown; n?: unknown };
     if (typeof url !== "string" || !url.startsWith(URL_PREFIX)) continue;
     if (!isImageName(url.slice(URL_PREFIX.length)) || seen.has(url)) continue;
     const width = Math.round(Number(w));
     const height = Math.round(Number(h));
     if (!(width >= 1 && width <= 6000 && height >= 1 && height <= 6000)) continue;
     seen.add(url);
-    list.push({ url, w: width, h: height });
+    const number = Math.round(Number(n));
+    list.push({
+      url,
+      w: width,
+      h: height,
+      ...(number >= 1 && number <= 99 ? { n: number } : {}),
+    });
     if (list.length >= NOTICE_IMAGE_MAX) break;
   }
   return list;
