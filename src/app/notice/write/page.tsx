@@ -45,6 +45,7 @@ export default async function NoticeWritePage({
                     title: notice.title,
                     body: notice.body,
                     pinned: notice.pinned,
+                    images: notice.images ?? [],
                   }
                 : undefined
             }

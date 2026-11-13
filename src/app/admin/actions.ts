@@ -16,6 +16,7 @@ import {
 } from "@/lib/admin-auth";
 import { removeNotice, saveNotice, storageMode } from "@/lib/notices";
 import { removeEssayPost, saveEssayPost } from "@/lib/essay-posts";
+import { cleanImages, type NoticeImage } from "@/lib/notice-images";
 
 export type FormState = { error?: string } | undefined;
 
@@ -98,6 +99,17 @@ export async function saveNoticeAction(
   const body = String(formData.get("body") ?? "").replace(/\r\n/g, "\n").trim();
   const pinned = formData.get("pinned") === "on";
 
+  // 사진 목록 — 글쓰기 화면만 보냅니다. 없으면 있던 사진을 그대로 둡니다.
+  let images: NoticeImage[] | undefined;
+  const rawImages = formData.get("images");
+  if (typeof rawImages === "string") {
+    try {
+      images = cleanImages(JSON.parse(rawImages));
+    } catch {
+      return { error: "사진 정보를 읽지 못했습니다. 사진을 빼고 다시 넣어 주세요." };
+    }
+  }
+
   if (!title) return { error: "제목을 적어 주세요." };
   if (title.length > TITLE_MAX) {
     return { error: `제목은 ${TITLE_MAX}자 이내로 적어 주세요.` };
@@ -109,7 +121,7 @@ export async function saveNoticeAction(
 
   let savedId = "";
   try {
-    const saved = await saveNotice({ id, title, body, pinned });
+    const saved = await saveNotice({ id, title, body, pinned, images });
     savedId = saved.id;
     revalidatePath("/notice");
     revalidatePath(`/notice/${saved.id}`);

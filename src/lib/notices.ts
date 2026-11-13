@@ -1,4 +1,5 @@
 import { readJson, storageMode, writeJson } from "@/lib/store";
+import { removeNoticeImages, type NoticeImage } from "@/lib/notice-images";
 
 /**
  * 공지사항 — 원장님이 /admin 에서 올립니다. (저장 방식은 src/lib/store.ts)
@@ -15,6 +16,8 @@ export type Notice = {
   pinned: boolean;
   createdAt: string;
   updatedAt: string;
+  /** 본문 아래에 보여 줄 사진 (없으면 생략) */
+  images?: NoticeImage[];
 };
 
 const NAME = "notices";
@@ -41,6 +44,8 @@ export async function saveNotice(input: {
   title: string;
   body: string;
   pinned: boolean;
+  /** 넘기지 않으면(예전 관리자 화면) 있던 사진을 그대로 둡니다 */
+  images?: NoticeImage[];
 }) {
   const list = await getNotices();
   const now = new Date().toISOString();
@@ -48,14 +53,20 @@ export async function saveNotice(input: {
   if (input.id) {
     const index = list.findIndex((item) => item.id === input.id);
     if (index === -1) throw new Error("수정할 공지를 찾지 못했습니다.");
+    const before = list[index].images ?? [];
+    const images = input.images ?? before;
     list[index] = {
       ...list[index],
       title: input.title,
       body: input.body,
       pinned: input.pinned,
+      images,
       updatedAt: now,
     };
     await writeJson(NAME, list);
+    // 글에서 뺀 사진은 저장소에서도 지웁니다
+    const kept = new Set(images.map((image) => image.url));
+    await removeNoticeImages(before.filter((image) => !kept.has(image.url)));
     return list[index];
   }
 
@@ -64,6 +75,7 @@ export async function saveNotice(input: {
     title: input.title,
     body: input.body,
     pinned: input.pinned,
+    images: input.images ?? [],
     createdAt: now,
     updatedAt: now,
   };
@@ -73,10 +85,12 @@ export async function saveNotice(input: {
 
 export async function removeNotice(id: string) {
   const list = await getNotices();
+  const target = list.find((item) => item.id === id);
   await writeJson(
     NAME,
     list.filter((item) => item.id !== id),
   );
+  if (target?.images?.length) await removeNoticeImages(target.images);
 }
 
 /** 2026-10-16T… → 2026.10.16 (한국 시간 기준) */
