@@ -195,7 +195,7 @@ export async function HomeGate() {
 
         <article className="hm_box a_endo feature">
           <BoxHead title="수면 위내시경 검사" en="ENDOSCOPY" href="/endoscopy" icon="stomach" />
-          {/* PC·태블릿: 그대로 둡니다 (원장님 확정 2026-11-13 「PC 메인 화면은 지금 그대로」) */}
+          {/* PC·태블릿: 배치·사진은 그대로, 글만 문구 3 (원장님 확정 2026-11-13 「PC도 문구 수정」) */}
           <Link href="/endoscopy" className="hm_box_body pc_only">
             <span className="hm_thumb">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -204,8 +204,7 @@ export async function HomeGate() {
             <span className="hm_box_text">
               <strong>위 식도 내시경</strong>
               <span className="clamp">
-                식도, 위, 십이지장의 질환을 가장 정확하게 진단할 수 있는 검사
-                방법입니다.
+                위내시경 검사는 식도, 위, 십이지장을 직접 관찰하는 검사입니다.
               </span>
             </span>
           </Link>
