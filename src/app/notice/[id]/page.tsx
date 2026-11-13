@@ -10,6 +10,7 @@ import { CLINIC } from "@/lib/site";
 import { formatNoticeDate, getNotice } from "@/lib/notices";
 import { AdminPostTools } from "@/components/subpage/AdminBar";
 import { deleteNoticeAction } from "@/app/admin/actions";
+import "@/components/subpage/photos.css";
 
 type Params = { params: Promise<{ id: string }> };
 
@@ -80,6 +81,31 @@ export default async function NoticePage({ params }: Params) {
                 <p key={index}>{paragraph}</p>
               ))}
             </div>
+
+            {/* 원장님이 올린 사진 — 본문 아래에 올린 순서대로. 누르면 크게 열립니다 */}
+            {!!notice.images?.length && (
+              <div className="eum_rv d2 np_photos">
+                {notice.images.map((image, index) => (
+                  <a
+                    key={image.url}
+                    href={image.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="np_photo"
+                    aria-label={`사진 ${index + 1} 크게 보기`}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={image.url}
+                      alt={`${notice.title} 사진 ${index + 1}`}
+                      width={image.w}
+                      height={image.h}
+                      loading="lazy"
+                    />
+                  </a>
+                ))}
+              </div>
+            )}
           </article>
 
           <div

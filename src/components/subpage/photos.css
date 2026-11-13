@@ -1,0 +1,95 @@
+/* ==============================================================
+   공지사항 사진 (원장님 요청 2026-11-13)
+   · 글쓰기 화면: 「사진 넣기」 단추 + 넣은 사진 작게 보기
+   · 공지 글 화면: 본문 아래에 사진
+============================================================== */
+
+/* ── 글쓰기 화면 ── */
+.bl_photos {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border: 1px dashed #b9c6dc;
+  border-radius: 12px;
+  background: #f7f9fd;
+}
+.bl_photos_head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+}
+.bl_photo_add {
+  border-color: #1a3a6c;
+  color: #1a3a6c;
+  cursor: pointer;
+}
+.bl_photo_add:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.bl_photos_count {
+  font-size: 13.5px;
+  color: #5b6472;
+}
+.bl_photo_list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.bl_photo_list li {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(26, 58, 108, 0.14);
+}
+.bl_photo_list img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+.bl_photo_list button {
+  display: block;
+  width: 100%;
+  height: 40px;
+  border: 0;
+  border-top: 1px solid #e3e8f1;
+  background: #ffffff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  color: #b42318;
+  cursor: pointer;
+}
+.bl_photos .bl_hint,
+.bl_photos .bl_error {
+  margin: 0;
+}
+
+/* ── 공지 글 화면 ── */
+.np_photos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  margin-top: 32px;
+}
+.np_photo {
+  display: block;
+  max-width: 100%;
+}
+.np_photo img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 80vh;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(26, 58, 108, 0.14);
+}
