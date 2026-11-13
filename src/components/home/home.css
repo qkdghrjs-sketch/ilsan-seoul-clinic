@@ -1200,3 +1200,70 @@
     grid-template-rows: 118px auto auto auto;
   }
 }
+
+/* ══════════════════════════════════════════════
+   PC 시안 1 (원장님 요청 2026-11-13 「PC에서도 둘러보기 대신 공지사항」)
+   · PC·태블릿(720px 초과) 첫 화면 「본원 둘러보기」 자리에 「공지사항」 — 제목·날짜 목록
+   · 휴대폰은 그대로입니다. 본원 둘러보기는 메뉴(본원소개)에 그대로 있습니다.
+══════════════════════════════════════════════ */
+@media (min-width: 721px) {
+  .hm_box.a_tour {
+    display: none;
+  }
+  .hm_box.a_notice {
+    display: flex;
+  }
+}
+@media (min-width: 721px) and (max-width: 1279px) {
+  .hm_boxes {
+    grid-template-areas:
+      "doc endo"
+      "notice us"
+      "essay essay"
+      "loc loc";
+  }
+  .a_notice .hm_essay_list li:nth-child(n + 4) {
+    display: none;
+  }
+}
+@media (min-width: 1280px) {
+  .hm_boxes {
+    grid-template-areas:
+      "doc endo essay"
+      "notice us essay";
+  }
+  .a_notice .hm_essay_list {
+    gap: 2px;
+  }
+}
+/* PC 화면 높이에 따라 공지 글 수 (칸에 들어가는 만큼) */
+@media (min-width: 1280px) and (max-height: 1000px) {
+  .a_notice .hm_essay_list li:nth-child(n + 5) {
+    display: none;
+  }
+}
+@media (min-width: 1280px) and (max-height: 750px) {
+  .a_notice .hm_essay_list li:nth-child(n + 4) {
+    display: none;
+  }
+}
+@media (min-width: 1280px) and (max-height: 700px) {
+  .a_notice .hm_essay_list li:nth-child(n + 3) {
+    display: none;
+  }
+}
+/* 태블릿: 세로가 짧으면 2편, 줄 간격을 좁게 */
+@media (min-width: 721px) and (max-width: 1279px) and (max-height: 1100px) {
+  .a_notice .hm_essay_list li:nth-child(n + 3) {
+    display: none;
+  }
+}
+@media (min-width: 721px) and (max-width: 1279px) and (max-height: 820px) {
+  .a_notice .hm_essay_list a {
+    padding: 0;
+    line-height: 1.35;
+  }
+  .a_notice .hm_essay_list li:nth-child(n + 2) {
+    display: none;
+  }
+}
