@@ -1336,6 +1336,11 @@
   }
 }
 /* 시안 2 — 화면 높이에 따라 아래 목록 글 수 (첫 글은 위에 크게 나와 있음) */
+@media (min-width: 1280px) and (max-height: 1300px) {
+  .a_notice .hm_essay_list li:nth-child(n + 5) {
+    display: none;
+  }
+}
 @media (min-width: 1280px) and (max-height: 1000px) {
   .a_notice .hm_essay_list li:nth-child(n + 4) {
     display: none;
