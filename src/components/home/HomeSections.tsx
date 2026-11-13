@@ -7,6 +7,7 @@ import { ULTRASOUNDS } from "@/lib/ultrasound";
 import { getAllEssays } from "@/lib/essay-posts";
 import { EXTERNAL } from "@/lib/nav";
 import { formatNoticeDate, getNotices } from "@/lib/notices";
+import { noticePlainText } from "@/lib/notice-body";
 
 /*
   첫 화면 = 옛 홈페이지 대문 구성 (원장님 요청 2026-10-22·10-27)
@@ -274,7 +275,8 @@ export async function HomeGate() {
                 <time>{formatNoticeDate(notices[0].createdAt).slice(2)}</time>
               </span>
               <span className="hm_notice_lead_body">
-                {notices[0].body.replace(/\s+/g, " ").trim().slice(0, 160)}
+                {/* 본문 속 「[사진 1]」 자리 표시는 빼고 글자만 */}
+                {noticePlainText(notices[0].body).replace(/\s+/g, " ").trim().slice(0, 160)}
               </span>
             </Link>
           )}
