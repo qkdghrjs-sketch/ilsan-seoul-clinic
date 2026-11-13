@@ -20,7 +20,7 @@
 }
 
 /* 한 화면 고정 — 화면 높이가 아주 낮을 때만 스크롤을 허용합니다 */
-@media (min-height: 560px) {
+@media (min-height: 560px) and (min-width: 721px), (min-height: 600px) {
   body:has(.hm_gate) {
     height: 100svh;
     overflow: hidden;
@@ -981,18 +981,7 @@
     font-size: 10.5px;
   }
 }
-/* 낮은 휴대폰(높이 680 이하): 에세이 4편 */
-@media (max-width: 720px) and (max-height: 680px) {
-  .a_essay .hm_essay_list li:nth-child(n + 5) {
-    display: none;
-  }
-}
-/* 높이 780 이하 휴대폰: 에세이 5편 */
-@media (max-width: 720px) and (max-height: 780px) and (min-height: 681px) {
-  .a_essay .hm_essay_list li:nth-child(n + 6) {
-    display: none;
-  }
-}
+/* (2026-11-13) 낮은 휴대폰에서 에세이를 4·5편으로 줄이던 규칙은 없앴습니다 — 맨 아래 「휴대폰 에세이 항상 6편」 참고 */
 
 /* ══════════════════════════════════════════════
    시안 A (원장님 카톡 2026-11-12 17:40) — 휴대폰 첫 화면
@@ -1067,12 +1056,6 @@
     font-size: 12.5px;
   }
 }
-/* 세로가 짧은 휴대폰: 공지 4편까지 */
-@media (max-width: 720px) and (max-height: 780px) {
-  .a_notice .hm_essay_list li:nth-child(n + 5) {
-    display: none;
-  }
-}
 /* 공지는 글이 적어도 위에서부터 */
 .a_notice .hm_essay_list {
   justify-content: flex-start;
@@ -1104,12 +1087,8 @@
     aspect-ratio: 16 / 9;
   }
 }
-/* 아주 낮은 휴대폰(세로 660 이하, 예: 360×640): 에세이·공지 3편까지, 원장님 소개 글 간격을 조금 좁게 */
+/* 아주 낮은 휴대폰(세로 660 이하, 예: 360×640): 원장님 소개 글 간격을 조금 좁게 */
 @media (max-width: 720px) and (max-height: 660px) {
-  .a_essay .hm_essay_list li:nth-child(n + 4),
-  .a_notice .hm_essay_list li:nth-child(n + 4) {
-    display: none;
-  }
   .a_doc .hm_box_text {
     gap: 0;
     font-size: 10.5px;
@@ -1137,5 +1116,87 @@
   .hm_box_body.hm_mo_only,
   .hm_doc_spec.hm_mo_only {
     display: flex;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   휴대폰 에세이 항상 6편 (원장님 요청 2026-11-13)
+   · 세로가 짧은 휴대폰에서 3~5편으로 줄어 보이던 것을 6편으로 맞춥니다.
+   · 에세이·공지 줄은 글 6편이 들어갈 높이를 먼저 잡고, 남는 높이를 위 칸(원장님·위내시경)이 씁니다.
+   · 세로가 짧을수록 띠·초음파·간격을 조금씩 줄여 한 화면에 넣습니다.
+   PC·태블릿(720px 초과)은 그대로입니다.
+══════════════════════════════════════════════ */
+@media (max-width: 720px) {
+  .hm_boxes {
+    grid-template-rows: minmax(0, 1fr) auto minmax(min-content, 1fr) auto;
+  }
+  .a_essay .hm_essay_list li:nth-child(-n + 6),
+  .a_notice .hm_essay_list li:nth-child(-n + 6) {
+    display: list-item;
+  }
+  .a_essay .hm_essay_list a,
+  .a_notice .hm_essay_list a {
+    padding: 0;
+    line-height: 1.42;
+  }
+}
+/* 세로 770 이하: 칸 사이 간격·초음파 띠 여백을 조금 줄입니다 */
+@media (max-width: 720px) and (max-height: 770px) {
+  .hm_gate,
+  .hm_boxes {
+    gap: 5px;
+  }
+  .hm_us_band {
+    padding: 6px 12px;
+  }
+  .hm_us_links {
+    padding: 5px 6px 6px;
+  }
+}
+/* 세로 680 이하: 대문 띠·상자 안쪽 여백을 줄입니다 */
+@media (max-width: 720px) and (max-height: 680px) {
+  .hm_banner {
+    padding: 7px 14px;
+  }
+  .hm_box {
+    padding: 6px 10px;
+  }
+  .hm_box_head {
+    margin-bottom: 4px;
+  }
+}
+/* 세로 650 이하: 초음파 사진을 조금 낮게, 글 줄 간격을 조금 좁게 */
+@media (max-width: 720px) and (max-height: 650px) {
+  .hm_us_img {
+    aspect-ratio: 2.2 / 1;
+  }
+  .hm_us_label {
+    padding: 2px;
+  }
+  .hm_banner_slogan {
+    margin-bottom: 2px;
+    font-size: 12px;
+  }
+  .hm_loc_row {
+    row-gap: 1px;
+  }
+  .a_essay .hm_essay_list a,
+  .a_notice .hm_essay_list a {
+    line-height: 1.33;
+  }
+}
+/* 세로 625 이하: 바깥 여백까지 줄입니다 */
+@media (max-width: 720px) and (max-height: 625px) {
+  .hm_gate {
+    padding: 5px 8px;
+  }
+  .hm_banner {
+    padding: 5px 14px;
+  }
+}
+/* 세로 600 미만(한 화면 고정이 풀리는 아주 짧은 휴대폰): 위 칸 높이를 정해 두고, 넘치는 만큼만 아래로 넘겨 봅니다 */
+@media (max-width: 720px) and (max-height: 599px) {
+  .hm_boxes {
+    grid-template-rows: 118px auto auto auto;
   }
 }
