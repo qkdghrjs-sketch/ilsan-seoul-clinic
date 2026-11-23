@@ -318,7 +318,8 @@ export async function HomeGate() {
             <strong>초음파 검사</strong>
             <span>심장 · 경동맥 · 갑상선 · 복부</span>
           </Link>
-          {/* 원장님 요청(2026-11-11): 휴대폰에서는 대표 초음파 사진을 함께 보여 줍니다 (PC는 글자 버튼 그대로) */}
+          {/* 원장님 요청(2026-11-11): 휴대폰에서는 대표 초음파 사진을 함께 보여 줍니다.
+              2026-11-23: PC(1280px 이상)도 대표 사진 4장으로 — 모양은 home.css 맨 아래. 태블릿은 글자 버튼 그대로 */}
           <div className="hm_us_links">
             {ULTRASOUNDS.map((item) => (
               <Link key={item.slug} href={`/ultrasound#${item.slug}`}>
